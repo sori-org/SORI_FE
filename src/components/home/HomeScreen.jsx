@@ -8,7 +8,7 @@ const HomeScreen = () => {
     const nav = useNavigate();
 
     const isPostButtonClicked = () => {
-        nav('/post');
+        nav('/post-new');
     }
 
 

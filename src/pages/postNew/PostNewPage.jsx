@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+// import PostNewBanner from "../../assets/postNewBanner.svg";
+import PostNewScreen from "../../components/postNew/PostNewScreen.jsx";
+import Header from "../../components/common/Header.jsx";
 
 const PostNewPage = () => {
     return (
         <Container>
-            <div>새 글 쓰기 페이지!</div>
+            {/*<Header />*/}
+            <PostNewScreen />
         </Container>
     );
 }
@@ -16,5 +20,5 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.colors.white};
+    overflow-y: hidden;
 `;

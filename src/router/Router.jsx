@@ -9,10 +9,9 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
             {path: '', element: <HomePage />},
-            {path: 'post', element: <PostNewPage />},
+            {path: '/post-new', element: <PostNewPage />}
         ]
-    }
-
+    },
 ]);
 
 export default router;

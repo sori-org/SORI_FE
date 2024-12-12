@@ -5,7 +5,10 @@ const useFormStore = create((set) => ({
     formData: {
         platform: '',
         item: '',
-        // 필요에 따라 더 많은 필드...
+        result: '',
+        whichApi: '',
+        image: '',
+        text: '',
     },
 
     nextStep: (totalSteps) => set((state) => ({
@@ -18,7 +21,6 @@ const useFormStore = create((set) => ({
         currentStepIndex: (index < 0 || index >= totalSteps) ? 0 : index
     })),
 
-    // formData 업데이트 액션
     updateFormData: (newData) => set((state) => ({
         formData: { ...state.formData, ...newData }
     }))

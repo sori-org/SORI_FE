@@ -32,6 +32,7 @@ const HeaderContainer = styled.div`
     width: 100%;
     max-width: 480px;
     height: auto;
+    padding-top: 1rem;
     justify-content: center; /* Title을 수평 중앙 정렬 */
 `;
 

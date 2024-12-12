@@ -1,22 +1,27 @@
-import styled from 'styled-components';
-import StepOne from '../../components/postNew/StepOne';
-import { useMultiStepForm } from '../../hooks/useMultiStepForm';
+import styled from "styled-components";
+import StepOne from "../../components/postNew/StepOne";
 import StepTwo from "./StepTwo.jsx";
+import StepThree from "./StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
+import StepFour from "./StepFour.jsx";
+
+const steps = [
+    <StepOne />,
+    <StepTwo />,
+    <StepThree />,
+    <StepFour />
+];
 
 function PostNewScreen() {
-    const { formData, setFormData } = useFormStore();
+    const { currentStepIndex, nextStep, prevStep, formData } = useFormStore();
 
-    const steps = [
-        <StepOne />,
-        <StepTwo />,
-    ];
-
-    const { currentStepIndex, step, nextStep, prevStep } = useMultiStepForm(steps);
 
     const handleSubmit = () => {
         console.log("최종 제출 데이터:", formData);
+    };
+    const handleNext = () => {
+        nextStep(steps.length);
     };
 
     return (
@@ -24,12 +29,10 @@ function PostNewScreen() {
             <HeaderContainer>
                 <Header prevStep={prevStep} currentStepIndex={currentStepIndex} />
             </HeaderContainer>
-            <StepContainer>
-                {step}
-            </StepContainer>
+            <StepContainer>{steps[currentStepIndex]}</StepContainer>
             <ButtonContainer>
                 {currentStepIndex < steps.length - 1 ? (
-                    <Button onClick={nextStep}>다음으로</Button>
+                    <Button onClick={handleNext}>다음으로</Button>
                 ) : (
                     <Button onClick={handleSubmit}>제출</Button>
                 )}
@@ -43,9 +46,9 @@ export default PostNewScreen;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
-    height: 100vh; 
+    height: 100vh;
 `;
 
 const HeaderContainer = styled.div`
@@ -58,27 +61,25 @@ const HeaderContainer = styled.div`
 `;
 
 const StepContainer = styled.div`
-    flex: 1; /* 남은 공간을 유연하게 차지 */
+    flex: 1;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: space-between;
+    align-items: space-around;
     margin-top: 4rem;
-    
 `;
 
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     width: 100%;
     height: 15vh;
     border-radius: 77px 77px 0 0;
     background: linear-gradient(
-            #26957A 3%,  /* 첫 번째 색상 */
-            #49C48F 40%, /* 두 번째 색상 */
-            #E0FBE2 100%  /* 세 번째 색상 */
+            #26957a 3%,
+            #49c48f 40%,
+            #e0fbe2 100%
     );
 `;
 
@@ -91,10 +92,9 @@ const Button = styled.button`
     border: none;
     cursor: pointer;
     background-color: white;
-    color: #26957A;
-    //transition: all 0.2s ease;
+    color: #26957a;
 
     &:active {
-        transform: scale(0.98); /* 클릭 시 살짝 눌림 효과 */
+        transform: scale(0.98);
     }
 `;

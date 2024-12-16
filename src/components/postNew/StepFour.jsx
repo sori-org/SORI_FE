@@ -7,10 +7,10 @@ import TextImage from "../../assets/Chat.png";
 import PreviewImage from "../../assets/preview.png";
 
 const options = [
-    {title: "기상 정보", icon: TextImage},
+    {title: "날씨 정보", icon: TextImage},
     {title: "리뷰 정보", icon: Webtoon},
-    {title: "행사 정보", icon: Webtoon},
-    {title: "최신 밈", icon: Webtoon},
+    {title: "지역 행사", icon: Webtoon},
+    {title: "트렌드", icon: Webtoon},
 ];
 
 function StepFour() {
@@ -23,7 +23,7 @@ function StepFour() {
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>어떤 결과물을 원하시나요?</Title>
+            <Title>어떤 정보를 포함할까요?</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
@@ -92,6 +92,7 @@ const PreviewSection = styled.div`
     flex-direction: row;
     margin-top: 2rem;
     gap: 10px;
+    margin-bottom: 1rem;
 `;
 
 const Image2 = styled.img`

@@ -5,12 +5,14 @@ import StepThree from "./StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
 import StepFour from "./StepFour.jsx";
+import StepFive from "./StepFive.jsx";
 
 const steps = [
     <StepOne />,
     <StepTwo />,
     <StepThree />,
-    <StepFour />
+    <StepFour />,
+    <StepFive />
 ];
 
 function PostNewScreen() {

@@ -20,6 +20,7 @@ const useFormStore = create((set) => ({
     goToStep: (index, totalSteps) => set(() => ({
         currentStepIndex: (index < 0 || index >= totalSteps) ? 0 : index
     })),
+    resetStep: () => set(() => ({ currentStepIndex: 0 })),
 
     updateFormData: (newData) => set((state) => ({
         formData: { ...state.formData, ...newData }

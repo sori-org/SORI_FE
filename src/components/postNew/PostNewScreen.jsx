@@ -6,6 +6,9 @@ import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
 import StepFour from "./StepFour.jsx";
 import StepFive from "./StepFive.jsx";
+import ProgressBar from "./ProgressBar.jsx";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 const steps = [
     <StepOne />,
@@ -16,11 +19,21 @@ const steps = [
 ];
 
 function PostNewScreen() {
-    const { currentStepIndex, nextStep, prevStep, formData } = useFormStore();
+    const nav = useNavigate();
+    const { currentStepIndex, nextStep, prevStep, resetStep, formData } = useFormStore();
 
+    useEffect(() => {
+        resetStep();
+    }, []);
 
     const handleSubmit = () => {
         console.log("최종 제출 데이터:", formData);
+        nav("/loading");
+
+        // 5초 후에 결과 페이지로 이동
+        setTimeout(() => {
+            nav("/result");
+        }, 5000);
     };
     const handleNext = () => {
         nextStep(steps.length);
@@ -30,7 +43,9 @@ function PostNewScreen() {
         <Container>
             <HeaderContainer>
                 <Header prevStep={prevStep} currentStepIndex={currentStepIndex} />
+                <ProgressBar />
             </HeaderContainer>
+
             <StepContainer>{steps[currentStepIndex]}</StepContainer>
             <ButtonContainer>
                 {currentStepIndex < steps.length - 1 ? (
@@ -60,6 +75,8 @@ const HeaderContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 10px;
 `;
 
 const StepContainer = styled.div`

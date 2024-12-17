@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import PostNewScreen from "../../components/postNew/PostNewScreen.jsx";
+import ResultScreen from "../../components/result/ResultScreen.jsx";
 
-const PostNewPage = () => {
+const ResultPage = () => {
     return (
         <Container>
-            <PostNewScreen />
+            <ResultScreen />
         </Container>
     );
 }
 
-export default PostNewPage;
+export default ResultPage;
 
 const Container = styled.div`
     width: 100%;

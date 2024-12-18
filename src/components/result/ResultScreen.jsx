@@ -3,16 +3,30 @@ import useFormStore from "../../store/useFormStore.js";
 import Home from "../../assets/result_home.png";
 import Share from "../../assets/share.png";
 import DownLoad from "../../assets/result_download.png";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import ResultImage from "../../assets/result_image.png";
 
 function ResultScreen() {
     const nav = useNavigate();
-    const { formData } = useFormStore();
+    const location = useLocation();
+    // const { formData } = useFormStore();
 
     const handleHome = () => {
         nav("/");
     }
+
+    const handleCopyLink = async () => {
+        const baseUrl = window.location.origin;
+        const currentUrl = `${baseUrl}${location.pathname}`;
+
+        try {
+            await navigator.clipboard.writeText(currentUrl);
+            alert("링크가 클립보드에 복사되었습니다!");
+        } catch (err) {
+            console.error("링크 복사에 실패했습니다.", err);
+            alert("링크 복사에 실패했습니다. 다시 시도해주세요.");
+        }
+    };
 
 
     return (
@@ -30,7 +44,7 @@ function ResultScreen() {
             </StepContainer>
             <ButtonContainer>
                 <ButtonSection>
-                    <Image src={Share}></Image>
+                    <Image src={Share} onClick={handleCopyLink} ></Image>
                     <ButtonText>공유하기</ButtonText>
                 </ButtonSection>
                 <ButtonSection>

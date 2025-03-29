@@ -48,7 +48,7 @@ const Image = styled.img`
 const Text = styled.p`
     font-size: ${({size}) => (size === "small" ? "19px" : "19px")};
     font-weight: 600;
-    color: ${({theme}) => theme.colors.white};
+    color: white;
     width: 90%;
 `;
 

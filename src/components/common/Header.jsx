@@ -52,5 +52,5 @@ const BackButtonWrapper = styled.button`
 const Title = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
-    color: ${({ theme }) => theme.colors.black || '#000000'};
+    color: black;
 `;

@@ -2,15 +2,17 @@ import useFormStore from "../../store/useFormStore.js";
 import Sori from "../../assets/sori1.svg";
 import styled from "styled-components";
 import PostButton from "./PostButton.jsx";
-import Webtoon from "../../assets/webtoon.png";
-import TextImage from "../../assets/Chat.png";
-import PreviewImage from "../../assets/preview.png";
+import Festival from "../../assets/festival.png";
+import Weather from "../../assets/weather.png";
+import Review from "../../assets/review.png";
+import Trend from "../../assets/trend.png";
+import PreviewImage from "../../assets/preview.png"
 
 const options = [
-    {title: "기상 정보", icon: TextImage},
-    {title: "리뷰 정보", icon: Webtoon},
-    {title: "행사 정보", icon: Webtoon},
-    {title: "최신 밈", icon: Webtoon},
+    {title: "날씨 정보", icon: Weather},
+    {title: "리뷰 정보", icon: Review},
+    {title: "지역 행사", icon: Festival},
+    {title: "트렌드", icon: Trend},
 ];
 
 function StepFour() {
@@ -23,7 +25,7 @@ function StepFour() {
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>어떤 결과물을 원하시나요?</Title>
+            <Title>어떤 정보를 포함할까요?</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
@@ -92,6 +94,7 @@ const PreviewSection = styled.div`
     flex-direction: row;
     margin-top: 2rem;
     gap: 10px;
+    margin-bottom: 1rem;
 `;
 
 const Image2 = styled.img`

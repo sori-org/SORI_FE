@@ -7,26 +7,16 @@ import {useNavigate} from "react-router-dom";
 const HomeBottom = () => {
     const nav = useNavigate();
 
-    const isMyPageButtonClicked = () => {
-        nav('/mypage');
-    }
-
-    const isRecordButtonClicked = () => {
-        nav('/record');
-    }
-
-
     return (
         <Container>
             <Card>
-                <CardItem onClick={isMyPageButtonClicked}>
-                    <Image src={MyImage}/>
+                <CardItem onClick={() => nav('/mypage')}>
+                    <img src={MyImage} alt="마이페이지" />
                     <Text>MY</Text>
                 </CardItem>
-                <Divider />
-                <CardItem onClick={isRecordButtonClicked}>
-                    <Image src={NoteImage}/>
-                    <Text>기록 보기</Text>
+                <CardItem onClick={() => nav('/record')}>
+                    <img src={NoteImage} alt="기록 보기" />
+                    <Text>기록</Text>
                 </CardItem>
             </Card>
             <FooterText>사용방법이 궁금해요!</FooterText>
@@ -35,67 +25,55 @@ const HomeBottom = () => {
     );
 };
 
+
 export default HomeBottom;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  background: transparent;
-`;
-
-const Card = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 201px;
-    max-width: 320px;
-    height: 77px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-`;
-
-const CardItem = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    width: 50%;
-    text-align: center;
+    background: transparent;
 `;
 
-const Divider = styled.div`
-    width: 1px;
-    height: 50px;
-    background-color: #E4E4E4;
+const Card = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 `;
 
-const Text = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  color: #939393;
+const CardItem = styled.button`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 40px;
+    cursor: pointer;
 `;
 
-const FooterText = styled.p`
-  margin-top: 16px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #ffffff;
+
+const Text = styled.p`
+    font-size: 14px;
+    font-weight: 500;
+    color: #939393;
+`;
+
+const FooterText = styled.div`
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #ffffff;
 `;
 
 const FooterLine = styled.div`
-  width: 50%;
-  height: 1px;
-  background-color: #ffffff;
-  margin-top: 8px;
-  opacity: 0.5;
-`;
-
-const Image = styled.img`
-    width: 24px;
-    height: 19px;
+    width: 50%;
+    height: 1px;
+    background-color: #ffffff;
+    margin-top: 8px;
+    opacity: 0.5;
 `;

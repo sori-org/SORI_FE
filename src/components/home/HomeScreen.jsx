@@ -10,11 +10,9 @@ const HomeScreen = () => {
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
-
-
     return (
         <Container>
-            <HomeTitleContainer>
+            <TitleSection>
                 <HomeTitle>
                     <HomeHeader>
                         <BoldText>충영님,</BoldText>
@@ -25,13 +23,13 @@ const HomeScreen = () => {
                         <NormalText>마케팅 컨텐츠를<br/>생성해보세요!</NormalText>
                     </HomeHeader>
                 </HomeTitle>
-            </HomeTitleContainer>
-            <ButtonSection>
-                <PostButton onClick={isPostButtonClicked}>
-                    <Text>컨텐츠 생성하기</Text>
-                    <Image src={PostImage} />
-                </PostButton>
-            </ButtonSection>
+                <ButtonSection>
+                    <PostButton onClick={isPostButtonClicked}>
+                        <Text>컨텐츠 생성하기</Text>
+                        <img src={PostImage}  alt={PostImage}/>
+                    </PostButton>
+                </ButtonSection>
+            </TitleSection>
             <BottomSection>
                 <HomeBottom />
             </BottomSection>
@@ -43,21 +41,20 @@ export default HomeScreen;
 
 const Container = styled.div`
     display: flex;
+    width: 100%;
+    height: 100vh;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    padding: 2.5rem;
-    height: 100vh;
+    padding: 4rem 2.5rem;
 `;
 
-const HomeTitleContainer = styled.div`
+const TitleSection = styled.div`
     display: flex;
-    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 2rem;
-    margin-top: 6rem;
+    margin-top: 4rem;
 `;
 
 const HomeTitle = styled.div`
@@ -74,7 +71,7 @@ const HomeHeader = styled.div`
 const HeaderText = styled.div`
     display: flex;
     flex-direction: row;
-=`;
+`;
 
 const BoldText = styled.p`
     font-size: 24px;
@@ -97,6 +94,7 @@ const NormalText = styled.p`
 
 const ButtonSection = styled.div`
     display: flex;
+    align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
     margin-top: 1rem;
@@ -104,12 +102,11 @@ const ButtonSection = styled.div`
 
 const PostButton = styled.button`
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: #49C48F;
-    width: 167px;
-    height: 58px;
+    width: 100%;
+    padding: 15px 10px;
     border-radius: 30px;
     border: none;
     gap: 0.5rem;
@@ -133,15 +130,10 @@ const Text = styled.p`
     color: #ffffff;
 `;
 
-const Image = styled.img`
-    width: 24px;
-    height: 19px;
-`;
 
 const BottomSection = styled.div`
     display: flex;
+    justify-content: center;
+    width: 100%;
     align-items: center;
-    justify-content: flex-end;
-    margin-top: auto; /* 빈 공간을 밀어내 하단에 배치 */
-    margin-bottom: -1rem;
 `;

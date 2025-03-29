@@ -79,7 +79,7 @@ const HeaderText = styled.div`
 const BoldText = styled.p`
     font-size: 24px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.black};
+    color: black;
     line-height: 2;
 `;
 
@@ -92,7 +92,7 @@ const HighlightText = styled.p`
 const NormalText = styled.p`
     font-size: 26px;
     font-weight: 400;
-    color: ${({ theme }) => theme.colors.black};
+    color: black;
 `;
 
 const ButtonSection = styled.div`

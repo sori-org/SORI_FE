@@ -18,7 +18,7 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: ${({ theme }) => theme.colors.white} url(${banner}) no-repeat center;
+    background: white url(${banner}) no-repeat center;
     background-size: 140%; 
     background-position: center 400px;
 

@@ -62,30 +62,27 @@ export default PostNewScreen;
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const HeaderContainer = styled.div`
     width: 100%;
-    max-width: 480px;
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
 `;
 
 const StepContainer = styled.div`
-    flex: 1;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: space-around;
-    margin-top: 4rem;
+    align-items: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -93,7 +90,7 @@ const ButtonContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 15vh;
+    padding: 3rem;
     border-radius: 77px 77px 0 0;
     background: linear-gradient(
             #26957a 3%,
@@ -103,8 +100,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 109px;
-    height: 34px;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: 600;
     border-radius: 30px;
@@ -112,7 +108,6 @@ const Button = styled.button`
     cursor: pointer;
     background-color: white;
     color: #26957a;
-
     &:active {
         transform: scale(0.98);
     }

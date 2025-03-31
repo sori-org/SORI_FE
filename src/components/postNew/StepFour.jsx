@@ -54,36 +54,29 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    height: auto;
-    margin-top: 4rem;
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2개씩 한 줄에
+    row-gap: 20px;
+    padding-top: 3rem;
+    justify-items: center
 `;
 
 const Image = styled.img`
-    width: 89px;
-    height: 138px;
     object-fit: contain;
 `;
 
 const Title = styled.h1`
     font-size: 23px;
     font-weight: 600;
+    text-align: center;
     width: 100%;
-    height: auto;
-    margin-top: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    padding-top: 3rem;
 `;
 
 const PreviewSection = styled.div`
@@ -94,19 +87,16 @@ const PreviewSection = styled.div`
     flex-direction: row;
     margin-top: 2rem;
     gap: 10px;
-    margin-bottom: 1rem;
 `;
 
 const Image2 = styled.img`
     width: 20px;
     height: 20px;
     object-fit: contain;
-
 `;
 
 const Title2 = styled.p`
     font-size: 20px;
     font-weight: 400;
     color: #49C48F;
-
 `;

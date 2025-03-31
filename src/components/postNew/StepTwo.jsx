@@ -45,6 +45,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`
@@ -53,22 +55,18 @@ const ButtonSection = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 40px;
-    height: auto;
-    margin-top: 4rem;
+    gap: 20px;
+    padding-top: 3rem;
 `;
 
 const Image = styled.img`
-    width: 89px;
-    height: 138px;
     object-fit: contain;
 `;
 
 const Title = styled.h1`
     font-size: 23px;
     font-weight: 600;
+    text-align: center;
     width: 100%;
-    height: auto;
-    margin-top: 4rem;
-
+    padding-top: 3rem;
 `;

@@ -6,7 +6,6 @@ import {useNavigate} from "react-router-dom";
 
 const HomeScreen = () => {
     const nav = useNavigate();
-
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
@@ -105,8 +104,7 @@ const PostButton = styled.button`
     justify-content: center;
     align-items: center;
     background-color: #49C48F;
-    width: 100%;
-    padding: 15px 10px;
+    padding: 15px 20px;
     border-radius: 30px;
     border: none;
     gap: 0.5rem;

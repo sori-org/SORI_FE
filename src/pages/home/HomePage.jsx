@@ -20,5 +20,5 @@ const Container = styled.div`
     justify-content: flex-start;
     overflow: auto;
     background-size: 140%;
-    background: white url(${banner}) no-repeat center 170%;
+    background: white url(${banner}) no-repeat center 150%;
 `;

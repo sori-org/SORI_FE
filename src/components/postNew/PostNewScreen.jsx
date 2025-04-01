@@ -6,9 +6,8 @@ import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
 import StepFour from "./StepFour.jsx";
 import StepFive from "./StepFive.jsx";
-import ProgressBar from "./ProgressBar.jsx";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
 
 const steps = [
     <StepOne />,
@@ -20,17 +19,12 @@ const steps = [
 
 function PostNewScreen() {
     const nav = useNavigate();
-    const { currentStepIndex, nextStep, prevStep, resetStep, formData } = useFormStore();
+    const { currentStepIndex, nextStep, formData } = useFormStore();
 
-    useEffect(() => {
-        resetStep();
-    }, []);
 
     const handleSubmit = () => {
         console.log("최종 제출 데이터:", formData);
         nav("/loading");
-
-        // 5초 후에 결과 페이지로 이동
         setTimeout(() => {
             nav("/result");
         }, 5000);
@@ -42,8 +36,9 @@ function PostNewScreen() {
     return (
         <Container>
             <HeaderContainer>
-                <Header prevStep={prevStep} currentStepIndex={currentStepIndex} />
-                <ProgressBar />
+                <Header />
+                <MultiStepFormHeader />
+                <TipSection>TIP!</TipSection>
             </HeaderContainer>
 
             <StepContainer>{steps[currentStepIndex]}</StepContainer>
@@ -60,6 +55,30 @@ function PostNewScreen() {
 
 export default PostNewScreen;
 
+const TipSection = styled.button`
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    background-color: #49C48F;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        background-color: #3AA07B;
+    }
+
+    &:active {
+        transform: scale(0.96);
+    }
+`;
+
+
 const Container = styled.div`
     display: flex;
     height: 100vh;
@@ -72,6 +91,7 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
     width: 100%;
     padding: 1rem;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;

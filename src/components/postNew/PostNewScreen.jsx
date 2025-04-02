@@ -8,18 +8,20 @@ import StepFour from "./StepFour.jsx";
 import StepFive from "./StepFive.jsx";
 import {useNavigate} from "react-router-dom";
 import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
+import {useControlModal} from "../../hooks/useControlModal.js";
+import TipModal from "./modal/TipModal.jsx";
+import {tipSlides} from "../../constants/postNew/tipSlides.js";
 
-const steps = [
-    <StepOne />,
-    <StepTwo />,
-    <StepThree />,
-    <StepFour />,
-    <StepFive />
-];
+const stepComponents = [StepOne, StepTwo, StepThree, StepFour, StepFive];
+
+const steps = stepComponents.map((Component, index) => (
+    <Component key={index} />
+));
 
 function PostNewScreen() {
     const nav = useNavigate();
     const { currentStepIndex, nextStep, formData } = useFormStore();
+    const { modalState, openModal, closeModal } = useControlModal()
 
 
     const handleSubmit = () => {
@@ -29,16 +31,24 @@ function PostNewScreen() {
             nav("/result");
         }, 5000);
     };
+
     const handleNext = () => {
         nextStep(steps.length);
     };
+
+    const handleTagClick = () => {
+        openModal()
+    }
 
     return (
         <Container>
             <HeaderContainer>
                 <Header />
                 <MultiStepFormHeader />
-                <TipSection>TIP!</TipSection>
+                {tipSlides[currentStepIndex]?.length > 0 && (
+                    <TipSection onClick={handleTagClick}>TIP!</TipSection>
+                )}
+                {modalState && tipSlides[currentStepIndex]?.length > 0 && <TipModal step={currentStepIndex} onClose={closeModal}/>}
             </HeaderContainer>
 
             <StepContainer>{steps[currentStepIndex]}</StepContainer>

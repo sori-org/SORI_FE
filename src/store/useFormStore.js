@@ -10,7 +10,7 @@ const useFormStore = create((set) => ({
         image: '',
         text: '',
     },
-    totalSteps: 5,
+    totalSteps: 6,
     nextStep: (totalSteps) => set((state) => ({
         currentStepIndex: Math.min(state.currentStepIndex + 1, totalSteps - 1)
     })),

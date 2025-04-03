@@ -20,7 +20,7 @@ const Header = () => {
             <BackButtonWrapper onClick={handleBack}>
                 <img src={BackButton} alt="뒤로가기" />
             </BackButtonWrapper>
-            <Title>{currentStepIndex + 1}/5</Title>
+            <Title>{currentStepIndex + 1}/6</Title>
         </HeaderContainer>
     );
 };

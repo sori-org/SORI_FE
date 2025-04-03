@@ -49,7 +49,7 @@ function TipModal({step,onClose}) {
 export default TipModal;
 
 const Overlay = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 999;

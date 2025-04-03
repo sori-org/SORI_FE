@@ -11,8 +11,9 @@ import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
 import {useControlModal} from "../../hooks/useControlModal.js";
 import TipModal from "./modal/TipModal.jsx";
 import {tipSlides} from "../../constants/postNew/tipSlides.js";
+import StepSix from "./StepSix.jsx";
 
-const stepComponents = [StepOne, StepTwo, StepThree, StepFour, StepFive];
+const stepComponents = [StepOne, StepTwo, StepSix, StepThree, StepFour, StepFive];
 
 const steps = stepComponents.map((Component, index) => (
     <Component key={index} />

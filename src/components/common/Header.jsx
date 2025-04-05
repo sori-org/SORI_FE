@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackButton from'../../assets/backButton.svg';
+import useFormStore from "../../store/useFormStore.js";
 
-const Header = ( {prevStep, currentStepIndex }) => {
+const Header = () => {
     const navigate = useNavigate();
+    const { currentStepIndex, prevStep } = useFormStore();
 
     const handleBack = () => {
         if (currentStepIndex === 0) {
@@ -18,7 +20,7 @@ const Header = ( {prevStep, currentStepIndex }) => {
             <BackButtonWrapper onClick={handleBack}>
                 <img src={BackButton} alt="뒤로가기" />
             </BackButtonWrapper>
-            <Title>{currentStepIndex + 1}/5</Title>
+            <Title>{currentStepIndex + 1}/7</Title>
         </HeaderContainer>
     );
 };

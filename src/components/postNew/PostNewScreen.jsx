@@ -1,49 +1,56 @@
 import styled from "styled-components";
-import StepOne from "../../components/postNew/StepOne";
-import StepTwo from "./StepTwo.jsx";
-import StepThree from "./StepThree.jsx";
+import StepOne from "./step/StepOne.jsx";
+import StepTwo from "./step/StepTwo.jsx";
+import StepThree from "./step/StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
-import StepFour from "./StepFour.jsx";
-import StepFive from "./StepFive.jsx";
-import ProgressBar from "./ProgressBar.jsx";
+import StepFour from "./step/StepFour.jsx";
+import StepFive from "./step/StepFive.jsx";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
+import {useControlModal} from "../../hooks/useControlModal.js";
+import TipModal from "./modal/TipModal.jsx";
+import {tipSlides} from "../../constants/postNew/tipSlides.js";
+import StepSix from "./step/StepSix.jsx";
+import StepSeven from "./step/StepSeven.jsx";
 
-const steps = [
-    <StepOne />,
-    <StepTwo />,
-    <StepThree />,
-    <StepFour />,
-    <StepFive />
-];
+const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
+
+const steps = stepComponents.map((Component, index) => (
+    <Component key={index} />
+));
 
 function PostNewScreen() {
     const nav = useNavigate();
-    const { currentStepIndex, nextStep, prevStep, resetStep, formData } = useFormStore();
+    const { currentStepIndex, nextStep, formData } = useFormStore();
+    const { modalState, openModal, closeModal } = useControlModal()
 
-    useEffect(() => {
-        resetStep();
-    }, []);
 
     const handleSubmit = () => {
         console.log("최종 제출 데이터:", formData);
         nav("/loading");
-
-        // 5초 후에 결과 페이지로 이동
         setTimeout(() => {
             nav("/result");
         }, 5000);
     };
+
     const handleNext = () => {
         nextStep(steps.length);
     };
 
+    const handleTagClick = () => {
+        openModal()
+    }
+
     return (
         <Container>
             <HeaderContainer>
-                <Header prevStep={prevStep} currentStepIndex={currentStepIndex} />
-                <ProgressBar />
+                <Header />
+                <MultiStepFormHeader />
+                {tipSlides[currentStepIndex]?.length > 0 && (
+                    <TipSection onClick={handleTagClick}>TIP!</TipSection>
+                )}
+                {modalState && tipSlides[currentStepIndex]?.length > 0 && <TipModal step={currentStepIndex} onClose={closeModal}/>}
             </HeaderContainer>
 
             <StepContainer>{steps[currentStepIndex]}</StepContainer>
@@ -60,32 +67,54 @@ function PostNewScreen() {
 
 export default PostNewScreen;
 
+const TipSection = styled.button`
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    background-color: #49C48F;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        background-color: #3AA07B;
+    }
+
+    &:active {
+        transform: scale(0.96);
+    }
+`;
+
+
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const HeaderContainer = styled.div`
     width: 100%;
-    max-width: 480px;
     padding: 1rem;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
 `;
 
 const StepContainer = styled.div`
-    flex: 1;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: space-around;
-    margin-top: 4rem;
+    align-items: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -93,7 +122,7 @@ const ButtonContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 15vh;
+    padding: 3rem;
     border-radius: 77px 77px 0 0;
     background: linear-gradient(
             #26957a 3%,
@@ -103,8 +132,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 109px;
-    height: 34px;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: 600;
     border-radius: 30px;
@@ -112,7 +140,6 @@ const Button = styled.button`
     cursor: pointer;
     background-color: white;
     color: #26957a;
-
     &:active {
         transform: scale(0.98);
     }

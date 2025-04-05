@@ -1,35 +1,35 @@
-import Sori from "../../assets/sori1.svg";
+import useFormStore from "../../../store/useFormStore.js";
+import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
-import PostButton from "./PostButton.jsx";
-import Menu from "../../assets/menu.png";
-import Store from "../../assets/store.png";
-import useFormStore from "../../store/useFormStore.js";
+import PostButton from "../PostButton.jsx";
+import Man from "../../../assets/man.svg";
+import Woman from "../../../assets/woman.svg";
 
 const options = [
-    {title: "가게", icon: Store},
-    {title: "메뉴", icon: Menu},
+    {title: "여성", icon: Woman},
+    {title: "남성", icon: Man},
 ];
 
+function StepSix() {
+    const {formData, updateFormData} = useFormStore();
 
-function StepTwo() {
-    const { formData, updateFormData } = useFormStore();
-
-    const handleSelect = (item) => {
-        updateFormData({ item });
+    const handleSelect = (whichApi) => {
+        updateFormData({whichApi});
     };
 
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>무엇을 홍보하고 싶으신가요?</Title>
+            <Title>타겟층을 선택해주세요!</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.item === option.title}
-                        onClick={() => handleSelect(option.title)} // 선택 시 부모 컴포넌트에 값 전달
+                        isSelected={formData.whichApi === option.title}
+                        onClick={() => handleSelect(option.title)}
+                        size="small"
                     />
                 ))}
             </ButtonSection>
@@ -37,7 +37,7 @@ function StepTwo() {
     );
 }
 
-export default StepTwo;
+export default StepSix;
 
 
 const Container = styled.div`
@@ -50,13 +50,12 @@ const Container = styled.div`
 `;
 
 const ButtonSection = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2개씩 한 줄에
+    row-gap: 20px;
     padding-top: 3rem;
+    justify-items: center
 `;
 
 const Image = styled.img`

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import useFormStore from "../../store/useFormStore.js";
+import useFormStore from "../../../store/useFormStore.js";
 import styled from "styled-components";
-import UploadIcon from "../../assets/upload.png";
+import UploadIcon from "../../../assets/upload.png";
 
 
 function StepFive() {

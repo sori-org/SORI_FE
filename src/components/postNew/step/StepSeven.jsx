@@ -1,16 +1,15 @@
-import useFormStore from "../../store/useFormStore.js";
-import Sori from "../../assets/sori1.svg";
+import useFormStore from "../../../store/useFormStore.js";
+import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
-import PostButton from "./PostButton.jsx";
-import Man from "../../assets/man.svg";
-import Woman from "../../assets/woman.svg";
 
 const options = [
-    {title: "여성", icon: Woman},
-    {title: "남성", icon: Man},
+    {title: "10~20세"},
+    {title: "20~30세"},
+    {title: "30~40세"},
+    {title: "40세 이상"},
 ];
 
-function StepSix() {
+function StepSeven() {
     const {formData, updateFormData} = useFormStore();
 
     const handleSelect = (whichApi) => {
@@ -20,24 +19,23 @@ function StepSix() {
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>타겟층을 선택해주세요!</Title>
+            <Title>어떤 정보를 포함할까요?</Title>
             <ButtonSection>
                 {options.map((option) => (
-                    <PostButton
+                    <SelectButton
                         key={option.title}
-                        title={option.title}
-                        icon={option.icon}
                         isSelected={formData.whichApi === option.title}
                         onClick={() => handleSelect(option.title)}
-                        size="small"
-                    />
+                    >
+                        {option.title}
+                    </SelectButton>
                 ))}
             </ButtonSection>
         </Container>
     );
 }
 
-export default StepSix;
+export default StepSeven;
 
 
 const Container = styled.div`
@@ -58,7 +56,20 @@ const ButtonSection = styled.div`
     justify-items: center
 `;
 
-const Image = styled.img`
+const SelectButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    background-color: #49C48F;
+    border: 1px solid #49C48F;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 19px;
+    color: white;
+`;
+
+    const Image = styled.img`
     object-fit: contain;
 `;
 

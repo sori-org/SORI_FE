@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import StepOne from "../../components/postNew/StepOne";
-import StepTwo from "./StepTwo.jsx";
-import StepThree from "./StepThree.jsx";
+import StepOne from "./step/StepOne.jsx";
+import StepTwo from "./step/StepTwo.jsx";
+import StepThree from "./step/StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
 import Header from "../common/Header.jsx";
-import StepFour from "./StepFour.jsx";
-import StepFive from "./StepFive.jsx";
+import StepFour from "./step/StepFour.jsx";
+import StepFive from "./step/StepFive.jsx";
 import {useNavigate} from "react-router-dom";
 import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
 import {useControlModal} from "../../hooks/useControlModal.js";
 import TipModal from "./modal/TipModal.jsx";
 import {tipSlides} from "../../constants/postNew/tipSlides.js";
-import StepSix from "./StepSix.jsx";
+import StepSix from "./step/StepSix.jsx";
+import StepSeven from "./step/StepSeven.jsx";
 
-const stepComponents = [StepOne, StepTwo, StepSix, StepThree, StepFour, StepFive];
+const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
 
 const steps = stepComponents.map((Component, index) => (
     <Component key={index} />

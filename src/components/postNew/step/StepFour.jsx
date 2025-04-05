@@ -1,12 +1,12 @@
-import useFormStore from "../../store/useFormStore.js";
-import Sori from "../../assets/sori1.svg";
+import useFormStore from "../../../store/useFormStore.js";
+import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
-import PostButton from "./PostButton.jsx";
-import Festival from "../../assets/festival.png";
-import Weather from "../../assets/weather.png";
-import Review from "../../assets/review.png";
-import Trend from "../../assets/trend.png";
-import PreviewImage from "../../assets/preview.png"
+import PostButton from "../PostButton.jsx";
+import Festival from "../../../assets/festival.png";
+import Weather from "../../../assets/weather.png";
+import Review from "../../../assets/review.png";
+import Trend from "../../../assets/trend.png";
+import PreviewImage from "../../../assets/preview.png"
 
 const options = [
     {title: "날씨 정보", icon: Weather},

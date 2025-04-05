@@ -1,33 +1,37 @@
-import useFormStore from "../../store/useFormStore.js";
-import Sori from "../../assets/sori1.svg";
+import useFormStore from "../../../store/useFormStore.js";
+import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
-import PostButton from "./PostButton.jsx";
-import Webtoon from "../../assets/webtoon.png";
-import TextImage from "../../assets/Chat.png";
+import PostButton from "../PostButton.jsx";
+import Instagram from "../../../assets/instagram.png";
+import NaverCafe from "../../../assets/naver_cafe.png";
+import Twitter from "../../../assets/twitter.png";
 
 const options = [
-    { title: "택스트 + 이미지", icon: TextImage },
-    { title: "네 컷 만화", icon: Webtoon },
+    { title: "인스타그램", icon: Instagram },
+    { title: "트위터", icon: Twitter },
+    { title: "네이버 카페", icon: NaverCafe },
 ];
 
-function StepThree() {
+
+function StepOne() {
     const { formData, updateFormData } = useFormStore();
 
-    const handleSelect = (result) => {
-        updateFormData({ result });
+
+    const handleSelect = (platform) => {
+        updateFormData({ platform }); // 전역 상태 업데이트
     };
 
     return (
         <Container>
-            <Image src={Sori}/>
-            <Title>어떤 결과물을 원하시나요?</Title>
+            <Image src={Sori} />
+            <Title>어디에 홍보하고 싶으신가요?</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.result === option.title}
+                        isSelected={formData.platform === option.title}
                         onClick={() => handleSelect(option.title)}
                     />
                 ))}
@@ -36,8 +40,7 @@ function StepThree() {
     );
 }
 
-export default StepThree;
-
+export default StepOne;
 
 const Container = styled.div`
     display: flex;

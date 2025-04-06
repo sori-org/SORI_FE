@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import MyHeader from "../common/MyHeader.jsx";
+import MyPageMenu from "./MyPageMenu.jsx";
 
 function MyMainScreen() {
     return (
         <Container>
-            <MyHeader />
+            <MyHeader title={"My"} />
+            <MyPageMenu />
         </Container>
     );
 }
@@ -16,6 +18,6 @@ const Container = styled.div`
     height: 100vh;
     width: 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 `;

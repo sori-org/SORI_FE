@@ -42,7 +42,7 @@ const Container = styled.div`
 const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 
 const Field = styled.div`

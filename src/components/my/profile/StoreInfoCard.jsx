@@ -37,7 +37,7 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 0 3rem;
 `;
 const InfoSection = styled.div`
   display: flex;

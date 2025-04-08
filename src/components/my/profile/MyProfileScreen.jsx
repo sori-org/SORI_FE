@@ -2,6 +2,7 @@ import styled from "styled-components";
 import MyHeader from "../../common/MyHeader.jsx";
 import UserProfileCard from "./UserProfileCard.jsx";
 import StoreInfoCard from "./StoreInfoCard.jsx";
+import StoreList from "./StoreList.jsx";
 
 function MyProfileScreen() {
     return (
@@ -9,6 +10,7 @@ function MyProfileScreen() {
             <MyHeader title={"내 정보"} />
             <UserProfileCard />
             <StoreInfoCard />
+            <StoreList />
         </Container>
     );
 }

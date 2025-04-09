@@ -12,7 +12,7 @@ const MyHeader = ({title}) => {
         <HeaderContainer>
             <img src={BackButton} alt="뒤로가기" onClick={handleBack} />
             <Title>{title}</Title>
-            <Icon onClick={() => nav("/")}>
+            <Icon onClick={() => nav("/home")}>
                 {/*<img src={}></img>*/ /* 원하는 아이콘을 여기에 추가 */}
             </Icon>
         </HeaderContainer>

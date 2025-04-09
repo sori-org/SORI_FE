@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 
-export default function NavLayout() {
+export default function Layout() {
     return (
         <Wrapper>
             <Outlet />

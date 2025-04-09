@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 const HomeScreen = () => {
     const nav = useNavigate();
     const isPostButtonClicked = () => {
-        nav('/post-new');
+        nav('post-new');
     }
     return (
         <Container>

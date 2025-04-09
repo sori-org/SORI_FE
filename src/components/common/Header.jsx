@@ -9,7 +9,7 @@ const Header = () => {
 
     const handleBack = () => {
         if (currentStepIndex === 0) {
-            navigate('/');
+            navigate('/home');
         } else {
             prevStep();
         }

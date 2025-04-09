@@ -8,7 +8,7 @@ function MyPageMenu() {
 
     const menuItems = [
         { label: "내 정보", onClick: () => nav("/mypage/profile") },
-        { label: "가게 추가 등록하기", onClick: () => console.log("가게 추가") },
+        { label: "가게 관리하기", onClick: () => console.log("가게 관리") },
         { label: "로그아웃", onClick: () => console.log("로그아웃") },
     ];
     return (

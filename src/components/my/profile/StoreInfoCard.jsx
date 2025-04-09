@@ -13,16 +13,12 @@ function StoreInfoCard ({ store }) {
                     <Value>010-7187-1325</Value>
                 </Field>
                 <Field>
-                    <Label>가게 전화번호:</Label>
+                    <Label>대표 가게 전화번호:</Label>
                     <Value>02-123-1456</Value>
                 </Field>
                 <Field>
-                    <Label>가게 위치:</Label>
+                    <Label>대표 가게 위치:</Label>
                     <Value>서울 마포구</Value>
-                </Field>
-                <Field>
-                    <Label>사업자번호:</Label>
-                    <Value>1234566</Value>
                 </Field>
             </InfoSection>
         </Container>

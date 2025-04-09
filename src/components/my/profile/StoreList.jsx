@@ -3,11 +3,11 @@ import StepItem from "./StoreItem.jsx";
 
 const items = [
     {
-        name: "멘야준",
+        name: "소리네1",
         isMain: true
     },
     {
-        name: "소리네",
+        name: "소리네2",
         isMain: false
     },
     {

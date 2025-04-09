@@ -1,20 +1,32 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layouts/Layout.jsx";
 import HomePage from "../pages/home/HomePage.jsx";
 import PostNewPage from "../pages/postNew/PostNewPage.jsx";
 import LoadingPage from "../pages/common/LoadingPage.jsx";
 import ResultPage from "../pages/result/ResultPage.jsx";
+import MyPage from "../pages/my/MyPage.jsx";
+import ProfilePage from "../pages/my/ProfilePage.jsx";
+import ModifyPage from "../pages/my/ModifyPage.jsx";
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: "/",
         element: <Layout />,
         children: [
-            {path: '', element: <HomePage />},
-            {path: '/post-new', element: <PostNewPage />},
-            {path: '/loading', element: <LoadingPage />},
-            {path: 'result', element: <ResultPage />}
-        ]
+            { path: "", element: <HomePage /> },
+            { path: "post-new", element: <PostNewPage /> },
+            { path: "loading", element: <LoadingPage /> },
+            { path: "result", element: <ResultPage /> },
+        ],
+    },
+    {
+        path: "/mypage",
+        element: <Layout />,
+        children: [
+            { path: "", element: <MyPage /> },
+            { path: "profile", element: <ProfilePage /> },
+            { path: "modify", element: <ModifyPage />},
+        ],
     },
 ]);
 

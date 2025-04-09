@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackButton from'../../assets/backButton.svg';
+import BackButton from'../../assets/back_button.svg';
 import useFormStore from "../../store/useFormStore.js";
 
 const Header = () => {
@@ -9,9 +9,9 @@ const Header = () => {
 
     const handleBack = () => {
         if (currentStepIndex === 0) {
-            navigate('/'); // 홈으로 이동
+            navigate('/');
         } else {
-            prevStep(); // 이전 질문으로 이동
+            prevStep();
         }
     };
 

@@ -5,11 +5,11 @@ function StoreInfoCard ({ store }) {
         <Container>
             <InfoSection>
                 <Field>
-                    <Label>가게 이름:</Label>
-                    <Value>소리네</Value>
+                    <Label>대표 가게:</Label>
+                    <Value>소리네1</Value>
                 </Field>
                 <Field>
-                    <Label>대표자 전화번호:</Label>
+                    <Label>전화번호:</Label>
                     <Value>010-7187-1325</Value>
                 </Field>
                 <Field>

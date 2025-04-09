@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import Profile from "../../../assets/img_profile.svg"
+import {useNavigate} from "react-router-dom";
 
 function UserProfileCard ({ user }) {
+    const nav = useNavigate();
+
   return (
     <Container>
         <img src={Profile}></img>
         <ModifySection>
             <Title>김충영</Title>
-            <ModifyButton>프로필 수정</ModifyButton>
+            <ModifyButton onClick={ () => nav("/mypage/modify")}>프로필 수정</ModifyButton>
         </ModifySection>
     </Container>
   );

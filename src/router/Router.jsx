@@ -6,6 +6,7 @@ import LoadingPage from "../pages/common/LoadingPage.jsx";
 import ResultPage from "../pages/result/ResultPage.jsx";
 import MyPage from "../pages/my/MyPage.jsx";
 import ProfilePage from "../pages/my/ProfilePage.jsx";
+import ModifyPage from "../pages/my/ModifyPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
         children: [
             { path: "", element: <MyPage /> },
             { path: "profile", element: <ProfilePage /> },
+            { path: "modify", element: <ModifyPage />},
         ],
     },
 ]);

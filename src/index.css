@@ -3,7 +3,9 @@
     line-height: 1.5;
     font-weight: 400;
 
-    color-scheme: light dark;
+    /*브라우저가 유저의 OS 설정에 따라 자동 전환*/
+    /*시스템이 다크모드면 → 사이트도 다크로 보이게 시도함*/
+    /*color-scheme: light dark;*/
     color: black;
     background-color: #242424;
 

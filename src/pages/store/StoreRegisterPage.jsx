@@ -32,7 +32,7 @@ function StoreRegisterPage() {
     };
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Container onSubmit={handleSubmit(onSubmit)}>
             <Label>가게 키워드 검색</Label>
             <SearchBox>
                 <Input
@@ -63,16 +63,19 @@ function StoreRegisterPage() {
             <Input {...register("description")} placeholder="설명" readOnly />
 
             <SubmitButton type="submit">등록하기</SubmitButton>
-        </Form>
+        </Container>
     );
 }
 
 export default StoreRegisterPage;
 
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
   padding: 2rem;
   gap: 1rem;
 `;
@@ -114,6 +117,10 @@ const ResultList = styled.ul`
     margin: 0.5rem 0;
     border: 1px solid #ccc;
     border-radius: 8px;
+
+    /* ✅ 추가된 부분 */
+    max-height: 250px;
+    overflow-y: auto;
 `;
 
 const ResultItem = styled.li`

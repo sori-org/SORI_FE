@@ -83,22 +83,22 @@ const HeaderText = styled.div`
 `;
 
 const BoldText = styled.p`
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 500;
     color: black;
     line-height: 2;
 `;
 
 const HighlightText = styled.p`
-    font-size: 26px;
+    font-size: 1.9rem;
     font-weight: 700;
-    color: #1A6F6F;
+    color: #26957A;
 `;
 
 const NormalText = styled.p`
-    font-size: 26px;
-    font-weight: 400;
-    color: black;
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: #161b16;
 `;
 
 const ButtonSection = styled.div`
@@ -133,7 +133,7 @@ const PostButton = styled.button`
 `;
 
 const Text = styled.p`
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
 `;

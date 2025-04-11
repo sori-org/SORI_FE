@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import HomeScreen from '../../components/home/HomeScreen.jsx';
-import banner from '../../assets/img_home_background.svg';
 
 const HomePage = () => {
     return (

@@ -3,7 +3,7 @@ export const mockUser = {
     accountId: 1001,
     displayName: "김충영",
     phoneNumber: "010-1234-5678",
-    mainStoreId: 2,
+    mainStoreId: 1,
     storeList: [
         {
             id: 1,

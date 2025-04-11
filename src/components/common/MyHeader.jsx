@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackButton from'../../assets/back_button.svg';
+import BackButton from'../../assets/img_back.svg';
+import HomeButton from'../../assets/img_home_button.svg';
 
 const MyHeader = ({title}) => {
     const nav = useNavigate();
@@ -13,7 +14,7 @@ const MyHeader = ({title}) => {
             <img src={BackButton} alt="뒤로가기" onClick={handleBack} />
             <Title>{title}</Title>
             <Icon onClick={() => nav("/home")}>
-                {/*<img src={}></img>*/ /* 원하는 아이콘을 여기에 추가 */}
+                <img src={HomeButton} alt={"홈"}></img>
             </Icon>
         </HeaderContainer>
     );
@@ -26,21 +27,16 @@ const HeaderContainer = styled.div`
     align-items: center;
     width: 100%;
     max-width: 480px;
-    padding: 1rem 1rem;
-    justify-content: flex-start; 
+    padding: 1.5rem 1.5rem;
+    justify-content: space-between; 
 `;
 
 const Title = styled.div`
     font-size: 1.4rem;
-    font-weight: bold;
+    font-weight: 700;
     color: black;
-    margin-left: 1rem;
 `;
 
 const Icon = styled.div`
-    width: 24px;
-    height: 24px;
-    background-color: #49C48F; /* 원하는 색상으로 변경 */
-    border-radius: 50%;
-    margin-left: auto; /* 오른쪽으로 밀기 */
+    object-fit: contain;
 `;

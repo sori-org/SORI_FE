@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
 
-function StepItem ({item}) {
+function StepItem({ item, isMain }) {
     return (
-        <Container>
+        <Container $isMain={isMain}>
             <ItemSection>
                 <Title>{item.name}</Title>
-                {item.isMain ? <img src={CrownIcon} alt={"메인"}/> : null}
+                {isMain && <img src={CrownIcon} alt="대표 가게" />}
             </ItemSection>
         </Container>
     );
@@ -20,25 +20,28 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    border: 1px solid #49C48F;
-    border-radius: 10px;
+    padding: 1.4rem 1.3rem;
+    border: 1px solid ${({ $isMain }) => ($isMain ? "#49C48F" : "#ccc")};
+    background-color: ${({ $isMain }) =>
+            $isMain ? "rgba(73, 196, 143, 0.1)" : "#fff"};
+    color: ${({ $isMain }) => ($isMain ? "#1A1A1A" : "#000")};
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
 `;
+
 
 const ItemSection = styled.div`
     display: flex;
     width: 100%;
-    padding: 1rem 2rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
 `;
 
 const Title = styled.div`
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    padding: 0.2rem 0;
 `;

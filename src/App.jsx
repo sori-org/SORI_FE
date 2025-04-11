@@ -3,6 +3,7 @@ import router from './router/Router.jsx';
 import GlobalStyle from './style/GlobalStyle.js';
 
 function App() {
+
     return (
         <>
             <GlobalStyle/>

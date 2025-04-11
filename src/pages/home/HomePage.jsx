@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import HomeScreen from '../../components/home/HomeScreen.jsx';
-import banner from '../../assets/home_banner.svg';
+import banner from '../../assets/img_home_background.svg';
 
 const HomePage = () => {
     return (
@@ -19,6 +19,4 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     overflow: auto;
-    background-size: 140%;
-    background: white url(${banner}) no-repeat center 150%;
 `;

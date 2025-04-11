@@ -122,8 +122,8 @@ const ButtonContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 3rem;
-    border-radius: 77px 77px 0 0;
+    padding: 2rem;
+    border-radius: 60px 60px 0 0;
     background: linear-gradient(
             #26957a 3%,
             #49c48f 40%,

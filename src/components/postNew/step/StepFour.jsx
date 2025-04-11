@@ -39,8 +39,7 @@ function StepFour() {
                 ))}
             </ButtonSection>
             <PreviewSection>
-                <Image2 src={PreviewImage} />
-                <Title2>결과 미리보기</Title2>
+                <Title2>선택 안할래요</Title2>
             </PreviewSection>
         </Container>
     );
@@ -89,14 +88,8 @@ const PreviewSection = styled.div`
     gap: 10px;
 `;
 
-const Image2 = styled.img`
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-`;
-
 const Title2 = styled.p`
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 400;
     color: #49C48F;
 `;

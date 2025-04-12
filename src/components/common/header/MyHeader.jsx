@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackButton from'../../assets/img_back.svg';
-import HomeButton from'../../assets/img_home_button.svg';
+import BackButton from '../../../assets/img_back.svg';
+import HomeButton from '../../../assets/img_home_button.svg';
 
 const MyHeader = ({title}) => {
     const nav = useNavigate();
@@ -32,7 +32,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Title = styled.div`
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: black;
 `;

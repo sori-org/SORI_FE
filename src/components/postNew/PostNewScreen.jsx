@@ -3,7 +3,7 @@ import StepOne from "./step/StepOne.jsx";
 import StepTwo from "./step/StepTwo.jsx";
 import StepThree from "./step/StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
-import Header from "../common/Header.jsx";
+import Header from "../common/header/Header.jsx";
 import StepFour from "./step/StepFour.jsx";
 import StepFive from "./step/StepFive.jsx";
 import {useNavigate} from "react-router-dom";

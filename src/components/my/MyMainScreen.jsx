@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import MyHeader from "../common/MyHeader.jsx";
+import MyHeader from "../common/header/MyHeader.jsx";
 import Profile from "../../assets/img_profile.svg"
 import StoreInfoCard from "./profile/StoreInfoCard.jsx";
-import PencilIcon from "../../assets/img_pencil.svg";
 import StoreList from "./profile/StoreList.jsx";
 
 function MyMainScreen() {
@@ -13,11 +12,11 @@ function MyMainScreen() {
                 <img src={Profile} alt={"프로필 사진"}></img>
                 <Title>
                     김충영
-                    <img src={PencilIcon} alt={"수정"}></img>
                 </Title>
             </ProfileSection>
             <StoreInfoCard />
             <StoreList />
+            <Logout>로그아웃</Logout>
         </Container>
     );
 }
@@ -49,6 +48,18 @@ const ProfileSection = styled.div`
     align-items: center;
     width: 100%;
     gap: 1rem;
-    padding: 1rem 0rem;
+    padding: 1rem 0;
     margin-bottom: 2rem;
+`;
+
+const Logout = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem;
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #999999;
+    border-bottom: 2px solid #999999;
 `;

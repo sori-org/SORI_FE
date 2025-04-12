@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
 import {useUserStore} from "../../../store/useUserStore.js";
+import PencilIcon from "../../../assets/img_pencil.svg";
+import {useNavigate} from "react-router-dom";
 
 function StoreInfoCard() {
     const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
+
+    const handleEditClick = () => {
+        navigate("/mypage/modify");
+    };
 
     if (!user || !user.mainStoreId) return null;
 
@@ -14,8 +21,11 @@ function StoreInfoCard() {
         <Container>
             <InfoSection>
                 <Title>
-                    {mainStore.name}
-                    <img src={CrownIcon} alt="대표 가게" />
+                    <TitleLeft>
+                        {mainStore.name}
+                        <img src={CrownIcon} alt="대표 가게" />
+                    </TitleLeft>
+                    <img src={PencilIcon} alt="수정" onClick={handleEditClick} />
                 </Title>
                 <Field>
                     <Label>가게 전화번호:</Label>
@@ -47,6 +57,7 @@ const Container = styled.div`
 `;
 const InfoSection = styled.div`
   display: flex;
+    width: 100%;
   flex-direction: column;
   gap: 1rem;
 `;
@@ -66,10 +77,16 @@ const Value = styled.span`
     font-size: 0.9rem;
 `;
 
-const Title = styled.p`
+const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 1.25rem;
+    font-weight: 600;
+`;
+const TitleLeft = styled.div`
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    font-size: 1.25rem;
-    font-weight: 600;
 `;

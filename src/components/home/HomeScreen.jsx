@@ -82,11 +82,10 @@ const HeaderText = styled.div`
     flex-direction: row;
 `;
 
-const BoldText = styled.p`
+const BoldText = styled.div`
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 600;
     color: black;
-    line-height: 2;
 `;
 
 const HighlightText = styled.p`
@@ -97,7 +96,7 @@ const HighlightText = styled.p`
 
 const NormalText = styled.p`
     font-size: 1.9rem;
-    font-weight: 500;
+    font-weight: 600;
     color: #161b16;
 `;
 

@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import MyHeader from "../../common/MyHeader.jsx";
+import MyHeader from "../../common/header/MyHeader.jsx";
 import StoreRegister from "../../common/StoreRegister.jsx";
+import ModifyProfile from "./ModifyProfile.jsx";
 
 function ModifyScreen() {
     return (
         <Container>
             <MyHeader title={"프로필 수정"}/>
-            <StoreRegister />
+            <ModifyProfile />
         </Container>
     );
 }

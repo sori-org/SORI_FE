@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MyHeader from "../../common/MyHeader.jsx";
+import MyHeader from "../../common/header/MyHeader.jsx";
 import UserProfileCard from "./UserProfileCard.jsx";
 import StoreInfoCard from "./StoreInfoCard.jsx";
 import StoreList from "./StoreList.jsx";

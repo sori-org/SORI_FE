@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackButton from'../../assets/img_back.svg';
-import useFormStore from "../../store/useFormStore.js";
+import BackButton from '../../../assets/img_back.svg';
+import useFormStore from "../../../store/useFormStore.js";
 
 const Header = () => {
     const navigate = useNavigate();

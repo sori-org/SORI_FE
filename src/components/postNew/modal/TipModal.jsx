@@ -56,25 +56,33 @@ const Overlay = styled.div`
     top: 0;
     left: 0;
     z-index: 1000;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem; /* 데스크탑에서 너무 꽉 차지 않게 */
+    box-sizing: border-box;
 `;
 
+
 const ModalBox = styled.div`
-  position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  background: white;
-  border-radius: 20px;
-  width: 80%;
-  padding: 2rem 1.5rem 3.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    padding: 2rem 1.5rem 3.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    @media (min-width: 768px) {
+        padding: 2.5rem 2rem 4rem;
+    }
 `;
 
 const CloseButton = styled.button`

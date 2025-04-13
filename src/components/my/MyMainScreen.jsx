@@ -1,18 +1,29 @@
 import styled from "styled-components";
-import MyHeader from "../common/MyHeader.jsx";
-import MyPageMenu from "./MyPageMenu.jsx";
+import Header from "../common/header/Header.jsx";
 import Profile from "../../assets/img_profile.svg"
-
+import StoreInfoCard from "./profile/StoreInfoCard.jsx";
+import StoreList from "./profile/StoreList.jsx";
+import {useEffect} from "react";
+import {useHeaderStore} from "../../store/useHeaderStore.js";
 
 function MyMainScreen() {
+    const setTitle = useHeaderStore((state) => state.setTitle);
+
+    useEffect(() => {
+        setTitle("My Page");
+    }, []);
+
     return (
         <Container>
-            <MyHeader title={"My"} />
             <ProfileSection>
                 <img src={Profile} alt={"프로필 사진"}></img>
-                <Title>충영님 어서오세요! </Title>
+                <Title>
+                    김충영
+                </Title>
             </ProfileSection>
-            <MyPageMenu />
+            <StoreInfoCard />
+            <StoreList />
+            <Logout>로그아웃</Logout>
         </Container>
     );
 }
@@ -22,13 +33,18 @@ export default MyMainScreen;
 const Container = styled.div`
     display: flex;
     width: 100%;
+    height: 90vh;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 `;
 
-const Title = styled.p`
-    font-size: 1.5rem;
+const Title = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    font-size: 1.25rem;
     font-weight: 500;
 `;
 
@@ -39,7 +55,16 @@ const ProfileSection = styled.div`
     align-items: center;
     width: 100%;
     gap: 1rem;
-    padding: 1rem;
-    margin-bottom: 3rem;
-    border-radius: 10px;
+    padding: 1rem 0;
+`;
+
+const Logout = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem;
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #999999;
 `;

@@ -1,29 +1,49 @@
 import styled from "styled-components";
+import CrownIcon from "../../../assets/img_crown.svg";
+import {useUserStore} from "../../../store/useUserStore.js";
+import PencilIcon from "../../../assets/img_pencil.svg";
+import {useNavigate} from "react-router-dom";
 
-function StoreInfoCard ({ store }) {
+function StoreInfoCard() {
+    const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
+
+    const handleEditClick = () => {
+        navigate("/mypage/modify");
+    };
+
+    if (!user || !user.mainStoreId) return null;
+
+    const mainStore = user.storeList.find(store => store.id === user.mainStoreId);
+    if (!mainStore) return null;
+
     return (
         <Container>
             <InfoSection>
+                <Title>
+                    <TitleLeft>
+                        {mainStore.name}
+                        <img src={CrownIcon} alt="대표 가게" />
+                    </TitleLeft>
+                    <img src={PencilIcon} alt="수정" onClick={handleEditClick} />
+                </Title>
                 <Field>
-                    <Label>대표 가게:</Label>
-                    <Value>소리네1</Value>
+                    <Label>가게 전화번호:</Label>
+                    <Value>{mainStore.phone}</Value>
                 </Field>
                 <Field>
-                    <Label>전화번호:</Label>
-                    <Value>010-7187-1325</Value>
+                    <Label>가게 주소:</Label>
+                    <Value>{mainStore.address}</Value>
                 </Field>
                 <Field>
-                    <Label>대표 가게 전화번호:</Label>
-                    <Value>02-123-1456</Value>
-                </Field>
-                <Field>
-                    <Label>대표 가게 위치:</Label>
-                    <Value>서울 마포구</Value>
+                    <Label>카테고리:</Label>
+                    <Value>{mainStore.category || "(카테고리 없음)"}</Value>
                 </Field>
             </InfoSection>
         </Container>
     );
 }
+
 
 export default StoreInfoCard;
 
@@ -33,23 +53,40 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 3rem;
+    padding: 0 2rem;
 `;
 const InfoSection = styled.div`
   display: flex;
+    width: 100%;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 `;
 
 const Field = styled.div`
   display: flex;
-  gap: 0.5rem;
+  gap: 0.3rem;
 `;
 
 const Label = styled.span`
-  font-weight: bold;
+    font-size: 0.9rem;
+    font-weight: 400;
 `;
 
 const Value = styled.span`
-  color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+`;
+
+const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 1.25rem;
+    font-weight: 600;
+`;
+const TitleLeft = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 `;

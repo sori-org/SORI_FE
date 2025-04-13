@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackButton from'../../assets/back_button.svg';
+import BackButton from '../../../assets/img_back.svg';
+import HomeButton from '../../../assets/img_home_button.svg';
 
-const MyHeader = ({title}) => {
+const Header = ({title}) => {
     const nav = useNavigate();
     const handleBack = () => {
         nav(-1);
@@ -12,35 +13,36 @@ const MyHeader = ({title}) => {
         <HeaderContainer>
             <img src={BackButton} alt="뒤로가기" onClick={handleBack} />
             <Title>{title}</Title>
-            <Icon onClick={() => nav("/")}>
-                {/*<img src={}></img>*/ /* 원하는 아이콘을 여기에 추가 */}
+            <Icon onClick={() => nav("/home")}>
+                <img src={HomeButton} alt={"홈"}></img>
             </Icon>
         </HeaderContainer>
     );
 };
 
-export default MyHeader;
+export default Header;
 
 const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
     max-width: 480px;
-    padding: 1rem 1rem;
-    justify-content: flex-start; 
+    padding: 1.5rem 1.5rem;
+    justify-content: space-between;
+    z-index: 1000;
+    background-color: white;
 `;
 
 const Title = styled.div`
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: black;
-    margin-left: 1rem;
 `;
 
 const Icon = styled.div`
-    width: 24px;
-    height: 24px;
-    background-color: #49C48F; /* 원하는 색상으로 변경 */
-    border-radius: 50%;
-    margin-left: auto; /* 오른쪽으로 밀기 */
+    object-fit: contain;
 `;

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import PostNewScreen from "../../components/postNew/PostNewScreen.jsx";
-import banner from "../../assets/home_banner.svg";
 
 const PostNewPage = () => {
     return (
@@ -14,7 +13,7 @@ export default PostNewPage;
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 95vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

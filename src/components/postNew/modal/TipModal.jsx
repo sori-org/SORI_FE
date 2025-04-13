@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import InstagramIcon from "../../../assets/react.svg";
 import {tipSlides} from "../../../constants/postNew/tipSlides.js";
-
+import ModalPortal from "../../common/modal/ModalPortal.jsx";
 
 function TipModal({step,onClose}) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,60 +18,71 @@ function TipModal({step,onClose}) {
     const { title, image, description } = slides[currentIndex];
 
     return (
-        <Overlay>
-            <ModalBox>
-                <CloseButton onClick={onClose}>×</CloseButton>
-                <Content>
-                    <Title>
-                        <img src={InstagramIcon} alt="" />
-                        {title}
-                    </Title>
-                    <ImageBox>
-                        <PreviewImage src={image} alt="예시 이미지" />
-                        <ImageLabel>(예시 이미지)</ImageLabel>
-                    </ImageBox>
-                    <Description>{description}</Description>
-                </Content>
+        <ModalPortal>
+            <Overlay>
+                <ModalBox>
+                    <CloseButton onClick={onClose}>×</CloseButton>
+                    <Content>
+                        <Title>
+                            <img src={InstagramIcon} alt="" />
+                            {title}
+                        </Title>
+                        <ImageBox>
+                            <PreviewImage src={image} alt="예시 이미지" />
+                            <ImageLabel>(예시 이미지)</ImageLabel>
+                        </ImageBox>
+                        <Description>{description}</Description>
+                    </Content>
 
-                <NavArrow left onClick={goPrev}>◀</NavArrow>
-                <NavArrow right onClick={goNext}>▶</NavArrow>
+                    <NavArrow left onClick={goPrev}>◀</NavArrow>
+                    <NavArrow right onClick={goNext}>▶</NavArrow>
 
-                <DotContainer>
-                    {slides.map((_, i) => (
-                        <Dot key={i} active={i === currentIndex} />
-                    ))}
-                </DotContainer>
-            </ModalBox>
-        </Overlay>
+                    <DotContainer>
+                        {slides.map((_, i) => (
+                            <Dot key={i} active={i === currentIndex} />
+                        ))}
+                    </DotContainer>
+                </ModalBox>
+            </Overlay>
+        </ModalPortal>
+
     );
 }
 
 export default TipModal;
 
 const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; /* 데스크탑에서 너무 꽉 차지 않게 */
+    box-sizing: border-box;
 `;
 
+
 const ModalBox = styled.div`
-  position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  background: white;
-  border-radius: 20px;
-  width: 80%;
-  padding: 2rem 1.5rem 3.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    padding: 2rem 1.5rem 3.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    @media (min-width: 768px) {
+        padding: 2.5rem 2rem 4rem;
+    }
 `;
 
 const CloseButton = styled.button`

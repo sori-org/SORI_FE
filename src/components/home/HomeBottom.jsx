@@ -19,8 +19,6 @@ const HomeBottom = () => {
                     <Text>기록</Text>
                 </CardItem>
             </Card>
-            <FooterText>사용방법이 궁금해요!</FooterText>
-            <FooterLine />
         </Container>
     );
 };
@@ -61,19 +59,4 @@ const Text = styled.p`
     font-size: 14px;
     font-weight: 500;
     color: #939393;
-`;
-
-const FooterText = styled.div`
-    margin-top: 20px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #ffffff;
-`;
-
-const FooterLine = styled.div`
-    width: 50%;
-    height: 1px;
-    background-color: #ffffff;
-    margin-top: 8px;
-    opacity: 0.5;
 `;

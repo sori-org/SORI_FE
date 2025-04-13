@@ -29,7 +29,6 @@ function StepSix() {
                         icon={option.icon}
                         isSelected={formData.whichApi === option.title}
                         onClick={() => handleSelect(option.title)}
-                        size="small"
                     />
                 ))}
             </ButtonSection>
@@ -46,16 +45,16 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`
-    width: 85%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); // 2개씩 한 줄에
-    row-gap: 20px;
-    padding-top: 3rem;
-    justify-items: center
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
 `;
 
 const Image = styled.img`

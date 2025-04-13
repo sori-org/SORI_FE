@@ -46,7 +46,6 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`
@@ -56,7 +55,7 @@ const ButtonSection = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding-top: 3rem;
+    padding-top: 2rem;
 `;
 
 const Image = styled.img`

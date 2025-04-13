@@ -2,7 +2,7 @@
     font-family: Pretendard, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-
+    --vh: 100%;
     /*브라우저가 유저의 OS 설정에 따라 자동 전환*/
     /*시스템이 다크모드면 → 사이트도 다크로 보이게 시도함*/
     /*color-scheme: light dark;*/
@@ -60,6 +60,7 @@ button:focus-visible {
     :root {
         color: #213547;
         background-color: #ffffff;
+        --vh: 100%;
     }
     a:hover {
         color: #747bff;
@@ -67,4 +68,5 @@ button:focus-visible {
     button {
         background-color: #f9f9f9;
     }
+
 }

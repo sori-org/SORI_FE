@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MyHeader from "../../common/MyHeader.jsx";
+import Header from "../../common/header/Header.jsx";
 import UserProfileCard from "./UserProfileCard.jsx";
 import StoreInfoCard from "./StoreInfoCard.jsx";
 import StoreList from "./StoreList.jsx";
@@ -7,7 +7,7 @@ import StoreList from "./StoreList.jsx";
 function MyProfileScreen() {
     return (
         <Container>
-            <MyHeader title={"내 정보"} />
+            <Header title={"내 정보"} />
             <UserProfileCard />
             <StoreInfoCard />
             <StoreList />

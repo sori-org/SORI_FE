@@ -1,41 +1,35 @@
 import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
-
-const items = [
-    {
-        name: "소리네1",
-        isMain: true
-    },
-    {
-        name: "소리네2",
-        isMain: false
-    },
-    {
-        name: "소리네",
-        isMain: false
-    },
-    {
-        name: "소리네",
-        isMain: false
-    },
-    {
-        name: "소리네",
-        isMain: false
-    },
-    {
-        name: "소리네",
-        isMain: false
-    },
-
-]
+import AddImage from "../../../assets/img_add.svg";
+import { useUserStore } from "../../../store/useUserStore.js";
 
 function StoreList() {
+    const user = useUserStore((state) => state.user);
+
+    if (!user) return null; // user 없으면 아무것도 안 그리기
+
+    // 대표 가게가 맨 위로 오도록 정렬
+    const sortedStores = [...user.storeList].sort((a, b) => {
+        if (a.id === user.mainStoreId) return -1;
+        if (b.id === user.mainStoreId) return 1;
+        return 0;
+    });
+
+    console.log("user: ", user);
     return (
         <Container>
-            <Title>소유 점포 목록</Title>
+            <Title>
+                <Spacer />
+                <TitleText>소유 점포 목록</TitleText>
+                <img src={AddImage} alt="점포 추가" />
+            </Title>
             <ListContainer>
-                {items.map((item, index) => (
-                    <StepItem key={index} item={item} />
+                {sortedStores.map((item) => (
+                    <StepItem
+                        key={item.id}
+                        item={item}
+                        isMain={item.id === user.mainStoreId}
+                    />
                 ))}
             </ListContainer>
         </Container>
@@ -44,30 +38,36 @@ function StoreList() {
 
 export default StoreList;
 
-// flex-grow: 1;를 사용하여 남는 공간을 차지하도록 설정
+// 스타일은 그대로 유지
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    flex-grow: 1; // 남는 공간을 차지
-    overflow: hidden; // 내부 스크롤만 허용
-    padding: 1rem 3rem;
-    margin-top: 1rem;
-    gap: 1rem;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 2rem 2rem;
+    gap: 2rem;
 `;
 
 const Title = styled.div`
     font-size: 1.1rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    font-weight: bold;
+    font-weight: 600;
+    position: relative;
     width: 100%;
-    border-radius: 2px;
-    border-bottom: 2px solid #49C48F;
-    border-top: 2px solid #49C48F;
-    padding: 0.2rem 0;
+    border-bottom: 1px solid lightgray;
+    padding: 0.5rem 0;
+`;
+
+const TitleText = styled.div`
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    font-weight: 600;
 `;
 
 const ListContainer = styled.div`
@@ -77,5 +77,10 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding-right: 0.5rem;
+`;
+
+const Spacer = styled.div`
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
 `;

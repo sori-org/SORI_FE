@@ -21,8 +21,8 @@ const PostButtonContainer = styled.button.attrs(() => ({
     gap: 0.5rem;
     border-radius: 30px;
     cursor: pointer;
-    width: ${({size}) => (size === "small" ? "145px" : "232px")};
-    height: ${({size}) => (size === "small" ? "100px" : "81px")};
+    width: ${({size}) => (size === "small" ? "8rem" : "12rem")};
+    height: ${({size}) => (size === "small" ? "6rem" : "5rem")};
     border: none;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
     &:hover {

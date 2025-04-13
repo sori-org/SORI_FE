@@ -24,7 +24,7 @@ function StepSeven() {
                 {options.map((option) => (
                     <SelectButton
                         key={option.title}
-                        isSelected={formData.whichApi === option.title}
+                        $isSelected={formData.whichApi === option.title}
                         onClick={() => handleSelect(option.title)}
                     >
                         {option.title}
@@ -44,7 +44,6 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`
@@ -61,7 +60,7 @@ const SelectButton = styled.button`
     align-items: center;
     justify-content: center;
     padding: 20px 20px;
-    background-color: #49C48F;
+    background-color: ${({ $isSelected }) => ($isSelected ? "#49C48F" : "#49C48F")};
     border: 1px solid #49C48F;
     border-radius: 20px;
     cursor: pointer;
@@ -69,7 +68,7 @@ const SelectButton = styled.button`
     color: white;
 `;
 
-    const Image = styled.img`
+const Image = styled.img`
     object-fit: contain;
 `;
 

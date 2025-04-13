@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PostImage from '../../assets/post.svg';
 import HomeBottom from "./HomeBottom.jsx";
 import {useNavigate} from "react-router-dom";
-
+import SoriImage from '../../assets/img_home_sori.svg';
 
 const HomeScreen = () => {
     const nav = useNavigate();
@@ -29,6 +29,10 @@ const HomeScreen = () => {
                     </PostButton>
                 </ButtonSection>
             </TitleSection>
+            <ImageWrapper>
+                <Image src={SoriImage} alt="소리" />
+                <Shadow />
+            </ImageWrapper>
             <BottomSection>
                 <HomeBottom />
             </BottomSection>
@@ -43,9 +47,16 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: column;
-    padding: 4rem 2.5rem;
+    padding: 2.5rem 2.5rem;
+    background: linear-gradient(
+            to bottom,
+            #ffffff 0%,
+            #e6f7f1 30%,
+            #b2e7d4 50%,
+            #49c48f 100%
+    );
 `;
 
 const TitleSection = styled.div`
@@ -53,7 +64,6 @@ const TitleSection = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    margin-top: 4rem;
 `;
 
 const HomeTitle = styled.div`
@@ -72,23 +82,22 @@ const HeaderText = styled.div`
     flex-direction: row;
 `;
 
-const BoldText = styled.p`
-    font-size: 24px;
-    font-weight: 700;
+const BoldText = styled.div`
+    font-size: 1.25rem;
+    font-weight: 600;
     color: black;
-    line-height: 2;
 `;
 
 const HighlightText = styled.p`
-    font-size: 26px;
+    font-size: 1.9rem;
     font-weight: 700;
-    color: #1A6F6F;
+    color: #26957A;
 `;
 
 const NormalText = styled.p`
-    font-size: 26px;
-    font-weight: 400;
-    color: black;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #161b16;
 `;
 
 const ButtonSection = styled.div`
@@ -104,7 +113,7 @@ const PostButton = styled.button`
     justify-content: center;
     align-items: center;
     background-color: #49C48F;
-    padding: 15px 20px;
+    padding: 1rem 1.5rem;
     border-radius: 30px;
     border: none;
     gap: 0.5rem;
@@ -123,7 +132,7 @@ const PostButton = styled.button`
 `;
 
 const Text = styled.p`
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
 `;
@@ -132,6 +141,27 @@ const Text = styled.p`
 const BottomSection = styled.div`
     display: flex;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     align-items: center;
+`;
+
+const ImageWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Image = styled.img`
+  object-fit: contain;
+`;
+
+const Shadow = styled.div`
+    width: 6rem;
+    height: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  filter: blur(8px);
+  border-radius: 100%;
+  z-index: 0;
 `;

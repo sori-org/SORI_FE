@@ -17,5 +17,5 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 1rem;
+    padding-top: 5vh;
 `;

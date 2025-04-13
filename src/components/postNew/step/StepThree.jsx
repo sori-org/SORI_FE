@@ -45,7 +45,6 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    padding: 10px 0;
 `;
 
 const ButtonSection = styled.div`

@@ -1,13 +1,20 @@
 import styled from "styled-components";
-import MyHeader from "../common/header/MyHeader.jsx";
+import Header from "../common/header/Header.jsx";
 import Profile from "../../assets/img_profile.svg"
 import StoreInfoCard from "./profile/StoreInfoCard.jsx";
 import StoreList from "./profile/StoreList.jsx";
+import {useEffect} from "react";
+import {useHeaderStore} from "../../store/useHeaderStore.js";
 
 function MyMainScreen() {
+    const setTitle = useHeaderStore((state) => state.setTitle);
+
+    useEffect(() => {
+        setTitle("My Page");
+    }, []);
+
     return (
         <Container>
-            <MyHeader title={"My page"} />
             <ProfileSection>
                 <img src={Profile} alt={"프로필 사진"}></img>
                 <Title>
@@ -26,7 +33,7 @@ export default MyMainScreen;
 const Container = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -49,7 +56,6 @@ const ProfileSection = styled.div`
     width: 100%;
     gap: 1rem;
     padding: 1rem 0;
-    margin-bottom: 2rem;
 `;
 
 const Logout = styled.div`
@@ -61,5 +67,4 @@ const Logout = styled.div`
     font-size: 0.8rem;
     font-weight: 500;
     color: #999999;
-    border-bottom: 2px solid #999999;
 `;

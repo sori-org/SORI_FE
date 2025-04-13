@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layouts/Layout.jsx";
+import PostHeaderLayout from "../layouts/PostHeaderLayout.jsx";
 
 import LoginPage from "../pages/auth/LoginPage.jsx";
 import StoreRegisterPage from "../pages/store/StoreRegisterPage.jsx";
@@ -13,38 +14,46 @@ import MyPage from "../pages/my/MyPage.jsx";
 import ProfilePage from "../pages/my/ProfilePage.jsx";
 import ModifyPage from "../pages/my/ModifyPage.jsx";
 
-import NotFoundPage from "../pages/common/NotFoundPage.jsx"; // 404 페이지도 만들어두면 좋아!
+import NotFoundPage from "../pages/common/NotFoundPage.jsx";
+import HeaderLayout from "../layouts/HeaderLayout.jsx";
 
 const router = createBrowserRouter([
+    // ✅ 기본 Layout 그룹
     {
-        path: "/",
         element: <Layout />,
         children: [
-            // 기본 진입: 로그인
-            { path: "", element: <LoginPage /> },
-
-            // 비회원도 접근 가능한 페이지
+            { path: "/", element: <LoginPage /> },
             { path: "store-register", element: <StoreRegisterPage /> },
-
-            // 홈 관련
             { path: "home", element: <HomePage /> },
-            { path: "post-new", element: <PostNewPage /> },
             { path: "loading", element: <LoadingPage /> },
             { path: "result", element: <ResultPage /> },
-
-            // 마이페이지 중첩 경로
-            {
-                path: "mypage",
-                children: [
-                    { path: "", element: <MyPage /> },
-                    { path: "profile", element: <ProfilePage /> },
-                    { path: "modify", element: <ModifyPage /> },
-                ],
-            },
-
-            // 404 fallback
-            { path: "*", element: <NotFoundPage /> },
         ],
+    },
+
+    // ✅ 마이페이지 그룹: MyHeaderLayout 사용
+    {
+        path: "mypage",
+        element: <HeaderLayout />,
+        children: [
+            { path: "", element: <MyPage /> },
+            { path: "profile", element: <ProfilePage /> },
+            { path: "modify", element: <ModifyPage /> },
+        ],
+    },
+
+    // ✅ 콘텐츠 작성 그룹: PostHeaderLayout 사용
+    {
+        path: "post-new",
+        element: <PostHeaderLayout />,
+        children: [
+            { path: "", element: <PostNewPage /> },
+        ],
+    },
+
+    // ✅ 404 fallback
+    {
+        path: "*",
+        element: <NotFoundPage />,
     },
 ]);
 

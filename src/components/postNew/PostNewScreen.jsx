@@ -3,7 +3,6 @@ import StepOne from "./step/StepOne.jsx";
 import StepTwo from "./step/StepTwo.jsx";
 import StepThree from "./step/StepThree.jsx";
 import useFormStore from "../../store/useFormStore.js";
-import Header from "../common/header/Header.jsx";
 import StepFour from "./step/StepFour.jsx";
 import StepFive from "./step/StepFive.jsx";
 import {useNavigate} from "react-router-dom";
@@ -45,7 +44,6 @@ function PostNewScreen() {
     return (
         <Container>
             <HeaderContainer>
-                <Header />
                 <MultiStepFormHeader />
                 {tipSlides[currentStepIndex]?.length > 0 && (
                     <TipSection onClick={handleTagClick}>TIP!</TipSection>
@@ -69,13 +67,13 @@ export default PostNewScreen;
 
 const TipSection = styled.button`
     position: absolute;
-    bottom: -1rem;
-    right: 1rem;
+    bottom: -3rem;
+    right: 2rem;
     background-color: #49C48F;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 600;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -93,7 +91,7 @@ const TipSection = styled.button`
 
 const Container = styled.div`
     display: flex;
-    height: 100vh;
+    height: 95vh;
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
@@ -102,7 +100,7 @@ const Container = styled.div`
 
 const HeaderContainer = styled.div`
     width: 100%;
-    padding: 1rem;
+    padding: 0 2rem;
     position: relative;
     display: flex;
     justify-content: center;
@@ -132,8 +130,8 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     border-radius: 30px;
     border: none;

@@ -1,26 +1,21 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../../../assets/img_back.svg';
-import useFormStore from "../../../store/useFormStore.js";
+import HomeButton from '../../../assets/img_home_button.svg';
 
-const Header = () => {
-    const navigate = useNavigate();
-    const { currentStepIndex, prevStep } = useFormStore();
-
+const Header = ({title}) => {
+    const nav = useNavigate();
     const handleBack = () => {
-        if (currentStepIndex === 0) {
-            navigate('/home');
-        } else {
-            prevStep();
-        }
+        nav(-1);
     };
 
     return (
         <HeaderContainer>
-            <BackButtonWrapper onClick={handleBack}>
-                <img src={BackButton} alt="뒤로가기" />
-            </BackButtonWrapper>
-            <Title>{currentStepIndex + 1}/7</Title>
+            <img src={BackButton} alt="뒤로가기" onClick={handleBack} />
+            <Title>{title}</Title>
+            <Icon onClick={() => nav("/home")}>
+                <img src={HomeButton} alt={"홈"}></img>
+            </Icon>
         </HeaderContainer>
     );
 };
@@ -30,29 +25,24 @@ export default Header;
 const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
-    position: relative; 
     width: 100%;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
     max-width: 480px;
-    height: auto;
-    padding-top: 1rem;
-    justify-content: center; /* Title을 수평 중앙 정렬 */
-`;
-
-const BackButtonWrapper = styled.button`
-    position: absolute; /* HeaderContainer 내부에서 절대 위치로 배치 */
-    left: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-
-    img {
-        width: 24px;
-        height: 24px;
-    }
+    padding: 1.5rem 1.5rem;
+    justify-content: space-between;
+    z-index: 1000;
+    background-color: white;
 `;
 
 const Title = styled.div`
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: black;
+`;
+
+const Icon = styled.div`
+    object-fit: contain;
 `;

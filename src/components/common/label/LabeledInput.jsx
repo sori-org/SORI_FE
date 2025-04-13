@@ -34,6 +34,7 @@ const Wrapper = styled.div`
 const Label = styled.span`
     font-size: 0.9rem;
     font-weight: 600;
+    padding: 0 0.5rem;
 `;
 
 const InputBox = styled.div`

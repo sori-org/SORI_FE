@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { searchPlaceByKeyword } from "../../apis/naver/searchPlaceByKeyword.js";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
+import Sori from "../../assets/img_home_sori.svg"
 
 function StoreRegisterPage() {
     const { register, handleSubmit, setValue } = useForm();
@@ -27,12 +28,14 @@ function StoreRegisterPage() {
     };
 
     const onSubmit = (data) => {
-        console.log("✅ 등록된 가게 정보:", data);
+        console.log(" 등록된 가게 정보:", data);
         nav("/home");
     };
 
     return (
         <Container onSubmit={handleSubmit(onSubmit)}>
+            <Icon src={Sori}/>
+            <Title>소리에서 사용할 <br/> 가게를 등록해주세요!</Title>
             <Label>가게 키워드 검색</Label>
             <SearchBox>
                 <Input
@@ -57,10 +60,10 @@ function StoreRegisterPage() {
             )}
 
             <Label>선택된 가게 정보</Label>
-            <Input {...register("storeName")} placeholder="가게명" readOnly />
-            <Input {...register("category")} placeholder="카테고리" readOnly />
-            <Input {...register("location")} placeholder="주소" readOnly />
-            <Input {...register("description")} placeholder="설명" readOnly />
+            <Input {...register("storeName")} placeholder="가게명" readOnly/>
+            <Input {...register("category")} placeholder="카테고리" readOnly/>
+            <Input {...register("location")} placeholder="주소" readOnly/>
+            <Input {...register("description")} placeholder="설명" readOnly/>
 
             <SubmitButton type="submit">등록하기</SubmitButton>
         </Container>
@@ -80,6 +83,21 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
+const Icon = styled.img`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto;
+`;
+
+const Title = styled.p`
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 2rem;
+`;
 const Label = styled.label`
   font-weight: 600;
   margin-top: 0.5rem;

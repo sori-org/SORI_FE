@@ -16,6 +16,7 @@ import ModifyPage from "../pages/my/ModifyPage.jsx";
 
 import NotFoundPage from "../pages/common/NotFoundPage.jsx";
 import HeaderLayout from "../layouts/HeaderLayout.jsx";
+import KakaoCallbackPage from "../pages/auth/KakaoCallbackPage.jsx";
 
 const router = createBrowserRouter([
     // ✅ 기본 Layout 그룹
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
             { path: "home", element: <HomePage /> },
             { path: "loading", element: <LoadingPage /> },
             { path: "result", element: <ResultPage /> },
+            { path: "kakao/callback", element: <KakaoCallbackPage />},
         ],
     },
 

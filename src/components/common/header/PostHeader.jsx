@@ -34,11 +34,12 @@ const HeaderContainer = styled.div`
     align-items: center;
     width: 100%;
     max-width: 480px;
+    height: auto;
     position: fixed;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     z-index: 500;
     background-color: white;
 `;

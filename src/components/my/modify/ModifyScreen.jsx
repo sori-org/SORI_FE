@@ -4,6 +4,7 @@ import ModifyProfile from "./ModifyProfile.jsx";
 import ModifyStore from "./ModifyStore.jsx";
 
 function ModifyScreen() {
+
     return (
         <Container>
             <Header title={"프로필 수정"}/>

@@ -17,10 +17,10 @@ function LoginPage() {
         navigate("/home");
     };
 
-
+    //
     // const handleKakaoLogin = () => {
     //     const KAKAO_JAVASCRIPT_KEY = import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY;
-    //     const REDIRECT_URI = "http://localhost:5173/kakao/callback";
+    //     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
     //
     //     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_JAVASCRIPT_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     // }

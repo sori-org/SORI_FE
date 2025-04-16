@@ -1,12 +1,19 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-function StoreCard({ label, value, isMain, onClickSetMain}) {
+function StoreCard({ label, value, isMain, onClickSetMain }) {
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate("/mypage/store-modify");
+    };
+
     return (
         <Wrapper>
             <TopSection>
                 <Label>{label}</Label>
                 <Actions>
-                    <ActionText>수정</ActionText>
+                    <ActionText onClick={handleEdit}>수정</ActionText>
                     <ActionText>삭제</ActionText>
                 </Actions>
             </TopSection>
@@ -23,6 +30,7 @@ function StoreCard({ label, value, isMain, onClickSetMain}) {
 }
 
 export default StoreCard;
+
 
 const Wrapper = styled.div`
     display: flex;

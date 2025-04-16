@@ -4,7 +4,9 @@ import {useUserStore} from "../../store/useUserStore.js";
 import styled from "styled-components";
 import axios from "axios";
 
+
 function KakaoCallbackPage() {
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const navigate = useNavigate();
     const setUser = useUserStore((state) => state.setUser);
 
@@ -13,24 +15,24 @@ function KakaoCallbackPage() {
         const code = params.get("code");
 
         if (code) {
-            console.log("카카오 인가코드:", code);
-
-            axios.post("http://ec2-44-208-199-212.compute-1.amazonaws.com/kakao/callback",
-                {
-                    code: code,
-                    redirectUri: "http://localhost:5173/kakao/callback"
+            axios.post(`${BACKEND_URL}/kakao/callback`, {
+                code: code,
+                redirectUri: "http://localhost:5173/kakao/callback"
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
+            })
+
                 .then((res) => {
-                    const userData = res.data;
-                    setUser(userData);
-                    localStorage.setItem("user", JSON.stringify(userData));
-                    navigate("/home");
+                    const jwt = res.data.token;
+                    localStorage.setItem("token", jwt);
+                    axios.get("/user/me",{
+                        headers: {Authorization: `Bearer ${jwt}`}
+                    }).then((res) => {
+                        setUser(res.data);
+                        navigate("/home");
+                    })
                 })
                 .catch((err) => {
                     console.error("카카오 로그인 실패:", err);

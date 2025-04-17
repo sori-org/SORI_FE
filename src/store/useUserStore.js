@@ -1,10 +1,8 @@
 import { create } from 'zustand';
 
-const LOCAL_STORAGE_KEY = 'user';
-
 export const useUserStore = create((set, get) => ({
     // 1. 초기값: localStorage에 있으면 불러오기, 없으면 기본값
-    user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {
+    user: JSON.parse(localStorage.getItem("user")) || {
         userId: null,
         accountId: null,
         displayName: '',
@@ -13,9 +11,9 @@ export const useUserStore = create((set, get) => ({
         storeList: [],
     },
 
-    // 2. 유저 정보 설정 + localStorage 동기화
     setUser: (userData) => {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userData));
+        const serialized = JSON.stringify(userData);
+        localStorage.setItem("user", serialized);
         set({ user: userData });
     },
 
@@ -25,13 +23,14 @@ export const useUserStore = create((set, get) => ({
         if (!current) return;
 
         const updatedUser = { ...current, mainStoreId: storeId };
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedUser));
+        localStorage.setItem("user", JSON.stringify(updatedUser));
         set({ user: updatedUser });
     },
 
     // 4. 로그아웃: 상태 초기화 + localStorage 삭제
     logout: () => {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
         set({
             user: {
                 userId: null,

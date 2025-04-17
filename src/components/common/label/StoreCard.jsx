@@ -1,13 +1,30 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import {useControlModal} from "../../../hooks/useControlModal.js";
+import DeleteConfirmModal from "../../my/storeModify/modal/DeleteConfirmModal.jsx";
 
-function StoreCard({ label, value, isMain, onClickSetMain}) {
+function StoreCard({ label, value, isMain, onClickSetMain }) {
+    const navigate = useNavigate();
+    const { modalState, openModal, closeModal } = useControlModal()
+
+    const handleEdit = () => {
+        navigate("/mypage/store-modify");
+    };
+
     return (
         <Wrapper>
             <TopSection>
                 <Label>{label}</Label>
                 <Actions>
-                    <ActionText>수정</ActionText>
-                    <ActionText>삭제</ActionText>
+                    <ActionText onClick={handleEdit}>수정</ActionText>
+                    <ActionText onClick={openModal}>삭제</ActionText>
+                    {modalState && (
+                        <DeleteConfirmModal
+                            storeLabel={label}
+                            storeName={value}
+                            onClose={closeModal}
+                        />
+                    )}
                 </Actions>
             </TopSection>
             <CardBox>
@@ -23,6 +40,7 @@ function StoreCard({ label, value, isMain, onClickSetMain}) {
 }
 
 export default StoreCard;
+
 
 const Wrapper = styled.div`
     display: flex;

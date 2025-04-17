@@ -64,7 +64,8 @@ const Logout = styled.div`
     justify-content: flex-end;
     padding: 2rem;
     width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: #999999;
+    color: #767676;
+    cursor: pointer;
 `;

@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import Header from "../../common/header/Header.jsx";
-import ModifyProfile from "./ModifyProfile.jsx";
-import ModifyStore from "./ModifyStore.jsx";
+import StoreSection from "./StoreSection.jsx";
 
-function ModifyScreen() {
+function StoreModifyScreen() {
+
 
     return (
         <Container>
-            <Header title={"프로필 수정"}/>
-            <ModifyProfile />
-            <ModifyStore />
+            <Header title="가게 정보 수정" />
+            <StoreSection />
             <ButtonSection>
                 <CancelButton>취소</CancelButton>
                 <ModifyButton>수정 완료</ModifyButton>
@@ -18,7 +17,8 @@ function ModifyScreen() {
     );
 }
 
-export default ModifyScreen;
+export default StoreModifyScreen;
+
 
 const Container = styled.div`
     display: flex;

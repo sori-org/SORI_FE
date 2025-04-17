@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Header from "../common/header/Header.jsx";
 import Profile from "../../assets/img_profile.svg"
 import StoreInfoCard from "./profile/StoreInfoCard.jsx";
 import StoreList from "./profile/StoreList.jsx";

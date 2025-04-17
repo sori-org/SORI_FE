@@ -18,9 +18,9 @@ import NotFoundPage from "../pages/common/NotFoundPage.jsx";
 import HeaderLayout from "../layouts/HeaderLayout.jsx";
 import KakaoCallbackPage from "../pages/auth/KakaoCallbackPage.jsx";
 import StoreModifyPage from "../pages/my/StoreModifyPage.jsx";
+import RecordListPage from "../pages/record/RecordListPage.jsx";
 
 const router = createBrowserRouter([
-    // ✅ 기본 Layout 그룹
     {
         element: <Layout />,
         children: [
@@ -33,7 +33,6 @@ const router = createBrowserRouter([
         ],
     },
 
-    // ✅ 마이페이지 그룹: MyHeaderLayout 사용
     {
         path: "mypage",
         element: <HeaderLayout />,
@@ -45,7 +44,14 @@ const router = createBrowserRouter([
         ],
     },
 
-    // ✅ 콘텐츠 작성 그룹: PostHeaderLayout 사용
+    {
+        path: "record",
+        element: <HeaderLayout />,
+        children: [
+            { path: "", element: <RecordListPage /> },
+        ],
+    },
+
     {
         path: "post-new",
         element: <PostHeaderLayout />,
@@ -54,7 +60,6 @@ const router = createBrowserRouter([
         ],
     },
 
-    // ✅ 404 fallback
     {
         path: "*",
         element: <NotFoundPage />,

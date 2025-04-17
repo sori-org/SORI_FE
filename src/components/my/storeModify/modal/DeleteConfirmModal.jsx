@@ -31,9 +31,9 @@ const Overlay = styled.div`
     z-index: 1000;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3); /* 반투명 검정 배경 */
-    backdrop-filter: blur(6px); /* ✨ 블러 효과 */
-    -webkit-backdrop-filter: blur(6px); /* Safari 지원용 */
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: flex;
     justify-content: center;
     align-items: center;

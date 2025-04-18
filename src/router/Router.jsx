@@ -19,6 +19,7 @@ import HeaderLayout from "../layouts/HeaderLayout.jsx";
 import KakaoCallbackPage from "../pages/auth/KakaoCallbackPage.jsx";
 import StoreModifyPage from "../pages/my/StoreModifyPage.jsx";
 import RecordListPage from "../pages/record/RecordListPage.jsx";
+import RecordDetailPage from "../pages/record/RecordDetailPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
         element: <HeaderLayout />,
         children: [
             { path: "", element: <RecordListPage /> },
+            { path: ":id", element: <RecordDetailPage /> },
         ],
     },
 

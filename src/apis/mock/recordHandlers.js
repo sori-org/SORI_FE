@@ -23,16 +23,14 @@ const mockDetail = {
     hashtag: '#koreanfood'
 };
 
+
 export const recordHandlers = [
-    // 전체 기록 조회 (정렬 X)
     http.get('/api/contents', () => {
         return HttpResponse.json(mockList);
     }),
 
-    // 단건 기록 조회
     http.get('/api/contents/:id', ({ params }) => {
-        const { id } = params;
-        if (id === '1') return HttpResponse.json(mockDetail); // 단건 예시
-        return HttpResponse.json({ message: "Not found" }, { status: 404 });
-    })
+        const data = mockList.find(item => item.content_id === Number(params.id));
+        return data ? HttpResponse.json(data) : HttpResponse.json({ error: 'Not Found' }, { status: 404 });
+    }),
 ];

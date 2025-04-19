@@ -1,27 +1,17 @@
 import styled from "styled-components";
 import ArrowIcon from "../../assets/img_arrow_right.svg";
-import { useMemo } from "react";
-import posts from "../../apis/mock/mockPosts.js"
 
 function formatDate(dateString) {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
 
-function RecordPostList({ sortOrder = "desc" }) {
-
-    const sortedPosts = useMemo(() => {
-        return [...posts].sort((a, b) => {
-            const aTime = new Date(a.created_at).getTime();
-            const bTime = new Date(b.created_at).getTime();
-            return sortOrder === "desc" ? bTime - aTime : aTime - bTime;
-        });
-    }, [sortOrder]);
+function RecordPostList({ posts }) {
 
     return (
         <Container>
-            {sortedPosts.map((post) => (
-                <PostItem key={post.id}>
+            {posts.map((post) => (
+                <PostItem key={post.content_id}>
                     <PostText>
                         <DateText>{formatDate(post.created_at)} 게시물</DateText>
                         <TitleText>{post.title}</TitleText>

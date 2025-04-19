@@ -8,7 +8,9 @@ function SortSelector({ sortOrder = "desc", onChangeSort }) {
     const handleToggle = () => setOpen((prev) => !prev);
 
     const handleSelect = (order) => {
-        onChangeSort(order);
+        if (onChangeSort) {
+            onChangeSort(order);
+        }
         setOpen(false);
     };
 

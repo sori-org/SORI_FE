@@ -7,7 +7,7 @@ if (import.meta.env.DEV) {
     const { worker } = await import('./apis/mock/browser');
     await worker.start({
         serviceWorker: {
-            url: '/mockServiceWorker.js', // 이 경로가 public/ 기준이야
+            url: '/mockServiceWorker.js',
         },
     });
 }

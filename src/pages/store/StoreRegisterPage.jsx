@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { searchPlaceByKeyword } from "../../apis/naver/searchPlaceByKeyword.js";
+import { searchPlaceByKeyword } from "../../apis/register/serachPlaceByKeyword.js";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import Sori from "../../assets/img_home_sori.svg"
@@ -13,19 +13,22 @@ function StoreRegisterPage() {
 
     const onSearch = async () => {
         if (!keyword) return;
-        const res = await searchPlaceByKeyword(keyword);
-        setResults(res);
+        try {
+            const res = await searchPlaceByKeyword(keyword);
+            setResults(res.data);
+        } catch (e) {
+            console.error("검색 실패:", e);
+        }
     };
-
-    const stripHTML = (html) => html.replace(/<[^>]+>/g, "");
 
     const handleSelect = (place) => {
-        setValue("storeName", stripHTML(place.title));
+        setValue("storeName", place.title);
         setValue("category", place.category);
-        setValue("description", place.description || "(설명 없음)");
-        setValue("location", place.roadAddress || place.address);
-        setResults([]); // 선택하면 리스트 닫기
+        setValue("description", "(설명 없음)"); // 백엔드 응답에 없음
+        setValue("location", place.address); // roadAddress 없음
+        setResults([]); // 리스트 닫기
     };
+
 
     const onSubmit = (data) => {
         console.log(" 등록된 가게 정보:", data);
@@ -50,10 +53,10 @@ function StoreRegisterPage() {
                 <ResultList>
                     {results.map((place, idx) => (
                         <ResultItem key={idx} onClick={() => handleSelect(place)}>
-                            <PlaceName>{stripHTML(place.title)}</PlaceName>
-                            <PlaceAddress>{place.roadAddress || place.address}</PlaceAddress>
+                            <PlaceName>{place.title}</PlaceName>
+                            <PlaceAddress>{place.address}</PlaceAddress>
                             {place.category && <PlacePhone>카테고리: {place.category}</PlacePhone>}
-                            <PlacePhone>설명: {place.description || "(없음)"}</PlacePhone>
+                            <PlacePhone>설명: (없음)</PlacePhone>
                         </ResultItem>
                     ))}
                 </ResultList>

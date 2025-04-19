@@ -25,12 +25,17 @@ const mockDetail = {
 
 
 export const recordHandlers = [
+    // 전체 기록 조회
     http.get('/api/contents', () => {
         return HttpResponse.json(mockList);
     }),
 
+    // 단건 기록 조회
     http.get('/api/contents/:id', ({ params }) => {
-        const data = mockList.find(item => item.content_id === Number(params.id));
-        return data ? HttpResponse.json(data) : HttpResponse.json({ error: 'Not Found' }, { status: 404 });
+        const { id } = params;
+        const data = mockDetail[id];
+        return data
+            ? HttpResponse.json(data)
+            : HttpResponse.json({ error: 'Not Found' }, { status: 404 });
     }),
 ];

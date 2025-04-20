@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import StoreRegisterScreen from '../../components/store/StoreRegisterScreen';
+import StoreDescriptionScreen from "../../components/store/StoreDescriptionScreen.jsx";
 
-const StoreRegisterPage = () => {
+const StoreDescriptionPage = () => {
     return (
         <Container>
-            <StoreRegisterScreen />
+            <StoreDescriptionScreen />
         </Container>
     );
-};
+}
 
-export default StoreRegisterPage;
+export default StoreDescriptionPage;
 
 const Container = styled.div`
     width: 100%;

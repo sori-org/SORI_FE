@@ -1,12 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-const instance = axios.create({
-    baseURL: '/', // MSW base URL
+const axiosInstance = axios.create({
+    baseURL: import.meta.env.VITE_BACKEND_URL,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
 });
 
-export default instance;
-
-
+export default axiosInstance;

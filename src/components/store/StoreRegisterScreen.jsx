@@ -68,7 +68,6 @@ const Title = styled.div`
 `;
 
 const SubmitButton = styled.button`
-    margin-top: 1rem;
     padding: 1rem;
     font-size: 1rem;
     background-color: #49c48f;

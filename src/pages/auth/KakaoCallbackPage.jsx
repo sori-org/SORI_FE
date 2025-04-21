@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/useUserStore.js";
 import styled from "styled-components";
 import { useKakaoLogin } from "../../hooks/mutation/useKakaoLogin.js";
-import axiosInstance from "../../apis/axiosInstance.js"; // ✅ 공통 axios 사용
+import axiosInstance from "../../apis/axiosInstance.js";
 
 function KakaoCallbackPage() {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;

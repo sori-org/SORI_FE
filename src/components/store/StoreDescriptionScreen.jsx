@@ -6,7 +6,7 @@ import TipIcon from "../../assets/img_tip.svg";
 import SoriImg from "../../assets/img_register.svg";
 import { useRegisterStore } from "../../hooks/mutation/useRegisterStore.js";
 import { useUserStore } from "../../store/useUserStore.js";
-import axiosInstance from "../../apis/axiosInstance.js";
+import {getUser} from "../../apis/user/getUser.js";
 
 function StoreDescriptionScreen() {
     const { register, handleSubmit } = useForm();
@@ -33,8 +33,9 @@ function StoreDescriptionScreen() {
         mutate(storeData, {
             onSuccess: async () => {
                 try {
-                    const res = await axiosInstance.get("/api/users/me");
-                    setUser(res.data);
+                    await new Promise((res) => setTimeout(res, 500)); // 잠깐 딜레이
+                    const userInfo = await getUser();
+                    setUser(userInfo);
                     navigate("/home");
                 } catch (e) {
                     console.error("등록 후 유저 정보 갱신 실패", e);

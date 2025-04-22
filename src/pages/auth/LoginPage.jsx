@@ -5,25 +5,34 @@ import {useNavigate} from "react-router-dom";
 import KakaoImage from "../../assets/img_kakao.svg";
 import RabbitImage from "../../assets/img_profile.svg";
 import SoundImage from "../../assets/img_sound.svg";
+import {useEffect} from "react";
 
 function LoginPage() {
-    const setUser = useUserStore((state) => state.setUser);
     const navigate = useNavigate();
 
-    // mock 데이터로 테스트
-    const handleMockLogin = () => {
-        setUser(mockUser);
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        navigate("/home");
-    };
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+        const user = localStorage.getItem("user");
 
-    //
-    // const handleKakaoLogin = () => {
-    //     const KAKAO_JAVASCRIPT_KEY = import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY;
-    //     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
-    //
-    //     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_JAVASCRIPT_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    // }
+        if (!token || !user) {
+            navigate("/"); // 비로그인 상태 → 로그인 페이지
+        } else {
+            const parsedUser = JSON.parse(user);
+            if (parsedUser.main_store_id === null) {
+                navigate("/register"); // 가게 등록 필요
+            } else {
+                navigate("/home"); // 홈으로 이동
+            }
+        }
+    }, [navigate]);
+
+
+    const handleKakaoLogin = () => {
+        const KAKAO_JAVASCRIPT_KEY = import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY;
+        const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
+        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_JAVASCRIPT_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    }
 
     return (
         <Container>
@@ -32,7 +41,7 @@ function LoginPage() {
                 <img src={SoundImage} alt="소리" />
                 <Highlight>소리</Highlight>와 함께
             </Title>
-            <LoginButton src={KakaoImage} alt="카카오 로그인" onClick={handleMockLogin} />
+            <LoginButton src={KakaoImage} alt="카카오 로그인" onClick={handleKakaoLogin} />
         </Container>
     );
 }

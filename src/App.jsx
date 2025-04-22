@@ -1,14 +1,19 @@
 import {RouterProvider} from 'react-router-dom';
-import router from './router/Router.jsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import GlobalStyle from './style/GlobalStyle.js';
+import router from './router/Router.jsx';
+
+const queryClient = new QueryClient();
+
 
 function App() {
-
     return (
-        <>
-            <GlobalStyle/>
-            <RouterProvider router={router}/>
-        </>
+        <QueryClientProvider client={queryClient}>
+            <GlobalStyle />
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
     );
 }
 

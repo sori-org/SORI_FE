@@ -1,19 +1,18 @@
 import styled from 'styled-components';
-import StoreRegisterScreen from '../../components/store/StoreRegisterScreen';
 
-const StoreRegisterPage = () => {
+const RecordDetailPage = () => {
     return (
         <Container>
-            <StoreRegisterScreen />
+            <RecordDetailScreen />
         </Container>
     );
-};
+}
 
-export default StoreRegisterPage;
+export default RecordDetailPage;
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

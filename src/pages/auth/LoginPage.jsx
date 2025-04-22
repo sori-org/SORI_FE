@@ -17,12 +17,7 @@ function LoginPage() {
         if (!token || !user) {
             navigate("/"); // 비로그인 상태 → 로그인 페이지
         } else {
-            const parsedUser = JSON.parse(user);
-            if (parsedUser.main_store_id === null) {
-                navigate("/register"); // 가게 등록 필요
-            } else {
-                navigate("/home"); // 홈으로 이동
-            }
+            navigate("/home"); // 홈으로 이동
         }
     }, [navigate]);
 

@@ -5,6 +5,5 @@ export const useRecordDetail = (id) => {
     return useQuery({
         queryKey: ['record', id],
         queryFn: () => getRecordDetail(id),
-        enabled: !!id,
     });
 };

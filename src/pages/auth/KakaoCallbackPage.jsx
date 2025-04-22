@@ -24,6 +24,7 @@ function KakaoCallbackPage() {
                 { code, redirectUri: REDIRECT_URI },
                 {
                     onSuccess: async (data) => {
+                        console.log(data)
                         const access_token = data.jwt;
                         localStorage.setItem("accessToken", access_token);
 

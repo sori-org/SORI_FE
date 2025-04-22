@@ -1,21 +1,17 @@
 import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
-import { useUserStore } from "../../../store/useUserStore.js";
 
-function StoreList() {
-    const user = useUserStore((state) => state.user);
+function StoreList({ storeList, mainStoreId }) {
+    if (!storeList) return null;
 
-    if (!user) return null; // user 없으면 아무것도 안 그리기
-
-    // 대표 가게가 맨 위로 오도록 정렬
-    const sortedStores = [...user.storeList].sort((a, b) => {
-        if (a.id === user.mainStoreId) return -1;
-        if (b.id === user.mainStoreId) return 1;
+    // 대표 점포가 맨 위로 오도록 정렬
+    const sortedStores = [...storeList].sort((a, b) => {
+        if (a.id === mainStoreId) return -1;
+        if (b.id === mainStoreId) return 1;
         return 0;
     });
 
-    console.log("user: ", user);
     return (
         <Container>
             <Title>
@@ -28,13 +24,14 @@ function StoreList() {
                     <StepItem
                         key={item.id}
                         item={item}
-                        isMain={item.id === user.mainStoreId}
+                        isMain={item.id === mainStoreId}
                     />
                 ))}
             </ListContainer>
         </Container>
     );
 }
+
 
 export default StoreList;
 

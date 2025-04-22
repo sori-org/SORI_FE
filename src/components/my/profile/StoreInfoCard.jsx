@@ -1,20 +1,15 @@
 import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
-import {useUserStore} from "../../../store/useUserStore.js";
 import PencilIcon from "../../../assets/img_pencil.svg";
 import {useNavigate} from "react-router-dom";
 
-function StoreInfoCard() {
-    const user = useUserStore((state) => state.user);
+function StoreInfoCard({mainStore}) {
     const navigate = useNavigate();
 
     const handleEditClick = () => {
         navigate("/mypage/modify");
     };
 
-    if (!user || !user.mainStoreId) return null;
-
-    const mainStore = user.storeList.find(store => store.id === user.mainStoreId);
     if (!mainStore) return null;
 
     return (

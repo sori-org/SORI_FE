@@ -40,7 +40,7 @@ export const myPageHandlers = [
     }),
 
     // 소유 점포 목록 조회
-    http.get('/api/stores/my', () => {
+    http.get('/api/my/stores', () => {
         return HttpResponse.json(mockUser.storeList);
     }),
 ];

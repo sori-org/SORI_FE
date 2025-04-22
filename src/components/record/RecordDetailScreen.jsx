@@ -4,6 +4,8 @@ import { useHeaderStore } from "../../store/useHeaderStore.js";
 import { useParams } from "react-router-dom";
 import { useRecordDetail } from "../../hooks/query/useRecordDetail.js";
 import {formatDate} from "../../utils/formatDate.js";
+import RecordImageSection from "./RecordImageSection.jsx";
+import RecordTextSection from "./RecordTextSection.jsx";
 
 
 function RecordDetailScreen() {
@@ -26,11 +28,8 @@ function RecordDetailScreen() {
 
     return (
         <Container>
-            <h1>{data.store_name}</h1>
-            <p>작성일: {new Date(data.created_at).toLocaleDateString()}</p>
-            <img src={data.result_image} alt="결과 이미지" width="300" />
-            <p>{data.text}</p>
-            <p>{data.hashtag}</p>
+            <RecordImageSection imageUrl={data.result_image} />
+            <RecordTextSection text={data.text} hashtags={data.hashtag} />
         </Container>
     );
 }
@@ -44,6 +43,6 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 2rem;
-    gap: 1rem;
+    padding: 0 2rem;
+    overflow-y: auto;
 `;

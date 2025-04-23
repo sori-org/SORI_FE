@@ -1,7 +1,9 @@
 import { recordHandlers } from './recordHandlers.js';
-import {myPageHandlers} from "./myPageHandlers.js";
+import {userHandlers} from "./userHandlers.js";
+import {storeHandlers} from "./storeHandlers.js";
 
 export const handlers = [
     ...recordHandlers,
-    ...myPageHandlers,
+    ...userHandlers,
+    ...storeHandlers,
 ];

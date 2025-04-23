@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import StoreCard from "../../common/label/StoreCard.jsx";
 import { useMyStores } from "../../../hooks/query/useMyStores.js";
-import { useMyUser } from "../../../hooks/query/useMyUser.js"; // 대표점포 판단용
+import { useMyUser } from "../../../hooks/query/useMyUser.js";
+import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
 
 function ModifyStore() {
     const { data: stores, isPending } = useMyStores();
     const { data: user } = useMyUser();
+    const { mutate: setMainStore } = useSetMainStore();
 
     if (isPending || !stores || !user) return <p>로딩 중...</p>;
 
@@ -13,12 +15,12 @@ function ModifyStore() {
         <Container>
             {stores.map((store, index) => (
                 <StoreCard
-                    key={index}
+                    key={store.store_id}
                     label={`소유 점포 ${index + 1}`}
-                    value={store.name}
-                    isMain={user.mainStoreId === store.id}
+                    value={store.store_name}
+                    isMain={store.isMain}
                     onClickSetMain={() => {
-                        console.log("대표 점포 설정");
+                        setMainStore(store.store_id);
                     }}
                 />
             ))}

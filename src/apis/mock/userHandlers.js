@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw';
 
-const mockUser = {
+export let mockUser = {
     userId: 1,
     accountId: 1001,
     displayName: "김충영",
-    mainStoreId: 2,
+    mainStoreId: 3,
     storeList: [
         {
             id: 1,
@@ -33,14 +33,16 @@ const mockUser = {
     ],
 };
 
-export const myPageHandlers = [
-    // 마이페이지 유저 정보 조회
+export const userHandlers = [
     http.get('/api/my/user', () => {
-        return HttpResponse.json(mockUser);
+        return HttpResponse.json({
+            ...mockUser,
+            main_store_id: mockUser.mainStoreId
+        });
     }),
-
-    // 소유 점포 목록 조회
-    http.get('/api/my/stores', () => {
-        return HttpResponse.json(mockUser.storeList);
+    http.patch("/api/user/nickname", async ({ request }) => {
+        const body = await request.json();
+        mockUser.displayName = body.displayName;
+        return HttpResponse.json({ message: "닉네임 수정 완료", displayName: mockUser.displayName });
     }),
 ];

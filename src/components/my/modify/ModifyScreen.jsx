@@ -36,7 +36,7 @@ function ModifyScreen() {
         <Container>
             <Header title={"프로필 수정"} />
             <ModifyProfile ownerName={ownerName} setOwnerName={setOwnerName} />
-            {/*<ModifyStore />*/}
+            <ModifyStore />
             <ButtonSection>
                 <CancelButton>취소</CancelButton>
                 <ModifyButton onClick={handleModifyAll}>수정 완료</ModifyButton>

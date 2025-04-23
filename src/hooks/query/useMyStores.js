@@ -5,6 +5,6 @@ export const useMyStores = () => {
     return useQuery({
         queryKey: ['myStores'],
         queryFn: getMyStores,
-        staleTime: 10 * 1000, // 10초
+        staleTime: 0
     });
 };

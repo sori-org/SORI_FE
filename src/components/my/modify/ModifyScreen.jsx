@@ -2,17 +2,44 @@ import styled from "styled-components";
 import Header from "../../common/header/Header.jsx";
 import ModifyProfile from "./ModifyProfile.jsx";
 import ModifyStore from "./ModifyStore.jsx";
+import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
+import {useUserStore} from "../../../store/useUserStore.js";
+import {useState} from "react";
 
 function ModifyScreen() {
+    const user = useUserStore((state) => state.user);
+    const setUser = useUserStore((state) => state.setUser);
+    const { mutate } = useUpdateNickname();
+
+    const [ownerName, setOwnerName] = useState(user.display_name || "");
+
+    const handleNicknameUpdate = () => {
+        if (!ownerName.trim()) return;
+
+        mutate(ownerName, {
+            onSuccess: () => {
+                setUser({ ...user, display_name: ownerName });
+                alert("닉네임이 수정되었습니다!");
+            },
+            onError: () => {
+                alert("닉네임 수정 실패");
+            },
+        });
+    };
+
+    const handleModifyAll = () => {
+        handleNicknameUpdate();
+        // ➕ 여기에 가게 관련 수정 로직도 추가 예정
+    };
 
     return (
         <Container>
-            <Header title={"프로필 수정"}/>
-            <ModifyProfile />
-            <ModifyStore />
+            <Header title={"프로필 수정"} />
+            <ModifyProfile ownerName={ownerName} setOwnerName={setOwnerName} />
+            {/*<ModifyStore />*/}
             <ButtonSection>
                 <CancelButton>취소</CancelButton>
-                <ModifyButton>수정 완료</ModifyButton>
+                <ModifyButton onClick={handleModifyAll}>수정 완료</ModifyButton>
             </ButtonSection>
         </Container>
     );

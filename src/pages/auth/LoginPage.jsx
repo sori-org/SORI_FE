@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import {useUserStore} from "../../store/useUserStore.js";
-import {mockUser} from "../../apis/mock/mockUser.js"
 import {useNavigate} from "react-router-dom";
 import KakaoImage from "../../assets/img_kakao.svg";
 import RabbitImage from "../../assets/img_profile.svg";

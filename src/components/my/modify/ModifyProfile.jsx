@@ -1,28 +1,16 @@
 import styled from "styled-components";
 import Profile from "../../../assets/img_profile.svg"
 import LabeledInput from "../../common/label/LabeledInput.jsx";
-import {useUserStore} from "../../../store/useUserStore.js";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
-function ModifyProfile() {
-    const user = useUserStore((state) => state.user);
-
-    const [ownerName, setOwnerName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-
+function ModifyProfile({ ownerName, setOwnerName }) {
     const [isOwnerFocused, setIsOwnerFocused] = useState(false);
-    const [isPhoneFocused, setIsPhoneFocused] = useState(false);
-
-    useEffect(() => {
-        setOwnerName(user.displayName || "");
-        setPhoneNumber(user.phoneNumber || "");
-    }, [user]);
 
     return (
         <Container>
             <img src={Profile} alt="프로필 사진" />
             <LabeledInput
-                label="대표자 이름"
+                label="닉네임"
                 value={ownerName}
                 onChange={(e) => setOwnerName(e.target.value)}
                 onFocus={() => setIsOwnerFocused(true)}
@@ -30,19 +18,11 @@ function ModifyProfile() {
                 onClear={() => setOwnerName("")}
                 isHighlighted={isOwnerFocused}
             />
-            <LabeledInput
-                label="대표자 전화번호"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                onFocus={() => setIsPhoneFocused(true)}
-                onBlur={() => setIsPhoneFocused(false)}
-                onClear={() => setPhoneNumber("")}
-                isHighlighted={isPhoneFocused}
-            />
             <BottomLine />
         </Container>
     );
 }
+
 
 
 export default ModifyProfile;

@@ -1,21 +1,17 @@
 import styled from "styled-components";
-import {useUserStore} from "../../../store/useUserStore.js";
-import {useEffect, useState} from "react";
 import StoreCard from "../../common/label/StoreCard.jsx";
+import { useMyStores } from "../../../hooks/query/useMyStores.js";
+import { useMyUser } from "../../../hooks/query/useMyUser.js"; // 대표점포 판단용
 
 function ModifyStore() {
-    const user = useUserStore((state) => state.user);
-    const [storeList, setStoreList] = useState([""]);
+    const { data: stores, isPending } = useMyStores();
+    const { data: user } = useMyUser();
 
-    useEffect(() => {
-        if(user.storeList) {
-            setStoreList(user.storeList);
-        }
-    }, [user]);
+    if (isPending || !stores || !user) return <p>로딩 중...</p>;
 
     return (
         <Container>
-            {storeList.map((store, index) => (
+            {stores.map((store, index) => (
                 <StoreCard
                     key={index}
                     label={`소유 점포 ${index + 1}`}
@@ -29,7 +25,6 @@ function ModifyStore() {
         </Container>
     );
 }
-
 
 export default ModifyStore;
 

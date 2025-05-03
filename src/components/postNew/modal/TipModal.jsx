@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import InstagramIcon from "../../../assets/react.svg";
 import {tipSlides} from "../../../constants/postNew/tipSlides.js";
 import ModalPortal from "../../common/modal/ModalPortal.jsx";
 
@@ -15,7 +14,7 @@ function TipModal({step,onClose}) {
         setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     };
     const slides = tipSlides[step] || [];
-    const { title, image, description } = slides[currentIndex];
+    const { title, main_image, title_image, description } = slides[currentIndex];
 
     return (
         <ModalPortal>
@@ -24,11 +23,11 @@ function TipModal({step,onClose}) {
                     <CloseButton onClick={onClose}>×</CloseButton>
                     <Content>
                         <Title>
-                            <img src={InstagramIcon} alt="" />
+                            <img src={title_image} alt="" />
                             {title}
                         </Title>
                         <ImageBox>
-                            <PreviewImage src={image} alt="예시 이미지" />
+                            <PreviewImage src={main_image} alt="예시 이미지" />
                             <ImageLabel>(예시 이미지)</ImageLabel>
                         </ImageBox>
                         <Description>{description}</Description>
@@ -105,9 +104,9 @@ const Title = styled.h2`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: #1a6f6f;
+  color: #26957A;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 1.5rem;
 `;
 
@@ -136,8 +135,9 @@ const Description = styled.p`
   background: #f8f8f8;
   padding: 1rem;
   border-radius: 10px;
-  color: #333;
-  font-size: 14px;
+  font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
 `;
 
 const NavArrow = styled.div.withConfig({

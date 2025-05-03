@@ -1,18 +1,40 @@
-import InstagramIcon from "../../assets/react.svg";
+import InstagramIcon from "../../assets/instagram_title.svg";
+import NaverCafeIcon from "../../assets/naver_title.svg";
+import XIcon from "../../assets/x_title.svg";
 
 export const tipSlides = {
     0: [
         {
-            title: "Step 1 팁",
-            image: InstagramIcon,
-            description: "Step 1에서는 이렇게 해보세요!",
+            title: "인스타그램",
+            title_image: InstagramIcon,
+            main_image: InstagramIcon,
+            description: "♥️ 인스타그램은 감성적, 트렌디한 콘텐츠에 강해요. \n" +
+                "특징으로는 해시태그를 통해 빠른 확산이 가능하며, 스토리를 활용해 빠른 홍보가 가능하다는 장점이 있어요! \n" +
+                "시각적인 요소가 중요할 때 추천드려요. ♥️",
+        },
+        {
+            title: "네이버 카페",
+            title_image: NaverCafeIcon,
+            main_image: InstagramIcon,
+            description: "♥️ 네이버 카페는 특정 관심사를 가진 사람들이 많아요. \n" +
+                "신뢰도가 높은 콘텐츠가 효과적으로 네이버 검색에서 노출 강하다는 장점이 있어요! \n" +
+                "브랜드 후기, 사용기 등을 통해 자연스러운 홍보 가능하고 단발적인 광고보다 지속적인 광고가 중요할 때 추천드려요.♥️",
+        },
+        {
+            title: "X (트위터)",
+            title_image: XIcon,
+            main_image: XIcon,
+            description: "♥️ 트위터는 실시간 트렌드가 중요해요. 해시태그 & 리트윗을 통해 자연스레 확산되고 젊은 층에 강한 영향력을 보여요. \n" +
+                "특정 이슈나 밈으로 고객에게 다가갈 수 있고 고객과 직접적인 소통 및 피드백 수집에 용이하다는 장점이 있어요! \n" +
+                "주 타겟층이 젊은 층이고 밈을 활용해 빠르게 알려지면 좋겠는 분들을 위해 추천드려요.♥️",
         },
     ],
     1: [
         {
-            title: "Step 2 팁",
-            image: InstagramIcon,
-            description: "Step 2에 대한 꿀팁입니다.",
+            title: "인스타그램",
+            title_image: InstagramIcon,
+            main_image: InstagramIcon,
+            description: "Step 1에서는 이렇게 해보세요!",
         },
     ],
     4: [

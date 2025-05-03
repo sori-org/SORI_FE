@@ -19,7 +19,7 @@ function StoreDescriptionScreen() {
     useEffect(() => {
         if (!prevStoreData.store_name) {
             alert("가게 등록 정보를 먼저 입력해주세요.");
-            navigate("/register");
+            navigate(-1);
         }
     }, [prevStoreData, navigate]);
 

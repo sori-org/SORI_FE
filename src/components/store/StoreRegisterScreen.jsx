@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // ✅ useLocation 추가
 import { useState } from "react";
 import SoriImg from "../../assets/img_register.svg";
 import SearchSection from "./SearchSection";
 import StoreInfoPreview from "./StoreInfoPreview";
 
 function StoreRegisterScreen() {
-    const { register, handleSubmit, setValue, watch } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const source = params.get("source") ?? "register"; // 기본은 회원가입
+
     const [results, setResults] = useState([]);
 
     const onSubmit = (data) => {
@@ -27,12 +31,20 @@ function StoreRegisterScreen() {
             <SearchSection setValue={setValue} setResults={setResults} results={results} />
             <StoreInfoPreview register={register} />
 
-            <SubmitButton type="submit">다음</SubmitButton>
+            {source === "mypage" ? (
+                <ButtonGroup>
+                    <SecondaryButton type="button" onClick={() => navigate(-1)}>다음에</SecondaryButton>
+                    <SubmitButton type="submit">등록하기</SubmitButton>
+                </ButtonGroup>
+            ) : (
+                <SubmitButton type="submit">다음</SubmitButton>
+            )}
         </Container>
     );
 }
 
 export default StoreRegisterScreen;
+
 
 const Container = styled.form`
     display: flex;
@@ -68,6 +80,31 @@ const Title = styled.div`
 `;
 
 const SubmitButton = styled.button`
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: #49c48f;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #3ca377;
+    }
+`;
+
+const ButtonGroup = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+`;
+
+const SecondaryButton = styled.button`
+    width: 100%;
     padding: 1rem;
     font-size: 1rem;
     background-color: #49c48f;

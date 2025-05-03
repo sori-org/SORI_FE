@@ -29,7 +29,7 @@ function KakaoCallbackPage() {
                         localStorage.setItem("accessToken", access_token);
 
                         try {
-                            const res = await axiosInstance.get("/api/user/me", {
+                            const res = await axiosInstance.get("/api/users/me", {
                                 headers: {
                                     Authorization: `Bearer ${access_token}`,
                                 },

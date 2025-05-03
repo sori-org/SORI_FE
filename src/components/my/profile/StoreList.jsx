@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
+import {useNavigate} from "react-router-dom";
 
 function StoreList({ storeList, mainStoreId }) {
     if (!storeList) return null;
+    const nav = useNavigate();
 
+    const handleAddClick = () => {
+        nav("/register?source=mypage");
+    }
     // 대표 점포가 맨 위로 오도록 정렬
     const sortedStores = [...storeList].sort((a, b) => {
         if (a.id === mainStoreId) return -1;
@@ -17,7 +22,7 @@ function StoreList({ storeList, mainStoreId }) {
             <Title>
                 <Spacer />
                 <TitleText>소유 점포 목록</TitleText>
-                <img src={AddImage} alt="점포 추가" />
+                <img src={AddImage} alt="점포 추가" onClick={handleAddClick}/>
             </Title>
             <ListContainer>
                 {sortedStores.map((item) => (

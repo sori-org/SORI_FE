@@ -31,7 +31,7 @@ export const tipSlides = {
     ],
     1: [
         {
-            title: "인스타그램",
+            title: "다른정보",
             title_image: InstagramIcon,
             main_image: InstagramIcon,
             description: "Step 1에서는 이렇게 해보세요!",

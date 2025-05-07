@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import TipIcon from "../../assets/img_tip.svg";
 import SoriImg from "../../assets/img_register.svg";
 import { useRegisterStore } from "../../hooks/mutation/useRegisterStore.js";
-import { useUserStore } from "../../store/useUserStore.js";
-import {getUser} from "../../apis/user/getUser.js";
+import {useUserStore} from "../../store/useUserStore.js";
 
 function StoreDescriptionScreen() {
     const { register, handleSubmit } = useForm();
@@ -14,7 +13,7 @@ function StoreDescriptionScreen() {
     const location = useLocation();
     const prevStoreData = location.state || {};
     const { mutate, isPending } = useRegisterStore();
-    const { user, setUser } = useUserStore();
+    const { userId } = useUserStore();
 
     useEffect(() => {
         if (!prevStoreData.store_name) {
@@ -23,23 +22,26 @@ function StoreDescriptionScreen() {
         }
     }, [prevStoreData, navigate]);
 
+    // 이전 정보 있어야 돌아가는 페이지를 다르게 설정 가능함
+    console.log( JSON.stringify(prevStoreData, null, 2))
+
     const onSubmit = (data) => {
         const storeData = {
-            user_id: user.user_id,
+            user_id: userId,
             ...prevStoreData,
             store_description: data.store_description,
         };
 
         mutate(storeData, {
-            onSuccess: async () => {
+            onSuccess: () => {
                 try {
-                    await new Promise((res) => setTimeout(res, 500)); // 잠깐 딜레이
-                    const userInfo = await getUser();
-                    setUser(userInfo);
-                    navigate("/home");
+                    if(location.state?.source === "mypage") {
+                        alert("가게 등록이 완료되었습니다.");
+                        navigate("/mypage");
+                    }
+                    else navigate("/home");
                 } catch (e) {
                     console.error("등록 후 유저 정보 갱신 실패", e);
-                    navigate("/home");
                 }
             },
             onError: (error) => {

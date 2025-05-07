@@ -3,12 +3,16 @@ import PostImage from '../../assets/post.svg';
 import HomeBottom from "./HomeBottom.jsx";
 import {useNavigate} from "react-router-dom";
 import SoriImage from '../../assets/img_home_sori.svg';
+import {useGetUser} from "../../hooks/query/useGetUser.js";
 
 const HomeScreen = () => {
     const nav = useNavigate();
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
+    const { data, isPending, isError } = useGetUser();
+    console.log(data)
+
     return (
         <Container>
             <TitleSection>

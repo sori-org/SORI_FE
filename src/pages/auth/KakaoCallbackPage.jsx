@@ -4,11 +4,12 @@ import { useUserStore } from "../../store/useUserStore.js";
 import styled from "styled-components";
 import { useKakaoLogin } from "../../hooks/mutation/useKakaoLogin.js";
 import axiosInstance from "../../apis/axiosInstance.js";
+import RealLoadingPage from "../common/RealLoadingPage.jsx";
 
 function KakaoCallbackPage() {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
     const navigate = useNavigate();
-    const setUser = useUserStore((state) => state.setUser);
+    const { setUserId } = useUserStore();
     const { mutate } = useKakaoLogin();
 
     useEffect(() => {
@@ -25,19 +26,15 @@ function KakaoCallbackPage() {
                 {
                     onSuccess: async (data) => {
                         console.log(data)
-                        const access_token = data.jwt;
+                        const access_token = data.jwt_token;
                         localStorage.setItem("accessToken", access_token);
 
                         try {
-                            const res = await axiosInstance.get("/api/users/me", {
-                                headers: {
-                                    Authorization: `Bearer ${access_token}`,
-                                },
-                            });
-
+                            const res = await axiosInstance.get("/api/users/me");
+                            console.log(res.data);
                             const userInfo = res.data;
-                            setUser(userInfo);
                             localStorage.setItem("user", JSON.stringify(userInfo));
+                            setUserId(userInfo.user_id);
 
                             if (!userInfo.main_store_id) {
                                 navigate("/register"); // 가게 등록
@@ -58,9 +55,11 @@ function KakaoCallbackPage() {
         };
 
         handleKakaoLogin();
-    }, [mutate, navigate, REDIRECT_URI, setUser]);
+    }, [mutate, navigate, REDIRECT_URI, setUserId]);
 
-    return <Container>로그인 중입니다...</Container>;
+    return (
+        <RealLoadingPage />
+    );
 }
 
 export default KakaoCallbackPage;

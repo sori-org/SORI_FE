@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import LabeledInput from "../../common/label/LabeledInput.jsx";
 import {useState} from "react";
-import {useUserStore} from "../../../store/useUserStore.js";
 import LabeledTextarea from "../../common/label/LabeledTextarea.jsx";
 
 function StoreSection() {
-    const user = useUserStore((state) => state.user);
     const [storeName, setStoreName] = useState("");
     const [storePhoneNumber, setStorePhoneNumber] = useState("");
     const [storeDescription, setStoreDescription] = useState("");

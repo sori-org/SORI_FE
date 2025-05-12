@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import StoreCard from "../../common/label/StoreCard.jsx";
-import { useMyStores } from "../../../hooks/query/useMyStores.js";
+import { useStoreList } from "../../../hooks/query/useStoreList.js";
 import { useMyUser } from "../../../hooks/query/useMyUser.js";
 import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
+import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
+import {data} from "react-router-dom";
 
 function ModifyStore() {
-    const { data: stores, isPending } = useMyStores();
+    const { data: stores, isPending } = useStoreList();
     const { data: user } = useMyUser();
     const { mutate: setMainStore } = useSetMainStore();
 
-    if (isPending || !stores || !user) return <p>로딩 중...</p>;
+    if (isPending || !stores || !user) {
+        return (
+            <Container>
+                {Array.from({ length: 5 }).map((_, i) => (
+                    <StoreCardSkeleton key={i} />
+                ))}
+            </Container>
+        );
+    }
 
     return (
         <Container>
@@ -38,4 +48,5 @@ const Container = styled.div`
     align-items: center;
     padding: 1rem 2rem;
     gap: 1rem;
+    overflow: auto;
 `;

@@ -10,7 +10,7 @@ const HomeScreen = () => {
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
-    const { data, isPending, isError } = useGetUser();
+    const { data } = useGetUser();
     console.log(data)
 
     return (

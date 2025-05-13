@@ -3,12 +3,14 @@ import { create } from 'zustand';
 const useFormStore = create((set) => ({
     currentStepIndex: 0,
     formData: {
-        platform: '',
-        item: '',
-        result: '',
-        whichApi: '',
-        image: '',
-        text: '',
+        storeId: '',
+        snsPlatform: '',
+        promotionTarget: '',
+        promotionName: '',
+        genderTarget: '',
+        ageRangeTarget: '',
+        contentFormat: '',
+        externalSources: [],
     },
     totalSteps: 7,
     nextStep: (totalSteps) => set((state) => ({
@@ -20,11 +22,7 @@ const useFormStore = create((set) => ({
     goToStep: (index, totalSteps) => set(() => ({
         currentStepIndex: (index < 0 || index >= totalSteps) ? 0 : index
     })),
-    resetStep: () => set(() => ({ currentStepIndex: 0 })),
 
-    updateFormData: (newData) => set((state) => ({
-        formData: { ...state.formData, ...newData }
-    }))
 }));
 
 export default useFormStore;

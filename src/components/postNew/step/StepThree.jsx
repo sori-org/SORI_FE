@@ -27,7 +27,7 @@ function StepThree() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.result === option.title}
+                        isSelected={formData.contentFormat === option.title}
                         onClick={() => handleSelect(option.title)}
                     />
                 ))}

@@ -13,24 +13,24 @@ function StoreDescriptionScreen() {
     const location = useLocation();
     const prevStoreData = location.state || {};
     const { mutate, isPending } = useRegisterStore();
-    const { userId } = useUserStore();
+    const { user } = useUserStore();
+
 
     useEffect(() => {
         if (!prevStoreData.store_name) {
-            alert("가게 등록 정보를 먼저 입력해주세요.");
+            alert("가게를 다시 등록해주세요!");
             navigate(-1);
         }
     }, [prevStoreData, navigate]);
 
-    // 이전 정보 있어야 돌아가는 페이지를 다르게 설정 가능함
-    console.log( JSON.stringify(prevStoreData, null, 2))
 
     const onSubmit = (data) => {
         const storeData = {
-            user_id: userId,
+            user_id: user.user_id,
             ...prevStoreData,
             store_description: data.store_description,
         };
+        // console.log("onSubmit data 확인:", data);
 
         mutate(storeData, {
             onSuccess: () => {
@@ -39,7 +39,10 @@ function StoreDescriptionScreen() {
                         alert("가게 등록이 완료되었습니다.");
                         navigate("/mypage");
                     }
-                    else navigate("/home");
+                    else {
+                        alert("가게 등록이 완료되었습니다.");
+                        navigate("/home");
+                    }
                 } catch (e) {
                     console.error("등록 후 유저 정보 갱신 실패", e);
                 }

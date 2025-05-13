@@ -2,42 +2,49 @@ import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
 import PencilIcon from "../../../assets/img_pencil.svg";
 import {useNavigate} from "react-router-dom";
-
-function StoreInfoCard({mainStore}) {
+import {useUserStore} from "../../../store/useUserStore.js";
+function StoreInfoCard() {
     const navigate = useNavigate();
+    const { user } = useUserStore();
+
+    // 대표 가게 찾기
+    const mainStore = user?.stores?.find(store => store.store_id === user.main_store_id);
 
     const handleEditClick = () => {
         navigate("/mypage/modify");
     };
-
-    if (!mainStore) return null;
 
     return (
         <Container>
             <InfoSection>
                 <Title>
                     <TitleLeft>
-                        {mainStore.name}
+                        {mainStore?.store_name || "대표 가게 없음"}
                         <img src={CrownIcon} alt="대표 가게" />
                     </TitleLeft>
                     <img src={PencilIcon} alt="수정" onClick={handleEditClick} />
                 </Title>
                 <Field>
                     <Label>가게 전화번호:</Label>
-                    <Value>{mainStore.phone}</Value>
+                    <Value>{mainStore?.store_phone || "정보 없음"}</Value>
                 </Field>
                 <Field>
                     <Label>가게 주소:</Label>
-                    <Value>{mainStore.address}</Value>
+                    <Value>{mainStore?.store_address || "정보 없음"}</Value>
                 </Field>
                 <Field>
                     <Label>카테고리:</Label>
-                    <Value>{mainStore.category || "(카테고리 없음)"}</Value>
+                    <Value>{mainStore?.store_category || "정보 없음"}</Value>
+                </Field>
+                <Field>
+                    <Label>가게 설명:</Label>
+                    <Value>{mainStore?.store_description || "정보 없음"}</Value>
                 </Field>
             </InfoSection>
         </Container>
     );
 }
+
 
 
 export default StoreInfoCard;
@@ -70,6 +77,10 @@ const Label = styled.span`
 const Value = styled.span`
     font-weight: 500;
     font-size: 0.9rem;
+    flex: 1;           
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const Title = styled.div`

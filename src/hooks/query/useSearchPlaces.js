@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { searchPlaceByKeyword } from '../../apis/register/serachPlaceByKeyword.js';
+import { searchPlaceByKeyword } from '../../apis/store/serachPlaceByKeyword.js';
 
 export const useSearchPlaces = (keyword) => {
     return useQuery({

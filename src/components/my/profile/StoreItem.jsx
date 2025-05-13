@@ -5,7 +5,7 @@ function StepItem({ item, isMain }) {
     return (
         <Container $isMain={isMain}>
             <ItemSection>
-                <Title>{item.name}</Title>
+                <Title>{item.store_name}</Title>
                 {isMain && <img src={CrownIcon} alt="대표 가게" />}
             </ItemSection>
         </Container>

@@ -4,11 +4,11 @@ import StoreInfoCard from "./profile/StoreInfoCard.jsx";
 import StoreList from "./profile/StoreList.jsx";
 import {useEffect} from "react";
 import {useHeaderStore} from "../../store/useHeaderStore.js";
-import {useMyUser} from "../../hooks/query/useMyUser.js";
+import {useUserStore} from "../../store/useUserStore.js";
 
 function MyMainScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
-    const { data: user, isPending } = useMyUser();
+    const {user} = useUserStore()
 
     useEffect(() => {
         setTitle("My Page");
@@ -19,15 +19,11 @@ function MyMainScreen() {
             <ProfileSection>
                 <img src={Profile} alt={"프로필 사진"} />
                 <Title>
-                    {user ? user.displayName : "불러오는 중..."}
+                    {user.display_name ? user.display_name : "불러오는 중..."}
                 </Title>
             </ProfileSection>
-            {user && (
-                <>
-                    <StoreInfoCard mainStore={user.storeList.find(store => store.id === user.mainStoreId)} />
-                    <StoreList storeList={user.storeList} mainStoreId={user.mainStoreId}/>
-                </>
-            )}
+                <StoreInfoCard  />
+                <StoreList />
             <Logout>로그아웃</Logout>
         </Container>
     );

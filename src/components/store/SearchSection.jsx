@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {useState} from "react";
-import {searchPlaceByKeyword} from "../../apis/register/serachPlaceByKeyword";
+import {searchPlaceByKeyword} from "../../apis/store/serachPlaceByKeyword";
 
 function SearchSection({setValue, setResults, results}) {
     const [keyword, setKeyword] = useState("");

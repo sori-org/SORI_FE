@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/useUserStore.js";
+import { useUserStore } from "../../store/useUserStore.js"; // useUserStore 임포트 확인
 import styled from "styled-components";
 import { useKakaoLogin } from "../../hooks/mutation/useKakaoLogin.js";
 import axiosInstance from "../../apis/axiosInstance.js";
@@ -9,7 +9,7 @@ import RealLoadingPage from "../common/RealLoadingPage.jsx";
 function KakaoCallbackPage() {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
     const navigate = useNavigate();
-    const { setUserId } = useUserStore();
+    const { setUser } = useUserStore();
     const { mutate } = useKakaoLogin();
 
     useEffect(() => {
@@ -33,8 +33,7 @@ function KakaoCallbackPage() {
                             const res = await axiosInstance.get("/api/users/me");
                             console.log(res.data);
                             const userInfo = res.data;
-                            localStorage.setItem("user", JSON.stringify(userInfo));
-                            setUserId(userInfo.user_id);
+                            setUser(userInfo);
 
                             if (!userInfo.main_store_id) {
                                 navigate("/register"); // 가게 등록
@@ -55,7 +54,7 @@ function KakaoCallbackPage() {
         };
 
         handleKakaoLogin();
-    }, [mutate, navigate, REDIRECT_URI, setUserId]);
+    }, [mutate, navigate, REDIRECT_URI]);
 
     return (
         <RealLoadingPage />
@@ -63,12 +62,3 @@ function KakaoCallbackPage() {
 }
 
 export default KakaoCallbackPage;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 24px;
-    font-weight: bold;
-`;

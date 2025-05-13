@@ -12,6 +12,7 @@ function RecordListScreen() {
 
     const { data, isPending, isError, error } = useRecords();
 
+    console.log(data)
     useEffect(() => {
         setTitle("생성 기록 보기");
     }, []);

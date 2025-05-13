@@ -14,6 +14,7 @@ function RecordDetailScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
     const { data, isPending, isError, error } = useRecordDetail(numericId);
 
+    console.log(data)
     useEffect(() => {
         if (data?.created_at) {
             const formattedDate = formatDate(data.created_at);
@@ -24,12 +25,12 @@ function RecordDetailScreen() {
 
     if (isPending) return <Container>로딩 중...</Container>;
     if (isError) return <Container>에러: {error.message}</Container>;
-    if (!data) return <Container>데이터 없음</Container>;
 
     return (
         <Container>
-            <RecordImageSection imageUrl={data.result_image} />
-            <RecordTextSection text={data.text} hashtags={data.hashtag} />
+            {data.image_url ? (<RecordImageSection imageUrl={data.result_image} />) : "아무것도 없어요"}
+
+            <RecordTextSection text={data.result_text} hashtags={data.result_hashtag} />
         </Container>
     );
 }

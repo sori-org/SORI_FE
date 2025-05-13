@@ -22,8 +22,8 @@ function RecordTextSection({ text, hashtags }) {
                 </CopyButton>
             </Label>
             <ContentBox>
-                <p>{text}</p>
-                <p>{hashtags}</p>
+                <Text>{text}</Text>
+                <HashTag>{hashtags}</HashTag>
             </ContentBox>
         </TextContainer>
     );
@@ -61,4 +61,15 @@ const ContentBox = styled.div`
     font-size: 0.8rem;
     font-weight: 500;
     line-height: 1.5;
+`;
+
+
+const Text = styled.div`
+    margin-bottom: 2rem;
+`;
+
+const HashTag = styled.div`
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 0.5rem;
 `;

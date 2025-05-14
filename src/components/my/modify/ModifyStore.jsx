@@ -4,6 +4,7 @@ import { useStoreList } from "../../../hooks/query/useStoreList.js";
 import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
 import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
 import {useUserStore} from "../../../store/useUserStore.js";
+import React from "react";
 
 function ModifyStore() {
     const { data: stores, isPending } = useStoreList();
@@ -20,9 +21,8 @@ function ModifyStore() {
             </Container>
         );
     }
-    console.log("Stores data:", stores); // 디버깅을 위해 데이터 로깅
-    console.log("Main Store ID from User:", mainStoreId); // 디버깅을 위해 대표 가게 ID 로깅
-
+    console.log("Stores data:", stores);
+    console.log("Main Store ID from User:", mainStoreId);
     return (
         <Container>
             {stores.map((store, index) => (
@@ -41,7 +41,7 @@ function ModifyStore() {
     );
 }
 
-export default ModifyStore;
+export default React.memo( ModifyStore);
 
 const Container = styled.div`
     display: flex;

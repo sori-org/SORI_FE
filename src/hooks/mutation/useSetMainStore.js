@@ -1,16 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "../../apis/axiosMockInstance.js";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import axios from "../../apis/axiosInstance.js";
 
 export const useSetMainStore = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (mainStoreId) =>
-            axios.patch("/stores/set-default", { mainStoreId }),
+        mutationKey: ["setMainStore"],
+        mutationFn: (storeId) => axios.patch(`/api/stores/${storeId}/set-main`),
         onSuccess: () => {
-            // 대표 가게 변경 후 유저 정보와 점포 리스트 다시 가져오기
-            queryClient.invalidateQueries({ queryKey: ["myUser"] });
-            queryClient.invalidateQueries({ queryKey: ["myStores"] });
+            console.log("대표 가게 설정 성공");
+            queryClient.invalidateQueries({ queryKey: ["storeList"] });
         },
     });
 };

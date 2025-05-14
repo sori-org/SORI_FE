@@ -7,6 +7,7 @@ import {useGetUser} from "../../hooks/query/useGetUser.js";
 
 const HomeScreen = () => {
     const nav = useNavigate();
+
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
@@ -18,7 +19,7 @@ const HomeScreen = () => {
             <TitleSection>
                 <HomeTitle>
                     <HomeHeader>
-                        <BoldText>충영님,</BoldText>
+                        <BoldText>{data?.display_name}님,</BoldText>
                         <HeaderText>
                             <HighlightText>소리</HighlightText>
                             <NormalText>와 함께</NormalText>

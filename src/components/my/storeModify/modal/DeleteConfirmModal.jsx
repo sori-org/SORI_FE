@@ -2,6 +2,7 @@ import ModalPortal from "../../../common/modal/ModalPortal.jsx";
 import styled from "styled-components";
 
 function DeleteConfirmModal({ storeLabel, storeName, onConfirm, onClose }) {
+
     return (
         <ModalPortal>
             <Overlay onClick={onClose}>

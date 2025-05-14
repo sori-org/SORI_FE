@@ -4,22 +4,25 @@ import ModifyProfile from "./ModifyProfile.jsx";
 import ModifyStore from "./ModifyStore.jsx";
 import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 function ModifyScreen() {
-    const {displayName, mainStoreId, setDisplayName, setMainStoreId} = useUserStore()
+    const { user, setUser} = useUserStore()
     const nav = useNavigate();
     const { mutate } = useUpdateNickname();
-
-    const [ownerName, setOwnerName] = useState(displayName || "");
+    const [ownerName, setOwnerName] = useState(user?.displayName || '');
 
     const handleNicknameUpdate = () => {
-        if (!ownerName.trim()) return;
+        if (!ownerName) return;
 
         mutate(ownerName, {
             onSuccess: () => {
-                setDisplayName(ownerName);
+                setOwnerName(ownerName);
+                setUser((prev) => ({
+                    ...prev,
+                    displayName: ownerName,
+                }));
                 alert("닉네임이 수정되었습니다!");
             },
             onError: () => {
@@ -31,7 +34,7 @@ function ModifyScreen() {
     const handleModifyAll = () => {
         handleNicknameUpdate();
         // 가게 관련 수정 로직도 추가 예정
-        nav(-1);
+        // nav(-1);
     };
 
     return (

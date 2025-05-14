@@ -2,14 +2,34 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import {useControlModal} from "../../../hooks/useControlModal.js";
 import DeleteConfirmModal from "../../my/storeModify/modal/DeleteConfirmModal.jsx";
+import {useDeleteStore} from "../../../hooks/mutation/useDeleteStore.js";
 
-function StoreCard({ label, value, isMain, onClickSetMain }) {
+function StoreCard({ label, value, isMain, onClickSetMain, storeId }) {
     const navigate = useNavigate();
     const { modalState, openModal, closeModal } = useControlModal()
+    const { mutate: deleteStoreMutation, isPending } = useDeleteStore();
 
     const handleEdit = () => {
-        navigate("/mypage/store-modify");
+        navigate(`/mypage/store-modify/${storeId}`);
     };
+
+    const handleDeleteConfirm = () => {
+        if(!storeId) {
+            alert("가게 ID가 없습니다.");
+            closeModal()
+        }
+
+        deleteStoreMutation(storeId, {
+            onSuccess: () => {
+                closeModal()
+                alert(`${label} 가게가 성공적으로 삭제되었습니다.`);
+            },
+            onError: (error) => {
+                closeModal();
+                alert(`가게 삭제 실패: ${error.message || '알 수 없는 오류'}`);
+            },
+        })
+    }
 
     return (
         <Wrapper>
@@ -18,13 +38,7 @@ function StoreCard({ label, value, isMain, onClickSetMain }) {
                 <Actions>
                     <ActionText onClick={handleEdit}>수정</ActionText>
                     <ActionText onClick={openModal}>삭제</ActionText>
-                    {modalState && (
-                        <DeleteConfirmModal
-                            storeLabel={label}
-                            storeName={value}
-                            onClose={closeModal}
-                        />
-                    )}
+                    {isPending && <span> 삭제 중...</span>}
                 </Actions>
             </TopSection>
             <CardBox>
@@ -32,9 +46,17 @@ function StoreCard({ label, value, isMain, onClickSetMain }) {
                 {isMain ? (
                     <MainBadge>대표 가게</MainBadge>
                 ) : (
-                    <SetMainButton onClick={onClickSetMain}>대표 설정</SetMainButton>
+                    <SetMainButton onClick={() => onClickSetMain(storeId)}>대표 설정</SetMainButton>
                 )}
             </CardBox>
+            {modalState && (
+                <DeleteConfirmModal
+                    storeLabel={label}
+                    storeName={value}
+                    onClose={closeModal}
+                    onConfirm={handleDeleteConfirm}
+                />
+            )}
         </Wrapper>
     );
 }

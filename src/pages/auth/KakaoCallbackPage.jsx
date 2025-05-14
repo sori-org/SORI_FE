@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/useUserStore.js"; // useUserStore 임포트 확인
-import styled from "styled-components";
+import { useUserStore } from "../../store/useUserStore.js";
 import { useKakaoLogin } from "../../hooks/mutation/useKakaoLogin.js";
 import axiosInstance from "../../apis/axiosInstance.js";
 import RealLoadingPage from "../common/RealLoadingPage.jsx";

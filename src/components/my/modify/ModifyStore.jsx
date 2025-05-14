@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import StoreCard from "../../common/label/StoreCard.jsx";
 import { useStoreList } from "../../../hooks/query/useStoreList.js";
-import { useMyUser } from "../../../hooks/query/useMyUser.js";
 import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
 import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
-import {data} from "react-router-dom";
+import {useUserStore} from "../../../store/useUserStore.js";
 
 function ModifyStore() {
     const { data: stores, isPending } = useStoreList();
-    const { data: user } = useMyUser();
     const { mutate: setMainStore } = useSetMainStore();
+    const { user } = useUserStore()
+    const mainStoreId = user?.main_store_id;
 
-    if (isPending || !stores || !user) {
+    if (isPending || !stores) {
         return (
             <Container>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -20,6 +20,8 @@ function ModifyStore() {
             </Container>
         );
     }
+    console.log("Stores data:", stores); // 디버깅을 위해 데이터 로깅
+    console.log("Main Store ID from User:", mainStoreId); // 디버깅을 위해 대표 가게 ID 로깅
 
     return (
         <Container>
@@ -28,10 +30,11 @@ function ModifyStore() {
                     key={store.store_id}
                     label={`소유 점포 ${index + 1}`}
                     value={store.store_name}
-                    isMain={store.isMain}
                     onClickSetMain={() => {
                         setMainStore(store.store_id);
                     }}
+                    storeId={store.store_id}
+                    isMain={store.store_id === mainStoreId}
                 />
             ))}
         </Container>

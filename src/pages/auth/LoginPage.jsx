@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import {useUserStore} from "../../store/useUserStore.js";
-import {mockUser} from "../../apis/mock/mockUser.js"
 import {useNavigate} from "react-router-dom";
 import KakaoImage from "../../assets/img_kakao.svg";
 import RabbitImage from "../../assets/img_profile.svg";
@@ -17,12 +15,7 @@ function LoginPage() {
         if (!token || !user) {
             navigate("/"); // 비로그인 상태 → 로그인 페이지
         } else {
-            const parsedUser = JSON.parse(user);
-            if (parsedUser.main_store_id === null) {
-                navigate("/register"); // 가게 등록 필요
-            } else {
-                navigate("/home"); // 홈으로 이동
-            }
+            navigate("/home"); // 홈으로 이동
         }
     }, [navigate]);
 

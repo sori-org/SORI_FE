@@ -1,6 +1,6 @@
-import axios from '../axiosMockInstance.js';
+import axios from '../axiosInstance.js';
 
 export const getRecords = async () => {
-    const { data } = await axios.get('/api/contents');
+    const { data } = await axios.get('/api/content/');
     return data;
 };

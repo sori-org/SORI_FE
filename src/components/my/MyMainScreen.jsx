@@ -4,9 +4,11 @@ import StoreInfoCard from "./profile/StoreInfoCard.jsx";
 import StoreList from "./profile/StoreList.jsx";
 import {useEffect} from "react";
 import {useHeaderStore} from "../../store/useHeaderStore.js";
+import {useUserStore} from "../../store/useUserStore.js";
 
 function MyMainScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
+    const {user} = useUserStore()
 
     useEffect(() => {
         setTitle("My Page");
@@ -15,16 +17,17 @@ function MyMainScreen() {
     return (
         <Container>
             <ProfileSection>
-                <img src={Profile} alt={"프로필 사진"}></img>
+                <img src={Profile} alt={"프로필 사진"} />
                 <Title>
-                    김충영
+                    {user.display_name ? user.display_name : "불러오는 중..."}
                 </Title>
             </ProfileSection>
-            <StoreInfoCard />
-            <StoreList />
+                <StoreInfoCard  />
+                <StoreList />
             <Logout>로그아웃</Logout>
         </Container>
     );
+
 }
 
 export default MyMainScreen;

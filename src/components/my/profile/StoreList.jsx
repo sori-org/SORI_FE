@@ -1,36 +1,71 @@
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
-import { useUserStore } from "../../../store/useUserStore.js";
+import { useStoreList } from "../../../hooks/query/useStoreList.js";
+import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
 
 function StoreList() {
-    const user = useUserStore((state) => state.user);
+    const nav = useNavigate();
+    const { data: storeListFromAPI, isLoading, isError } = useStoreList();
 
-    if (!user) return null; // user 없으면 아무것도 안 그리기
+    const handleAddClick = () => {
+        nav("/register?source=mypage");
+    };
 
-    // 대표 가게가 맨 위로 오도록 정렬
-    const sortedStores = [...user.storeList].sort((a, b) => {
-        if (a.id === user.mainStoreId) return -1;
-        if (b.id === user.mainStoreId) return 1;
-        return 0;
-    });
+    // 대표 점포가 맨 위로 오도록 정렬
+    const sortedStores = useMemo(() => {
+        const stores = storeListFromAPI?.stores || [];
+        return [...stores].sort((a, b) => {
+            if (a.store_id === stores.main_store_id) return -1;
+            if (b.store_id === stores.main_store_id) return 1;
+            // store_id를 기준으로 추가 정렬 (일관된 순서 보장)
+            if (a.store_id < b.store_id) return -1;
+            if (a.store_id > b.store_id) return 1;
+            return 0;
+        });
+    }, [storeListFromAPI]);
 
-    console.log("user: ", user);
+    if (isLoading) {
+        return (
+            <Container>
+                {Array.from({ length: 5}).map((_, i) => (
+                    <StoreCardSkeleton key={i} />
+                ))}
+            </Container>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Container>
+                {Array.from({ length: 5}).map((_, i) => (
+                    <StoreCardSkeleton key={i} />
+                ))}
+            </Container>
+        )
+    }
+
     return (
         <Container>
             <Title>
                 <Spacer />
                 <TitleText>소유 점포 목록</TitleText>
-                <img src={AddImage} alt="점포 추가" />
+                <img src={AddImage} alt="점포 추가" onClick={handleAddClick}/>
             </Title>
             <ListContainer>
-                {sortedStores.map((item) => (
-                    <StepItem
-                        key={item.id}
-                        item={item}
-                        isMain={item.id === user.mainStoreId}
-                    />
-                ))}
+                {sortedStores.length > 0 ? (
+                    sortedStores.map((item) => (
+                        <StepItem
+                            key={item.store_id}
+                            item={item}
+                            isMain={item.store_id === storeListFromAPI.main_store_id}
+                        />
+                    ))
+                ) : (
+                    <p>등록된 점포가 없습니다. 점포를 추가해주세요.</p>
+                )}
             </ListContainer>
         </Container>
     );
@@ -38,7 +73,6 @@ function StoreList() {
 
 export default StoreList;
 
-// 스타일은 그대로 유지
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -77,10 +111,11 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
 `;
 
 const Spacer = styled.div`
-    width: 10px;
-    height: 10px;
+    width: 24px; 
+    height: 24px; 
     background-color: transparent;
 `;

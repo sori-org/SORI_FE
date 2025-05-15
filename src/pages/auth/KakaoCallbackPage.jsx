@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/useUserStore.js";
-import styled from "styled-components";
 import { useKakaoLogin } from "../../hooks/mutation/useKakaoLogin.js";
 import axiosInstance from "../../apis/axiosInstance.js";
+import RealLoadingPage from "../common/RealLoadingPage.jsx";
 
 function KakaoCallbackPage() {
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
     const navigate = useNavigate();
-    const setUser = useUserStore((state) => state.setUser);
+    const { setUser } = useUserStore();
     const { mutate } = useKakaoLogin();
 
     useEffect(() => {
@@ -24,19 +24,15 @@ function KakaoCallbackPage() {
                 { code, redirectUri: REDIRECT_URI },
                 {
                     onSuccess: async (data) => {
-                        const access_token = data.jwt;
+                        console.log(data)
+                        const access_token = data.jwt_token;
                         localStorage.setItem("accessToken", access_token);
 
                         try {
-                            const res = await axiosInstance.get("/api/users/me", {
-                                headers: {
-                                    Authorization: `Bearer ${access_token}`,
-                                },
-                            });
-
+                            const res = await axiosInstance.get("/api/users/me");
+                            console.log(res.data);
                             const userInfo = res.data;
                             setUser(userInfo);
-                            localStorage.setItem("user", JSON.stringify(userInfo));
 
                             if (!userInfo.main_store_id) {
                                 navigate("/register"); // 가게 등록
@@ -57,18 +53,11 @@ function KakaoCallbackPage() {
         };
 
         handleKakaoLogin();
-    }, [mutate, navigate, REDIRECT_URI, setUser]);
+    }, [mutate, navigate, REDIRECT_URI]);
 
-    return <Container>로그인 중입니다...</Container>;
+    return (
+        <RealLoadingPage />
+    );
 }
 
 export default KakaoCallbackPage;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 24px;
-    font-weight: bold;
-`;

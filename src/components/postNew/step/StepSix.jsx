@@ -27,7 +27,7 @@ function StepSix() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.whichApi === option.title}
+                        isSelected={formData.genderTarget === option.title}
                         onClick={() => handleSelect(option.title)}
                     />
                 ))}

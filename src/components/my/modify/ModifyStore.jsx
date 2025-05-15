@@ -1,37 +1,44 @@
 import styled from "styled-components";
-import {useUserStore} from "../../../store/useUserStore.js";
-import {useEffect, useState} from "react";
 import StoreCard from "../../common/label/StoreCard.jsx";
+import { useStoreList } from "../../../hooks/query/useStoreList.js";
+import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
+import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
+import React from "react";
 
 function ModifyStore() {
-    const user = useUserStore((state) => state.user);
-    const [storeList, setStoreList] = useState([""]);
+    const { data, isPending } = useStoreList();
+    const { mutate: setMainStore } = useSetMainStore();
+    const storeList = data?.stores || [];
 
-    useEffect(() => {
-        if(user.storeList) {
-            setStoreList(user.storeList);
-        }
-    }, [user]);
+    if (isPending) {
+        return (
+            <Container>
+                {Array.from({ length: 5 }).map((_, i) => (
+                    <StoreCardSkeleton key={i} />
+                ))}
+            </Container>
+        );
+    }
 
     return (
         <Container>
             {storeList.map((store, index) => (
                 <StoreCard
-                    key={index}
+                    key={store.store_id}
                     label={`소유 점포 ${index + 1}`}
-                    value={store.name}
-                    isMain={user.mainStoreId === store.id}
+                    value={store.store_name}
                     onClickSetMain={() => {
-                        console.log("대표 점포 설정");
+                        setMainStore(store.store_id);
                     }}
+                    storeId={store.store_id}
+                    isMain={store.store_id === data.main_store_id}
                 />
             ))}
         </Container>
     );
 }
 
-
-export default ModifyStore;
+export default React.memo( ModifyStore);
 
 const Container = styled.div`
     display: flex;
@@ -41,4 +48,5 @@ const Container = styled.div`
     align-items: center;
     padding: 1rem 2rem;
     gap: 1rem;
+    overflow: auto;
 `;

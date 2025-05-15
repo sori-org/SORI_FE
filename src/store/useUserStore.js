@@ -1,43 +1,33 @@
 import { create } from 'zustand';
 
-export const useUserStore = create((set, get) => ({
-    // 초기값: localStorage에 저장된 유저 불러오기
-    user: JSON.parse(localStorage.getItem("user")) || {
-        user_id: null,
-        account_id: null,
-        display_name: '',
-        main_store_id: null,
-        storeList: [],
-    },
+export const useUserStore = create((set,get) => ({
+    user: JSON.parse(localStorage.getItem("user")) || null,
 
-    // 유저 설정 + 로컬 저장
     setUser: (userData) => {
         localStorage.setItem("user", JSON.stringify(userData));
         set({ user: userData });
     },
 
-    // 대표 가게 ID만 업데이트
-    setMainStore: (storeId) => {
-        const current = get().user;
-        if (!current) return;
+    setMainStoreId: (newMainStoreId) => {
+        const currentUser = get().user;
 
-        const updatedUser = { ...current, main_store_id: storeId };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        set({ user: updatedUser });
+        if (currentUser) {
+            const updatedUser = {
+                ...currentUser,
+                main_store_id: newMainStoreId,
+            };
+
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            set({ user: updatedUser });
+        } else {
+            console.warn("main_store_id 업데이트 실패: 현재 사용자 정보가 없습니다.");
+        }
     },
 
-    // 로그아웃: 상태 초기화 + localStorage 삭제
     logout: () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
-        set({
-            user: {
-                user_id: null,
-                account_id: null,
-                display_name: '',
-                main_store_id: null,
-                storeList: [],
-            },
-        });
+        set({ user: null });
     },
 }));

@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import TipIcon from "../../assets/img_tip.svg";
 import SoriImg from "../../assets/img_register.svg";
 import { useRegisterStore } from "../../hooks/mutation/useRegisterStore.js";
-import { useUserStore } from "../../store/useUserStore.js";
-import {getUser} from "../../apis/user/getUser.js";
+import {useUserStore} from "../../store/useUserStore.js";
 
 function StoreDescriptionScreen() {
     const { register, handleSubmit } = useForm();
@@ -14,14 +13,16 @@ function StoreDescriptionScreen() {
     const location = useLocation();
     const prevStoreData = location.state || {};
     const { mutate, isPending } = useRegisterStore();
-    const { user, setUser } = useUserStore();
+    const { user } = useUserStore();
+
 
     useEffect(() => {
         if (!prevStoreData.store_name) {
-            alert("가게 등록 정보를 먼저 입력해주세요.");
-            navigate("/register");
+            alert("가게를 다시 등록해주세요!");
+            navigate(-1);
         }
     }, [prevStoreData, navigate]);
+
 
     const onSubmit = (data) => {
         const storeData = {
@@ -29,17 +30,21 @@ function StoreDescriptionScreen() {
             ...prevStoreData,
             store_description: data.store_description,
         };
+        // console.log("onSubmit data 확인:", data);
 
         mutate(storeData, {
-            onSuccess: async () => {
+            onSuccess: () => {
                 try {
-                    await new Promise((res) => setTimeout(res, 500)); // 잠깐 딜레이
-                    const userInfo = await getUser();
-                    setUser(userInfo);
-                    navigate("/home");
+                    if(location.state?.source === "mypage") {
+                        alert("가게 등록이 완료되었습니다.");
+                        navigate("/mypage");
+                    }
+                    else {
+                        alert("가게 등록이 완료되었습니다.");
+                        navigate("/home");
+                    }
                 } catch (e) {
                     console.error("등록 후 유저 정보 갱신 실패", e);
-                    navigate("/home");
                 }
             },
             onError: (error) => {

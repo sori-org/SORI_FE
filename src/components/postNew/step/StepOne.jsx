@@ -31,7 +31,7 @@ function StepOne() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.platform === option.title}
+                        isSelected={formData.snsPlatform === option.title}
                         onClick={() => handleSelect(option.title)}
                     />
                 ))}

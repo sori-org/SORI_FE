@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RecordDetailScreen from "../../components/record/RecordDetailScreen.jsx";
 
 const RecordDetailPage = () => {
     return (

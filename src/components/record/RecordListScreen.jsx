@@ -4,6 +4,7 @@ import { useHeaderStore } from "../../store/useHeaderStore.js";
 import RecordPostList from "./RecordPostList.jsx";
 import SortSelector from "./SortSelector.jsx";
 import {useRecords} from "../../hooks/query/useRecords.js";
+import StoreCardSkeleton from "../common/skeleton/StoreCardSkeleton.jsx";
 
 function RecordListScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
@@ -11,7 +12,7 @@ function RecordListScreen() {
 
     const { data, isPending, isError, error } = useRecords();
 
-
+    console.log(data)
     useEffect(() => {
         setTitle("생성 기록 보기");
     }, []);
@@ -20,7 +21,6 @@ function RecordListScreen() {
         setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
     };
 
-    // 포스트 정렬
     const sortedPosts = useMemo(() => {
         if (!data) return [];
         return [...data].sort((a, b) => {
@@ -30,7 +30,16 @@ function RecordListScreen() {
         });
     }, [data, sortOrder]);
 
-    if (isPending) return <div>로딩 중...</div>;
+    if (isPending || !data) {
+        return (
+            <SkeletonContainer>
+                {Array.from({ length: 5}).map((_, i) => (
+                    <StoreCardSkeleton key={i} />
+                ))}
+            </SkeletonContainer>
+        );
+    }
+
     if (isError) return <div>에러 발생: {error.message}</div>;
 
     return (
@@ -43,9 +52,21 @@ function RecordListScreen() {
     );
 }
 
+
 export default RecordListScreen;
 
-const Container = styled.div`
+const SkeletonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    height: 90vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+`;
+
+    const Container = styled.div`
     display: flex;
     width: 100%;
     height: 90vh;

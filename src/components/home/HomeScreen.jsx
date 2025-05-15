@@ -3,18 +3,23 @@ import PostImage from '../../assets/post.svg';
 import HomeBottom from "./HomeBottom.jsx";
 import {useNavigate} from "react-router-dom";
 import SoriImage from '../../assets/img_home_sori.svg';
+import {useGetUser} from "../../hooks/query/useGetUser.js";
 
 const HomeScreen = () => {
     const nav = useNavigate();
+
     const isPostButtonClicked = () => {
         nav('/post-new');
     }
+    const { data } = useGetUser();
+    console.log(data)
+
     return (
         <Container>
             <TitleSection>
                 <HomeTitle>
                     <HomeHeader>
-                        <BoldText>충영님,</BoldText>
+                        <BoldText>{data?.display_name}님,</BoldText>
                         <HeaderText>
                             <HighlightText>소리</HighlightText>
                             <NormalText>와 함께</NormalText>

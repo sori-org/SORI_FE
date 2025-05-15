@@ -32,7 +32,7 @@ function StepFour() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.whichApi === option.title}
+                        isSelected={formData.externalSources === option.title}
                         onClick={() => handleSelect(option.title)}
                         size="small"
                     />

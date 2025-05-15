@@ -24,7 +24,7 @@ function StepSeven() {
                 {options.map((option) => (
                     <SelectButton
                         key={option.title}
-                        $isSelected={formData.whichApi === option.title}
+                        $isSelected={formData.ageRangeTarget === option.title}
                         onClick={() => handleSelect(option.title)}
                     >
                         {option.title}

@@ -28,7 +28,7 @@ function StepTwo() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.item === option.title}
+                        isSelected={formData.promotionTarget=== option.title}
                         onClick={() => handleSelect(option.title)} // 선택 시 부모 컴포넌트에 값 전달
                     />
                 ))}

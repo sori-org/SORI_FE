@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
-import { useUserStore } from "../../../store/useUserStore.js";
 import { useStoreList } from "../../../hooks/query/useStoreList.js";
 import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
 
 function StoreList() {
-    const { user } = useUserStore();
-    const mainStoreId = user?.main_store_id;
     const nav = useNavigate();
     const { data: storeListFromAPI, isLoading, isError } = useStoreList();
 
@@ -19,16 +16,16 @@ function StoreList() {
 
     // 대표 점포가 맨 위로 오도록 정렬
     const sortedStores = useMemo(() => {
-        const stores = storeListFromAPI || [];
+        const stores = storeListFromAPI?.stores || [];
         return [...stores].sort((a, b) => {
-            if (a.store_id === mainStoreId) return -1;
-            if (b.store_id === mainStoreId) return 1;
+            if (a.store_id === stores.main_store_id) return -1;
+            if (b.store_id === stores.main_store_id) return 1;
             // store_id를 기준으로 추가 정렬 (일관된 순서 보장)
             if (a.store_id < b.store_id) return -1;
             if (a.store_id > b.store_id) return 1;
             return 0;
         });
-    }, [storeListFromAPI, mainStoreId]);
+    }, [storeListFromAPI]);
 
     if (isLoading) {
         return (
@@ -63,7 +60,7 @@ function StoreList() {
                         <StepItem
                             key={item.store_id}
                             item={item}
-                            isMain={item.store_id === mainStoreId}
+                            isMain={item.store_id === storeListFromAPI.main_store_id}
                         />
                     ))
                 ) : (

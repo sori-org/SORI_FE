@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function PostButton({title, icon, onClick, isSelected, size = "large"}) {
+function PostButton({title, icon, onClick, $isSelected, size = "large"}) {
     return (
-        <PostButtonContainer onClick={onClick} isSelected={isSelected} size={size}>
+        <PostButtonContainer onClick={onClick} isSelected={$isSelected} size={size}>
                 <Image src={icon} size={size}/>
             <Text size={size}>{title}</Text>
         </PostButtonContainer>

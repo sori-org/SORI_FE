@@ -6,22 +6,20 @@ import Festival from "../../../assets/festival.png";
 import Weather from "../../../assets/weather.png";
 import Review from "../../../assets/review.png";
 import Trend from "../../../assets/trend.png";
-import PreviewImage from "../../../assets/preview.png"
+import useMultiSelectHandler from "../../../hooks/useMultiSelectHandler.js";
 
 const options = [
-    {title: "날씨 정보", icon: Weather},
-    {title: "리뷰 정보", icon: Review},
-    {title: "지역 행사", icon: Festival},
-    {title: "트렌드", icon: Trend},
+    {title: "날씨 정보", icon: Weather, value: "weather"},
+    {title: "리뷰 정보", icon: Review, value: "review"},
+    {title: "지역 행사", icon: Festival, value: "festival"},
+    {title: "트렌드", icon: Trend, value: "trend"},
 ];
 
 function StepFour() {
-    const {formData, updateFormData} = useFormStore();
+    const {formData} = useFormStore();
+    const handleToggleSelect = useMultiSelectHandler("externalSources");
 
-    const handleSelect = (whichApi) => {
-        updateFormData({whichApi});
-    };
-
+    console.log(formData);
     return (
         <Container>
             <Image src={Sori}/>
@@ -32,15 +30,15 @@ function StepFour() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.externalSources === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        isSelected={formData.externalSources?.includes(option.value)}
+                        onClick={() => handleToggleSelect(option.value)}
                         size="small"
                     />
                 ))}
             </ButtonSection>
-            <PreviewSection>
-                <Title2>선택 안할래요</Title2>
-            </PreviewSection>
+            <NoneButton onClick={() => handleToggleSelect("__CLEAR__")}>
+                선택 안 할래요.
+            </NoneButton>
         </Container>
     );
 }
@@ -77,18 +75,23 @@ const Title = styled.h1`
     padding-top: 3rem;
 `;
 
-const PreviewSection = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: row;
-    margin-top: 2rem;
-    gap: 10px;
-`;
-
-const Title2 = styled.p`
-    font-size: 1rem;
-    font-weight: 400;
+const NoneButton = styled.button`
+    margin-top: 1.5rem;
+    background: none;
+    border: none;
     color: #49C48F;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover {
+        color: ${({ isSelected }) => (isSelected ? "#2F7C60" : "#3A8A63")};
+    }
+
+    &:active {
+        color: ${({ isSelected }) => (isSelected ? "#25694E" : "#2F7C60")};
+        transform: scale(0.98);
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
 `;

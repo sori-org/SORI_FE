@@ -1,20 +1,18 @@
 import useFormStore from "../../../store/useFormStore.js";
 import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    {title: "10~20세"},
-    {title: "20~30세"},
-    {title: "30~40세"},
-    {title: "40세 이상"},
+    {title: "10~20세", value: "10-20"},
+    {title: "20~30세", value: "20-30"},
+    {title: "30~40세", value: "30-40"},
+    {title: "40세 이상", value: "40+"},
 ];
 
 function StepSeven() {
-    const {formData, updateFormData} = useFormStore();
-
-    const handleSelect = (whichApi) => {
-        updateFormData({whichApi});
-    };
+    const {formData} = useFormStore();
+    const handleSelect = useSelectHandler("ageRangeTarget");
 
     return (
         <Container>
@@ -24,8 +22,8 @@ function StepSeven() {
                 {options.map((option) => (
                     <SelectButton
                         key={option.title}
-                        $isSelected={formData.ageRangeTarget === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        $isSelected={formData.ageRangeTarget === option.value}
+                        onClick={() => handleSelect(option.value)}
                     >
                         {option.title}
                     </SelectButton>
@@ -59,13 +57,22 @@ const SelectButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 20px;
-    background-color: ${({ $isSelected }) => ($isSelected ? "#49C48F" : "#49C48F")};
+    padding: 30px;
+    background-color: ${({ $isSelected }) => ($isSelected ? "#1D6A47" : "#49C48F")};
     border: 1px solid #49C48F;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 19px;
+    font-size: 18px;
     color: white;
+    &:hover {
+        background-color: ${({ isSelected }) => (isSelected ? "#2F7C60" : "#3A8A63")};
+    }
+
+    &:active {
+        background-color: ${({ isSelected }) => (isSelected ? "#25694E" : "#2F7C60")};
+        transform: scale(0.98);
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
 `;
 
 const Image = styled.img`

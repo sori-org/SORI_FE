@@ -5,21 +5,18 @@ import PostButton from "../PostButton.jsx";
 import Instagram from "../../../assets/instagram.png";
 import NaverCafe from "../../../assets/naver_cafe.png";
 import Twitter from "../../../assets/twitter.png";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "인스타그램", icon: Instagram },
-    { title: "트위터", icon: Twitter },
-    { title: "네이버 카페", icon: NaverCafe },
+    { title: "인스타그램", icon: Instagram, value: "instagram"} ,
+    { title: "트위터", icon: Twitter, value: "twitter"},
+    { title: "네이버 카페", icon: NaverCafe, value: "naver_cafe"},
 ];
 
 
 function StepOne() {
-    const { formData, updateFormData } = useFormStore();
-
-
-    const handleSelect = (platform) => {
-        updateFormData({ platform }); // 전역 상태 업데이트
-    };
+    const { formData } = useFormStore();
+    const handleSelect = useSelectHandler("snsPlatform");
 
     return (
         <Container>
@@ -32,7 +29,7 @@ function StepOne() {
                         title={option.title}
                         icon={option.icon}
                         isSelected={formData.snsPlatform === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>

@@ -5,14 +5,13 @@ import UploadIcon from "../../../assets/upload.png";
 
 
 function StepFive() {
-    const {formData, updateFormData} = useFormStore();
+    const {formData,updateFormData} = useFormStore();
     const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기 상태
     const [text, setText] = useState("");
 
-
     const handleTextChange = (e) => {
         setText(e.target.value);
-        updateFormData({text: e.target.value});
+        updateFormData({userPrompt: e.target.value});
     }
 
     const handleImageUpload = (e) => {
@@ -20,12 +19,14 @@ function StepFive() {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setPreviewImage(reader.result); // 이미지 미리보기 업데이트
+                setPreviewImage(reader.result);
             };
             reader.readAsDataURL(file);
-            updateFormData({image: file}); // 전역 상태에 파일 저장
+            updateFormData({userImage: file});
         }
     };
+
+    console.log(formData)
 
     return (
         <Container>
@@ -68,6 +69,7 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
+    padding: 0 3rem;
 `;
 
 const ImageSection = styled.div`
@@ -76,23 +78,23 @@ const ImageSection = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    gap: 1.5rem;
 `;
 
 const UploadButton = styled.label`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* 이미지와 텍스트 사이 간격 */
-    width: 292px;
-    height: 141px;
-    background-color: #e0fbe2;
+    width: 100%;
+    height: 30vh;
+    padding: 1rem 2rem;
+    background-color: #f0faf4;
     border: none;
     border-radius: 20px;
     font-size: 20px;
     font-weight: 600;
     color: #074747;
     cursor: pointer;
-    margin-top: 3rem;
     box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -109,8 +111,7 @@ const FileInput = styled.input`
 const PreviewImage = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
+    object-fit: contain;
 `;
 
 const Title = styled.h1`
@@ -118,7 +119,7 @@ const Title = styled.h1`
     font-weight: 600;
     text-align: center;
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 3rem;
 `;
 
 const TextSection = styled.div`
@@ -127,19 +128,19 @@ const TextSection = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    gap: 1.5rem;
 `;
 
 const TextForm = styled.textarea`
-    width: 292px;
-    height: 141px;
-    background-color: #e0fbe2;
+    width: 100%;
+    height: 20vh;
+    background-color: #f0faf4;
     border: none;
     border-radius: 20px;
     font-size: 15px;
     font-weight: 500;
     color: #000000;
     cursor: pointer;
-    margin-top: 2rem;
     padding: 1.5rem;
     box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
 `;

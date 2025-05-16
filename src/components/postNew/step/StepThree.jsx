@@ -4,18 +4,17 @@ import styled from "styled-components";
 import PostButton from "../PostButton.jsx";
 import Webtoon from "../../../assets/webtoon.png";
 import TextImage from "../../../assets/Chat.png";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "택스트 + 이미지", icon: TextImage },
-    { title: "네 컷 만화", icon: Webtoon },
+    { title: "택스트 + 이미지", icon: TextImage, value: "image_text" },
+    { title: "네 컷 만화", icon: Webtoon, value: "webtoon" },
 ];
 
 function StepThree() {
-    const { formData, updateFormData } = useFormStore();
-
-    const handleSelect = (result) => {
-        updateFormData({ result });
-    };
+    const { formData } = useFormStore();
+    const handleSelect = useSelectHandler("contentFormat");
+    console.log(formData);
 
     return (
         <Container>
@@ -28,7 +27,7 @@ function StepThree() {
                         title={option.title}
                         icon={option.icon}
                         isSelected={formData.contentFormat === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>

@@ -12,6 +12,7 @@ import TipModal from "./modal/TipModal.jsx";
 import {tipSlides} from "../../constants/postNew/tipSlides.js";
 import StepSix from "./step/StepSix.jsx";
 import StepSeven from "./step/StepSeven.jsx";
+import {useSubmitFormData} from "../../hooks/mutation/useSubmitFormData.js";
 
 const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
 
@@ -20,19 +21,25 @@ const steps = stepComponents.map((Component, index) => (
 ));
 
 function PostNewScreen() {
-    const nav = useNavigate();
     const { currentStepIndex, nextStep, formData } = useFormStore();
     const { modalState, openModal, closeModal } = useControlModal()
 
+    const { mutate: submitForm } = useSubmitFormData();
+    const navigate = useNavigate();
+
 
     const handleSubmit = () => {
-        console.log("최종 제출 데이터:", formData);
-        nav("/loading");
-        setTimeout(() => {
-            nav("/result");
-        }, 5000);
+        console.log("제출 버튼 클릭됨. 최종 formData:", formData);
+        submitForm(formData, {
+            onSuccess: () => {
+                console.log("컴포넌트 onSuccess: 제출 성공");
+                navigate('/result');
+            },
+            onError: (error) => {
+                console.error("컴포넌트 onError: 제출 실패", error);
+            }
+        });
     };
-
     const handleNext = () => {
         nextStep(steps.length);
     };

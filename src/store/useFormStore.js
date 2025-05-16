@@ -1,18 +1,35 @@
 import { create } from 'zustand';
 
+const initialFormData = {
+    storeId: '',
+    snsPlatform: '',
+    promotionTarget: '',
+    promotionName: '',
+    genderTarget: '',
+    ageRangeTarget: '',
+    contentFormat: '',
+    externalSources: [],
+    userPrompt: '',
+    userImage: '',
+};
+
 const useFormStore = create((set) => ({
     currentStepIndex: 0,
-    formData: {
-        storeId: '',
-        snsPlatform: '',
-        promotionTarget: '',
-        promotionName: '',
-        genderTarget: '',
-        ageRangeTarget: '',
-        contentFormat: '',
-        externalSources: [],
-    },
     totalSteps: 7,
+
+    formData: initialFormData,
+
+    updateFormData: (newData) => set((state) => ({
+        formData: {
+            ...state.formData,
+            ...newData,
+        },
+    })),
+
+    resetFormData: () => set({
+        formData: initialFormData
+    }),
+
     nextStep: (totalSteps) => set((state) => ({
         currentStepIndex: Math.min(state.currentStepIndex + 1, totalSteps - 1)
     })),

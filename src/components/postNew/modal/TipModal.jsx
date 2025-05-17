@@ -28,8 +28,9 @@ function TipModal({step,onClose}) {
                         </Title>
                         <ImageBox>
                             <PreviewImage src={main_image} alt="예시 이미지" />
-                            <ImageLabel>(예시 이미지)</ImageLabel>
                         </ImageBox>
+                        <ImageLabel>(예시 이미지)</ImageLabel>
+
                         <Description>{description}</Description>
                     </Content>
 
@@ -61,7 +62,7 @@ const Overlay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem; /* 데스크탑에서 너무 꽉 차지 않게 */
+    padding: 1.3rem;
     box-sizing: border-box;
 `;
 
@@ -87,8 +88,8 @@ const ModalBox = styled.div`
 const CloseButton = styled.button`
   position: absolute;
   top: 1rem;
-  right: 1rem;
-  font-size: 20px;
+  right: 1.2rem;
+  font-size: 30px;
   background: none;
   border: none;
   color: #1a6f6f;
@@ -97,6 +98,10 @@ const CloseButton = styled.button`
 
 const Content = styled.div`
   text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Title = styled.h2`
@@ -112,10 +117,9 @@ const Title = styled.h2`
 
 const ImageBox = styled.div`
   width: 100%;
-  background: #e0e0e0;
   border-radius: 10px;
   margin-bottom: 1rem;
-  position: relative;
+  //position: relative;
 `;
 
 const PreviewImage = styled.img`
@@ -127,7 +131,7 @@ const ImageLabel = styled.p`
   font-size: 12px;
   color: #555;
   position: absolute;
-  bottom: 5px;
+  //bottom: px;
   width: 100%;
 `;
 

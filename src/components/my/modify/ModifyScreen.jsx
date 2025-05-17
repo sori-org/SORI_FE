@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 function ModifyScreen() {
-    const { user, setUser} = useUserStore()
+    const { user} = useUserStore()
     const nav = useNavigate();
     const { mutate } = useUpdateNickname();
     const [ownerName, setOwnerName] = useState(user?.displayName || '');
@@ -19,11 +19,8 @@ function ModifyScreen() {
         mutate(ownerName, {
             onSuccess: () => {
                 setOwnerName(ownerName);
-                setUser((prev) => ({
-                    ...prev,
-                    displayName: ownerName,
-                }));
                 alert("닉네임이 수정되었습니다!");
+                console.log(ownerName)
             },
             onError: () => {
                 alert("닉네임 수정 실패");

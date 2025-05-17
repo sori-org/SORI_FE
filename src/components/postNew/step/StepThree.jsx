@@ -7,8 +7,9 @@ import TextImage from "../../../assets/Chat.png";
 import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "택스트 + 이미지", icon: TextImage, value: "image_text" },
+    { title: "이미지 + 텍스트", icon: TextImage, value: "image_text" },
     { title: "네 컷 만화", icon: Webtoon, value: "webtoon" },
+    { title: "문구 포함 이미지", icon: Webtoon, value: "webtoon" },
 ];
 
 function StepThree() {
@@ -19,7 +20,7 @@ function StepThree() {
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>어떤 결과물을 원하시나요?</Title>
+            <Title>콘텐츠 형식을 선택해주세요!</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton

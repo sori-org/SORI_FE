@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             { path: "", element: <MyPage /> },
             { path: "profile", element: <ProfilePage /> },
             { path: "modify", element: <ModifyPage /> },
-            { path: "store-modify", element: <StoreModifyPage /> },
+            { path: "store-modify/:storeId", element: <StoreModifyPage /> },
         ],
     },
 

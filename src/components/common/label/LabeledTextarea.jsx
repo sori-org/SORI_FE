@@ -6,7 +6,7 @@ function LabeledTextarea({label, value, onChange, onClear, maxLength = 300, isHi
         <Wrapper $highlight={isHighlighted}>
             <Label>
                 {label}
-                <CharCount>{value.length}/{maxLength}</CharCount>
+                <CharCount>{value?.length}/{maxLength}</CharCount>
             </Label>
             <TextareaBox>
                 <Textarea

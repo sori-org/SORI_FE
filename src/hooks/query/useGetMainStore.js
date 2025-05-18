@@ -6,5 +6,8 @@ export const useGetMainStore = (storeId) => {
         queryKey: ["getMainStore", storeId],
         queryFn: () => getStore(storeId),
         enabled: !!storeId,
+        onSuccess: (data) => {
+            console.log("Store data fetched successfully:", data);
+        },
     });
 };

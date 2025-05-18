@@ -1,13 +1,36 @@
 import styled from "styled-components";
 import LabeledInput from "../../common/label/LabeledInput.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LabeledTextarea from "../../common/label/LabeledTextarea.jsx";
+import {useParams} from "react-router-dom";
+import {useGetMainStore} from "../../../hooks/query/useGetMainStore.js";
+import {useStoreModifyFormStore} from "../../../store/useStoreModifyFormStore.js";
 
 function StoreSection() {
-    const [storeName, setStoreName] = useState("");
-    const [storePhoneNumber, setStorePhoneNumber] = useState("");
-    const [storeDescription, setStoreDescription] = useState("");
+    const { storeId } = useParams();
+    const { data: storeData, isLoading, isError} = useGetMainStore(storeId);
+    const { storeName, storePhoneNumber, storeDescription, setStoreName, setStorePhoneNumber, setStoreDescription, setInitialData } = useStoreModifyFormStore();
     const [focusedField, setFocusedField] = useState("");
+
+    useEffect(() => {
+        if (storeData) {
+            setInitialData(storeData);
+        }
+    }, [storeData, setInitialData]);
+
+    if (isLoading) {
+        return <Container><p>가게 정보를 불러오는 중...</p></Container>;
+    }
+
+    if (isError) {
+        return <Container><p>가게 정보를 불러오는데 실패했습니다.</p></Container>;
+    }
+
+    if (!storeData) {
+        return <Container><p>가게 정보를 찾을 수 없습니다.</p></Container>;
+    }
+
+    console.log(storeData)
 
     return (
         <Container>

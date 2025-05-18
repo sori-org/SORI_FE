@@ -1,7 +1,8 @@
 import { create } from 'zustand';
+import {useUserStore} from "./useUserStore.js";
 
 const initialFormData = {
-    storeId: '',
+    storeId: useUserStore.getState().user?.main_store_id || '',
     snsPlatform: '',
     promotionTarget: '',
     promotionName: '',
@@ -16,7 +17,6 @@ const initialFormData = {
 const useFormStore = create((set) => ({
     currentStepIndex: 0,
     totalSteps: 7,
-
     formData: initialFormData,
 
     updateFormData: (newData) => set((state) => ({

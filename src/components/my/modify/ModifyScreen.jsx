@@ -73,7 +73,7 @@ const CancelButton = styled.button`
     font-size: 1rem;
     border-radius: 16px;
     background-color: white;
-    color: #767676;
+    color: #767676; 
     border: 1px solid lightgray;
     cursor: pointer;
     @media (max-width: 480px) {

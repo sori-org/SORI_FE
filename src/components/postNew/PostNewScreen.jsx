@@ -42,6 +42,7 @@ function PostNewScreen() {
     };
     const handleNext = () => {
         nextStep(steps.length);
+        console.log("다음 단계로 이동");
     };
 
     const handleTagClick = () => {

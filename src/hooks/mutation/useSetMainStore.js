@@ -12,6 +12,7 @@ export const useSetMainStore = () => {
         mutationFn: (storeId) => axios.patch(`/api/stores/${storeId}/set-main`),
         onSuccess: async () => {
             queryClient.invalidateQueries({ queryKey: ["storeList"] });
+            queryClient.invalidateQueries({ queryKey: ["user"] });
             try {
                 const res =  await getUser();
                 const updatedUserInfo = res;

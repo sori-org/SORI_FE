@@ -1,9 +1,9 @@
 import {useMutation} from "@tanstack/react-query";
-import submitFormDataToBackend from "../submitFormDataToBackend.js";
+import submitFormDataToBackend from "../../apis/submitFormDataToBackend.js";
 import useFormStore from "../../store/useFormStore.js";
 
 export const useSubmitFormData = () => {
-    const {resetFormData} = useFormStore();
+    const { resetFormData } = useFormStore();
 
     return useMutation({
         mutationKey: ['submitFormData'],

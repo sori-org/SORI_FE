@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import {tipSlides} from "../../../constants/postNew/tipSlides.js";
 import ModalPortal from "../../common/modal/ModalPortal.jsx";
+import ReactMarkdown from "react-markdown";
 
 function TipModal({step,onClose}) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,9 +30,11 @@ function TipModal({step,onClose}) {
                         <ImageBox>
                             <PreviewImage src={main_image} alt="예시 이미지" />
                         </ImageBox>
-                        <ImageLabel>(예시 이미지)</ImageLabel>
+                        {/*<ImageLabel>(예시 이미지)</ImageLabel>*/}
 
-                        <Description>{description}</Description>
+                        <ReactMarkdown components={{ p: Description }}>
+                            {description}
+                        </ReactMarkdown>
                     </Content>
 
                     <NavArrow left onClick={goPrev}>◀</NavArrow>
@@ -131,7 +134,6 @@ const ImageLabel = styled.p`
   font-size: 12px;
   color: #555;
   position: absolute;
-  //bottom: px;
   width: 100%;
 `;
 

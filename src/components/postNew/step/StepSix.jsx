@@ -7,13 +7,13 @@ import Woman from "../../../assets/woman.svg";
 import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    {title: "여성", icon: Woman},
-    {title: "남성", icon: Man},
+    {title: "여성", icon: Woman, value:"female"},
+    {title: "남성", icon: Man, value: "male"},
 ];
 
 function StepSix() {
     const {formData} = useFormStore();
-    const handleSelect = useSelectHandler("genderTarget");
+    const handleSelect = useSelectHandler("gender_target");
 
     console.log(formData);
     return (
@@ -26,8 +26,8 @@ function StepSix() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.genderTarget === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        isSelected={formData.gender_target === option.value}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>

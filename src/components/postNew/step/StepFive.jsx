@@ -11,7 +11,7 @@ function StepFive() {
 
     const handleTextChange = (e) => {
         setText(e.target.value);
-        updateFormData({userPrompt: e.target.value});
+        updateFormData({user_prompt: e.target.value});
     }
 
     const handleImageUpload = (e) => {
@@ -22,7 +22,7 @@ function StepFive() {
                 setPreviewImage(reader.result);
             };
             reader.readAsDataURL(file);
-            updateFormData({userImage: file});
+            updateFormData({user_image: file});
         }
     };
 

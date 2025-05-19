@@ -17,7 +17,7 @@ const options = [
 
 function StepFour() {
     const {formData} = useFormStore();
-    const handleToggleSelect = useMultiSelectHandler("externalSources");
+    const handleToggleSelect = useMultiSelectHandler("external_sources");
 
     console.log(formData);
     return (
@@ -30,7 +30,7 @@ function StepFour() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.externalSources?.includes(option.value)}
+                        isSelected={formData.external_sources?.includes(option.value)}
                         onClick={() => handleToggleSelect(option.value)}
                         size="small"
                     />

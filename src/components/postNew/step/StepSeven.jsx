@@ -12,7 +12,7 @@ const options = [
 
 function StepSeven() {
     const {formData} = useFormStore();
-    const handleSelect = useSelectHandler("ageRangeTarget");
+    const handleSelect = useSelectHandler("age_range_target");
 
     return (
         <Container>
@@ -22,7 +22,7 @@ function StepSeven() {
                 {options.map((option) => (
                     <SelectButton
                         key={option.title}
-                        $isSelected={formData.ageRangeTarget === option.value}
+                        $isSelected={formData.age_range_target === option.value}
                         onClick={() => handleSelect(option.value)}
                     >
                         {option.title}

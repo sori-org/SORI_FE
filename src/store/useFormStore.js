@@ -2,16 +2,16 @@ import { create } from 'zustand';
 import {useUserStore} from "./useUserStore.js";
 
 const initialFormData = {
-    storeId: useUserStore.getState().user?.main_store_id || '',
-    snsPlatform: '',
-    promotionTarget: '',
-    promotionName: '',
-    genderTarget: '',
-    ageRangeTarget: '',
-    contentFormat: '',
-    externalSources: [],
-    userPrompt: '',
-    userImage: '',
+    store_id: useUserStore.getState().user?.main_store_id || '',
+    sns_platform: '',
+    promotion_target: '',
+    promotion_name: "",
+    gender_target: '',
+    age_range_target: '',
+    content_format: '',
+    external_sources: "",
+    user_prompt: "",
+    user_image: "",
 };
 
 const useFormStore = create((set) => ({

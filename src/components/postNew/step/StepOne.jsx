@@ -16,7 +16,7 @@ const options = [
 
 function StepOne() {
     const { formData } = useFormStore();
-    const handleSelect = useSelectHandler("snsPlatform");
+    const handleSelect = useSelectHandler("sns_platform");
 
     return (
         <Container>

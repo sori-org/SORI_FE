@@ -14,7 +14,7 @@ const options = [
 
 function StepTwo() {
     const { formData, updateFormData } = useFormStore();
-    const handleSelect = useSelectHandler("promotionTarget");
+    const handleSelect = useSelectHandler("promotion_target");
 
     console.log(formData);
 
@@ -28,18 +28,18 @@ function StepTwo() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.promotionTarget=== option.title}
+                        isSelected={formData.promotion_target=== option.title}
                         onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>
-            {formData.promotionTarget === "menu" && (
+            {formData.promotion_target === "menu" && (
                 <InputContainer>
                     <Label>🍜 홍보할 메뉴명을 입력해주세요.</Label>
                     <Input
                         type="text"
-                        value={formData.promotionName || ''}
-                        onChange={(e) => updateFormData({promotionName: e.target.value})}
+                        value={formData.promotion_name || ''}
+                        onChange={(e) => updateFormData({promotion_name: e.target.value})}
                         placeholder="예: 소고기덮밥"
                     />
                 </InputContainer>

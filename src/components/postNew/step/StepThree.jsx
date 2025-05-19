@@ -7,14 +7,14 @@ import TextImage from "../../../assets/Chat.png";
 import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "이미지 + 텍스트", icon: TextImage, value: "image_text" },
-    { title: "네 컷 만화", icon: Webtoon, value: "webtoon" },
-    { title: "문구 포함 이미지", icon: Webtoon, value: "webtoon" },
+    { title: "이미지 + 텍스트", icon: TextImage, value: "image+text" },
+    { title: "네 컷 만화", icon: Webtoon, value: "cut_toon" },
+    { title: "문구 포함 이미지", icon: Webtoon, value: "post_cover+text" },
 ];
 
 function StepThree() {
     const { formData } = useFormStore();
-    const handleSelect = useSelectHandler("contentFormat");
+    const handleSelect = useSelectHandler("content_format");
     console.log(formData);
 
     return (
@@ -27,7 +27,7 @@ function StepThree() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.contentFormat === option.title}
+                        isSelected={formData.content_format === option.title}
                         onClick={() => handleSelect(option.value)}
                     />
                 ))}

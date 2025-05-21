@@ -9,7 +9,7 @@ const initialFormData = {
     gender_target: '',
     age_range_target: '',
     content_format: '',
-    external_sources: "",
+    external_sources: [],
     user_prompt: "",
     user_image: "",
 };

@@ -27,7 +27,6 @@ const router = createBrowserRouter([
             { path: "register/description", element: <StoreDescriptionPage /> },
             { path: "home", element: <HomePage /> },
             { path: "loading", element: <LoadingPage /> },
-            { path: "result", element: <ResultPage /> },
             { path: "kakao/callback", element: <KakaoCallbackPage />},
         ],
     },
@@ -58,6 +57,13 @@ const router = createBrowserRouter([
         children: [
             { path: "", element: <PostNewPage /> },
         ],
+    },
+    {
+        path:"result",
+        element: <HeaderLayout />,
+        children: [
+            { path: ":contentId", element: <ResultPage /> },
+        ]
     },
 
     {

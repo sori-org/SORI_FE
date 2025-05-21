@@ -6,7 +6,7 @@ import UploadIcon from "../../../assets/upload.png";
 
 function StepFive() {
     const {formData,updateFormData} = useFormStore();
-    const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기 상태
+    const [previewImage, setPreviewImage] = useState(null);
     const [text, setText] = useState("");
 
     const handleTextChange = (e) => {

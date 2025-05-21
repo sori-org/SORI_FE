@@ -23,23 +23,43 @@ const steps = stepComponents.map((Component, index) => (
 function PostNewScreen() {
     const { currentStepIndex, nextStep, formData } = useFormStore();
     const { modalState, openModal, closeModal } = useControlModal()
-
-    const { mutate: submitForm } = useSubmitFormData();
     const navigate = useNavigate();
 
+    const { mutate: submitForm } = useSubmitFormData({
+        onSuccess: (data) => {
+            console.log("PostNewScreen: 최종 제출 성공, 응답 데이터:", data);
+            const contentId = data.content_id;
+            if (contentId) {
+                navigate(`/result/${contentId}`);
+            } else {
+                console.warn("API 응답에 content_id가 없습니다. 홈 페이지로 이동합니다.");
+                navigate('/home');
+            }
+        },
+        onError: (error) => {
+            console.error("PostNewScreen: 최종 제출 실패", error);
+        }
+    });
 
     const handleSubmit = () => {
         console.log("제출 버튼 클릭됨. 최종 formData:", formData);
-        submitForm(formData, {
-            onSuccess: () => {
-                console.log("컴포넌트 onSuccess: 제출 성공");
-                navigate('/result');
-            },
-            onError: (error) => {
-                console.error("컴포넌트 onError: 제출 실패", error);
-            }
-        });
+
+        const payload = {
+            store_id: formData.store_id,
+            sns_platform: formData.sns_platform,
+            promotion_target: formData.promotion_target,
+            promotion_name: formData.promotion_name === '' ? null : formData.promotion_name,
+            gender_target: formData.gender_target,
+            age_range_target: formData.age_range_target,
+            content_format: formData.content_format,
+            external_sources: formData.external_sources.length === 0 ? null : formData.external_sources,
+            user_prompt: formData.user_prompt === '' ? null : formData.user_prompt,
+            user_image: formData.user_image === '' ? null : formData.user_image,
+        };
+
+        submitForm(payload);
     };
+
     const handleNext = () => {
         nextStep(steps.length);
         console.log("다음 단계로 이동");

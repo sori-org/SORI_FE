@@ -6,6 +6,7 @@ import { useRecordDetail } from "../../hooks/query/useRecordDetail.js";
 import {formatDate} from "../../utils/formatDate.js";
 import RecordImageSection from "./RecordImageSection.jsx";
 import RecordTextSection from "./RecordTextSection.jsx";
+import NoneImage from "../common/NoneImage.jsx";
 
 
 function RecordDetailScreen() {
@@ -28,8 +29,7 @@ function RecordDetailScreen() {
 
     return (
         <Container>
-            {data.image_url ? (<RecordImageSection imageUrl={data.result_image} />) : "아무것도 없어요"}
-
+            {data.image_url ? (<RecordImageSection imageUrl={data.result_image} />) : <NoneImage />}
             <RecordTextSection text={data.result_text} hashtags={data.result_hashtag} />
         </Container>
     );

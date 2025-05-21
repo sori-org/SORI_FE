@@ -8,7 +8,6 @@ import PostNewPage from "../pages/postNew/PostNewPage.jsx";
 import LoadingPage from "../pages/common/LoadingPage.jsx";
 import ResultPage from "../pages/result/ResultPage.jsx";
 import MyPage from "../pages/my/MyPage.jsx";
-import ProfilePage from "../pages/my/ProfilePage.jsx";
 import ModifyPage from "../pages/my/ModifyPage.jsx";
 import NotFoundPage from "../pages/common/NotFoundPage.jsx";
 import HeaderLayout from "../layouts/HeaderLayout.jsx";
@@ -17,6 +16,7 @@ import StoreModifyPage from "../pages/my/StoreModifyPage.jsx";
 import RecordListPage from "../pages/record/RecordListPage.jsx";
 import RecordDetailPage from "../pages/record/RecordDetailPage.jsx";
 import StoreDescriptionPage from "../pages/store/StoreDescriptionPage.jsx";
+import PostLoadingPage from "../pages/common/PostLoadingPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
             { path: "register/description", element: <StoreDescriptionPage /> },
             { path: "home", element: <HomePage /> },
             { path: "loading", element: <LoadingPage /> },
+            {path: "post-loading", element: <PostLoadingPage />},
             { path: "kakao/callback", element: <KakaoCallbackPage />},
         ],
     },
@@ -36,7 +37,6 @@ const router = createBrowserRouter([
         element: <HeaderLayout />,
         children: [
             { path: "", element: <MyPage /> },
-            { path: "profile", element: <ProfilePage /> },
             { path: "modify", element: <ModifyPage /> },
             { path: "store-modify/:storeId", element: <StoreModifyPage /> },
         ],

@@ -8,6 +8,23 @@ export const useUserStore = create((set,get) => ({
         set({ user: userData });
     },
 
+    setNickname: (newNickname) => {
+        const currentUser = get().user;
+
+        if (currentUser) {
+            const updatedUser = {
+                ...currentUser,
+                display_name: newNickname,
+            };
+
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            set({ user: updatedUser });
+        } else {
+            console.warn("닉네임 업데이트 실패: 현재 사용자 정보가 없습니다.");
+        }
+    },
+
     setMainStoreId: (newMainStoreId) => {
         const currentUser = get().user;
 

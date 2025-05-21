@@ -38,6 +38,9 @@ function PostNewScreen() {
         },
         onError: (error) => {
             console.error("PostNewScreen: 최종 제출 실패", error);
+            alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
+            // 실패 시 로딩 페이지에서 벗어나 다시 폼으로 돌아갈 수 있도록 처리
+            navigate('/post-new'); // 또는 이전 스텝으로 돌아가는 로직
         }
     });
 
@@ -56,8 +59,24 @@ function PostNewScreen() {
             user_prompt: formData.user_prompt === '' ? null : formData.user_prompt,
             user_image: formData.user_image === '' ? null : formData.user_image,
         };
+        navigate('/post-loading'); // 일단 로딩 페이지로 이동
 
-        submitForm(payload);
+        submitForm(payload,{
+            onSuccess: (data) => {
+                const contentId = data.content_id;
+                if (contentId) {
+                    useFormStore.getState().setTempContentId(contentId);
+                } else {
+                    console.warn("API 응답에 content_id가 없습니다. 홈 페이지로 이동합니다.");
+                    navigate('/home');
+                }
+            },
+            onError: (error) => {
+                console.error("PostNewScreen: 최종 제출 실패", error);
+                alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
+                navigate('/post-new'); // 실패 시 다시 폼으로 돌아오기
+            }
+        });
     };
 
     const handleNext = () => {

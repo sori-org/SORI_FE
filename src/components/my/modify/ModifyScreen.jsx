@@ -4,23 +4,16 @@ import ModifyProfile from "./ModifyProfile.jsx";
 import ModifyStore from "./ModifyStore.jsx";
 import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 
 function ModifyScreen() {
-    const { user} = useUserStore()
-    const nav = useNavigate();
+    const { user, setNickname } = useUserStore()
     const { mutate } = useUpdateNickname();
-    const [ownerName, setOwnerName] = useState(user?.displayName || '');
-
     const handleNicknameUpdate = () => {
-        if (!ownerName) return;
-
-        mutate(ownerName, {
+        mutate(user.display_name, {
             onSuccess: () => {
-                setOwnerName(ownerName);
+                setNickname(user.display_name)
                 alert("닉네임이 수정되었습니다!");
-                console.log(ownerName)
+                console.log(user.display_name)
             },
             onError: () => {
                 alert("닉네임 수정 실패");
@@ -30,14 +23,12 @@ function ModifyScreen() {
 
     const handleModifyAll = () => {
         handleNicknameUpdate();
-        // 가게 관련 수정 로직도 추가 예정
-        // nav(-1);
     };
 
     return (
         <Container>
             <Header title={"프로필 수정"} />
-            <ModifyProfile ownerName={ownerName} setOwnerName={setOwnerName} />
+            <ModifyProfile />
             <ModifyStore />
             <ButtonSection>
                 <CancelButton>취소</CancelButton>
@@ -51,7 +42,7 @@ export default ModifyScreen;
 
 const Container = styled.div`
     display: flex;
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;

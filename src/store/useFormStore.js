@@ -29,6 +29,9 @@ const useFormStore = create((set) => ({
     resetFormData: () => set({
         formData: initialFormData
     }),
+    tempContentId: null,
+    setTempContentId: (id) => set({ tempContentId: id }),
+
 
     nextStep: (totalSteps) => set((state) => ({
         currentStepIndex: Math.min(state.currentStepIndex + 1, totalSteps - 1)

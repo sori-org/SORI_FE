@@ -1,36 +1,41 @@
-import styled from "styled-components";
+import styled from "styled-components"
 import Profile from "../../assets/img_profile.svg"
-import StoreInfoCard from "./profile/StoreInfoCard.jsx";
-import StoreList from "./profile/StoreList.jsx";
-import {useEffect} from "react";
-import {useHeaderStore} from "../../store/useHeaderStore.js";
-import {useGetUser} from "../../hooks/query/useGetUser.js";
+import StoreInfoCard from "./profile/StoreInfoCard.jsx"
+import StoreList from "./profile/StoreList.jsx"
+import { useEffect } from "react"
+import { useHeaderStore } from "../../store/useHeaderStore.js"
+import { useGetUser } from "../../hooks/query/useGetUser.js"
+import LogoutButton from "../../components/my/LogoutButton.jsx"
 
 function MyMainScreen() {
-    const setTitle = useHeaderStore((state) => state.setTitle);
+    const setTitle = useHeaderStore((state) => state.setTitle)
     const { data } = useGetUser()
 
     useEffect(() => {
-        setTitle("My Page");
-    }, []);
+        setTitle("My Page")
+    }, [setTitle])
+
+    const handleLogout = () => {
+        // 여기에 로그아웃 API 호출 로직이 들어갈 예정
+        console.log("로그아웃 처리")
+    }
 
     return (
         <Container>
             <ProfileSection>
-                <img src={Profile} alt={"프로필 사진"} />
-                <Title>
-                    {data?.display_name ? data.display_name : "불러오는 중..."}
-                </Title>
+                <img src={Profile || "/placeholder.svg"} alt={"프로필 사진"} />
+                <Title>{data?.display_name ? data.display_name : "불러오는 중..."}</Title>
             </ProfileSection>
-                <StoreInfoCard  />
-                <StoreList />
-            <Logout>로그아웃</Logout>
+            <StoreInfoCard />
+            <StoreList />
+            <FooterSection>
+                <LogoutButton onLogout={handleLogout} />
+            </FooterSection>
         </Container>
-    );
-
+    )
 }
 
-export default MyMainScreen;
+export default MyMainScreen
 
 const Container = styled.div`
     display: flex;
@@ -39,7 +44,8 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-`;
+    position: relative;
+`
 
 const Title = styled.div`
     display: flex;
@@ -48,7 +54,7 @@ const Title = styled.div`
     gap: 0.2rem;
     font-size: 1.25rem;
     font-weight: 500;
-`;
+`
 
 const ProfileSection = styled.div`
     display: flex;
@@ -58,16 +64,11 @@ const ProfileSection = styled.div`
     width: 100%;
     gap: 1rem;
     padding: 1rem 0;
-`;
+`
 
-const Logout = styled.div`
+const FooterSection = styled.div`
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    padding: 2rem;
     width: 100%;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #767676;
-    cursor: pointer;
-`;
+    //padding: ;
+`

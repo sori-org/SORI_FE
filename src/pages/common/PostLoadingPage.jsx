@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import styled, { keyframes } from "styled-components"
 import { Sparkles, Brain, Zap, MessageSquare, ImageIcon } from "lucide-react"
-import useFormStore from "../../store/useFormStore.js";
-import {useNavigate} from "react-router-dom";
+import useFormStore from "../../store/useFormStore.js"
+import { useNavigate } from "react-router-dom"
 
 export default function LoadingPage() {
     const [progress, setProgress] = useState(0)
     const [currentTip, setCurrentTip] = useState(0)
     const [showConfetti, setShowConfetti] = useState(false)
-    const { tempContentId } = useFormStore();
+    const { tempContentId } = useFormStore()
     const navigate = useNavigate()
+
+    const hasNavigated = useRef(false)
+    const isMounted = useRef(true)
 
     const tips = [
         "AI가 당신의 콘텐츠에 맞는 최적의 문구를 찾고 있어요",
@@ -32,38 +35,7 @@ export default function LoadingPage() {
 
     const [confetti, setConfetti] = useState(generateConfetti())
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval)
-                    if (tempContentId) {
-                        navigate(`/result/${tempContentId}`);
-                    } else {
-                        console.warn("LoadingPage: tempContentId가 없어 홈으로 이동합니다.");
-                        navigate('/home');
-                    }
-                    return 100
-                }
-                return prev + 2
-            })
-        }, 200)
-
-        // 팁 변경
-        const tipInterval = setInterval(() => {
-            setCurrentTip((prev) => (prev + 1) % tips.length)
-            setShowConfetti(true)
-            setTimeout(() => setShowConfetti(false), 2000)
-            setConfetti(generateConfetti())
-        }, 5000)
-
-        return () => {
-            clearInterval(interval)
-            clearInterval(tipInterval)
-        }
-    }, [tips.length])
-
-    // 진행 단계 계산
+    // 진행 단계 계산 함수
     const getStage = () => {
         if (progress < 25) return "아이디어 분석 중"
         if (progress < 50) return "콘텐츠 생성 중"
@@ -72,6 +44,61 @@ export default function LoadingPage() {
         return "완성 단계"
     }
 
+    useEffect(() => {
+        if (progress >= 100 && !hasNavigated.current) {
+            hasNavigated.current = true
+
+            const timer = setTimeout(() => {
+                if (isMounted.current) {
+                    if (tempContentId) {
+                        navigate(`/result/${tempContentId}`)
+                    } else {
+                        console.warn("LoadingPage: tempContentId가 없어 홈으로 이동합니다.")
+                        navigate("/home")
+                    }
+                }
+            }, 100)
+
+            return () => clearTimeout(timer)
+        }
+    }, [progress, tempContentId, navigate])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setProgress((prev) => {
+                if (prev >= 100) {
+                    clearInterval(interval)
+                    return 100
+                }
+                return prev + 0.5
+            })
+        }, 100)
+
+        // 팁 변경
+        const tipInterval = setInterval(() => {
+            setCurrentTip((prev) => (prev + 1) % tips.length)
+            setShowConfetti(true)
+
+            const confettiTimer = setTimeout(() => {
+                if (isMounted.current) {
+                    setShowConfetti(false)
+                }
+            }, 2000)
+
+            if (isMounted.current) {
+                setConfetti(generateConfetti())
+            }
+
+            return () => clearTimeout(confettiTimer)
+        }, 5000)
+
+        // 클린업 함수
+        return () => {
+            isMounted.current = false
+            clearInterval(interval)
+            clearInterval(tipInterval)
+        }
+    }, [tips.length])
 
     return (
         <LoadingContainer>
@@ -133,229 +160,224 @@ export default function LoadingPage() {
 
 // 애니메이션 정의
 const pulse = keyframes`
-  0% { transform: scale(0.95); opacity: 0.7; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.7; }
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
 `
 
 const float = keyframes`
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 `
 
 const breathe = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 `
 
-// const progressAnimation = keyframes`
-//   0% { transform: translateX(-5px); }
-//   100% { transform: translateX(5px); }
-// `
-
 const confettiAnimation = keyframes`
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 `
 
 const floatingAnimation = keyframes`
-  0% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(5px, -5px) rotate(5deg); }
-  50% { transform: translate(0, -10px) rotate(0deg); }
-  75% { transform: translate(-5px, -5px) rotate(-5deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, -5px) rotate(5deg); }
+    50% { transform: translate(0, -10px) rotate(0deg); }
+    75% { transform: translate(-5px, -5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
 `
 
 const LoadingContainer = styled.div`
-  width: 100%;
-  height: 100vh;
-  max-width: 480px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    width: 100%;
+    height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
 `
 
 const LogoContainer = styled.div`
-  position: relative;
-  width: 120px;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
 `
 
 const PulsingCircle = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0) 70%);
-  animation: ${pulse} 2s infinite ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0) 70%);
+    animation: ${pulse} 2s infinite ease-in-out;
 `
 
 const BrainAnimation = styled.div`
-  animation: ${breathe} 3s infinite ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    animation: ${breathe} 3s infinite ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 `
 
 const Title = styled.h1`
-  font-size: 22px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 0.5rem;
-  text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+    text-align: center;
 `
 
 const Subtitle = styled.h2`
-  font-size: 16px;
-  font-weight: 500;
-  color: #4CAF50;
-  margin-bottom: 2rem;
-  text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #4CAF50;
+    margin-bottom: 2rem;
+    text-align: center;
 `
 
 const ProgressBarContainer = styled.div`
-  width: 85%;
-  margin-bottom: 2rem;
-  position: relative;
+    width: 85%;
+    margin-bottom: 2rem;
+    position: relative;
 `
 
 const ProgressBar = styled.div`
-  width: 100%;
-  height: 12px;
-  background-color: rgba(76, 175, 80, 0.2);
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: ${(props) => props.progress}%;
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    width: 100%;
+    height: 12px;
+    background-color: rgba(76, 175, 80, 0.2);
     border-radius: 10px;
-    transition: width 0.3s ease;
-  }
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: ${(props) => props.progress}%;
+        background: linear-gradient(90deg, #4CAF50, #8BC34A);
+        border-radius: 10px;
+        transition: width 0.3s ease;
+    }
 `
 
 const ProgressText = styled.div`
-  position: absolute;
-  right: 0;
-  top: -25px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #4CAF50;
+    position: absolute;
+    right: 0;
+    top: -25px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4CAF50;
 `
 
 const TipCard = styled.div`
-  background-color: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  width: 85%;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 85%;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
 `
 
 const TipIconContainer = styled.div`
-  background-color: rgba(76, 175, 80, 0.1);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1rem;
-  flex-shrink: 0;
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
 `
 
 const TipText = styled.p`
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
 `
 
 const ConfettiContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
 `
 
 const Confetti = styled.div`
-  position: absolute;
-  top: -10px;
-  background-color: #4CAF50;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  opacity: 0.8;
-  animation: ${confettiAnimation} 3s forwards linear;
-  
-  &:nth-child(even) {
-    background-color: #8BC34A;
-  }
-  
-  &:nth-child(3n) {
-    background-color: #CDDC39;
-  }
-  
-  &:nth-child(4n) {
-    background-color: #FFC107;
-    border-radius: 50%;
-  }
+    position: absolute;
+    top: -10px;
+    background-color: #4CAF50;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    opacity: 0.8;
+    animation: ${confettiAnimation} 3s forwards linear;
+
+    &:nth-child(even) {
+        background-color: #8BC34A;
+    }
+
+    &:nth-child(3n) {
+        background-color: #CDDC39;
+    }
+
+    &:nth-child(4n) {
+        background-color: #FFC107;
+        border-radius: 50%;
+    }
 `
 
 const FloatingElements = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 `
 
 const FloatingElement = styled.div`
-  position: absolute;
-  top: ${(props) => props.top}%;
-  left: ${(props) => props.left}%;
-  animation: ${floatingAnimation} 5s infinite ease-in-out;
-  animation-delay: ${(props) => props.delay}s;
-  background-color: white;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: ${(props) => props.top}%;
+    left: ${(props) => props.left}%;
+    animation: ${floatingAnimation} 5s infinite ease-in-out;
+    animation-delay: ${(props) => props.delay}s;
+    background-color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `

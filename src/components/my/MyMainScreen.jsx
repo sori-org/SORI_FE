@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, {keyframes} from "styled-components"
 import Profile from "../../assets/img_profile.svg"
 import StoreInfoCard from "./profile/StoreInfoCard.jsx"
 import StoreList from "./profile/StoreList.jsx"
@@ -24,7 +24,7 @@ function MyMainScreen() {
         <Container>
             <ProfileSection>
                 <img src={Profile || "/placeholder.svg"} alt={"프로필 사진"} />
-                <Title>{data?.display_name ? data.display_name : "불러오는 중..."}</Title>
+                <Title>{data?.display_name ? data.display_name : <SkeletonBoldText />}</Title>
             </ProfileSection>
             <StoreInfoCard />
             <StoreList />
@@ -36,6 +36,27 @@ function MyMainScreen() {
 }
 
 export default MyMainScreen
+
+// 스켈레톤 로딩 애니메이션
+const shimmer = keyframes`
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+`
+
+
+const SkeletonBoldText = styled.div`
+  width: 120px;
+  height: 1.25rem;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: ${shimmer} 1.5s infinite linear;
+  margin-bottom: 4px;
+`
 
 const Container = styled.div`
     display: flex;

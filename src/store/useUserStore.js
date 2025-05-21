@@ -42,7 +42,7 @@ export const useUserStore = create((set,get) => ({
         }
     },
 
-    logout: () => {
+    setLogout: () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
         set({ user: null });

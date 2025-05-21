@@ -6,14 +6,15 @@ import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
 
 function ModifyScreen() {
-    const { user, setNickname } = useUserStore()
     const { mutate } = useUpdateNickname();
+
     const handleNicknameUpdate = () => {
-        mutate(user.display_name, {
+        const currentUserNickname = useUserStore.getState().user?.display_name;
+
+        mutate(currentUserNickname, {
             onSuccess: () => {
-                setNickname(user.display_name)
                 alert("닉네임이 수정되었습니다!");
-                console.log(user.display_name)
+                console.log(currentUserNickname)
             },
             onError: () => {
                 alert("닉네임 수정 실패");

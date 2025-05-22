@@ -3,14 +3,14 @@ import {useEffect, useMemo, useState} from "react";
 import { useHeaderStore } from "../../store/useHeaderStore.js";
 import RecordPostList from "./RecordPostList.jsx";
 import SortSelector from "./SortSelector.jsx";
-import {useRecords} from "../../hooks/query/useRecords.js";
+import {useResults} from "../../hooks/query/useResults.js";
 import StoreCardSkeleton from "../common/skeleton/StoreCardSkeleton.jsx";
 
 function RecordListScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
     const [sortOrder, setSortOrder] = useState("desc");
 
-    const { data, isPending, isError, error } = useRecords();
+    const { data, isPending, isError, error } = useResults();
 
     console.log(data)
     useEffect(() => {

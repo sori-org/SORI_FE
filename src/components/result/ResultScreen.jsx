@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import { useLocation, useParams } from "react-router-dom"
-import { useRecordDetail } from "../../hooks/query/useRecordDetail.js"
+import { useResultDetail } from "../../hooks/query/useResultDetail.js"
 import { Download, Copy } from "lucide-react"
 
 function ResultScreen() {
     const { contentId } = useParams()
     const location = useLocation()
-    const { data, isPending, isError, error } = useRecordDetail(contentId)
+    const { data, isPending, isError, error } = useResultDetail(contentId)
 
     if (isPending) return <Container>로딩 중...</Container>
     if (isError) return <Container>에러: {error?.message}</Container>

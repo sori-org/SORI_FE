@@ -13,6 +13,8 @@ import {tipSlides} from "../../constants/postNew/tipSlides.js";
 import StepSix from "./step/StepSix.jsx";
 import StepSeven from "./step/StepSeven.jsx";
 import {useSubmitFormData} from "../../hooks/mutation/useSubmitFormData.js";
+import {useEffect} from "react";
+import {useUserStore} from "../../store/useUserStore.js";
 
 const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
 
@@ -21,9 +23,20 @@ const steps = stepComponents.map((Component, index) => (
 ));
 
 function PostNewScreen() {
-    const { currentStepIndex, nextStep, formData } = useFormStore();
+    const currentStepIndex = useFormStore(state => state.currentStepIndex);
+    const nextStep = useFormStore(state => state.nextStep);
+    const formData = useFormStore(state => state.formData);
+    const storeId = useUserStore(state => state.user?.main_store_id);
+
+    const updateFormData = useFormStore(state => state.updateFormData);
     const { modalState, openModal, closeModal } = useControlModal()
     const navigate = useNavigate();
+
+    useEffect(() => {
+        updateFormData({
+            store_id: storeId,
+        })
+    },[])
 
     const { mutate: submitForm } = useSubmitFormData({
         onSuccess: (data) => {

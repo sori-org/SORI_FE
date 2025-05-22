@@ -1,8 +1,7 @@
 import { create } from 'zustand';
-import {useUserStore} from "./useUserStore.js";
 
 const initialFormData = {
-    store_id: useUserStore.getState().user?.main_store_id || '',
+    store_id: '',
     sns_platform: '',
     promotion_target: '',
     promotion_name: "",

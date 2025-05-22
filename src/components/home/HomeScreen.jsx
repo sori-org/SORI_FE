@@ -14,6 +14,7 @@ const HomeScreen = () => {
         nav("/post-new")
     }
 
+    console.log(data)
     return (
         <Container>
             <TitleSection>

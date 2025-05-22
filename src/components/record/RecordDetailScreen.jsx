@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useHeaderStore } from "../../store/useHeaderStore.js";
 import { useParams } from "react-router-dom";
-import { useRecordDetail } from "../../hooks/query/useRecordDetail.js";
+import { useResultDetail } from "../../hooks/query/useResultDetail.js";
 import {formatDate} from "../../utils/formatDate.js";
 import RecordImageSection from "./RecordImageSection.jsx";
 import RecordTextSection from "./RecordTextSection.jsx";
@@ -13,7 +13,7 @@ function RecordDetailScreen() {
     const { id } = useParams();
     const numericId = Number(id);
     const setTitle = useHeaderStore((state) => state.setTitle);
-    const { data, isPending, isError, error } = useRecordDetail(numericId);
+    const { data, isPending, isError, error } = useResultDetail(numericId);
 
     console.log(data)
     useEffect(() => {

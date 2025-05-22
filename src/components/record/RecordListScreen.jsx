@@ -5,12 +5,14 @@ import RecordPostList from "./RecordPostList.jsx";
 import SortSelector from "./SortSelector.jsx";
 import {useResults} from "../../hooks/query/useResults.js";
 import StoreCardSkeleton from "../common/skeleton/StoreCardSkeleton.jsx";
+import { formatAndSortPosts } from "../../utils/formatAndSortPosts";
 
 function RecordListScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
     const [sortOrder, setSortOrder] = useState("desc");
 
     const { data, isPending, isError, error } = useResults();
+    const numberedPosts = useMemo(() => formatAndSortPosts(data, sortOrder), [data, sortOrder]);
 
     console.log(data)
     useEffect(() => {
@@ -21,16 +23,8 @@ function RecordListScreen() {
         setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
     };
 
-    const sortedPosts = useMemo(() => {
-        if (!data) return [];
-        return [...data].sort((a, b) => {
-            const aTime = new Date(a.created_at).getTime();
-            const bTime = new Date(b.created_at).getTime();
-            return sortOrder === "desc" ? bTime - aTime : aTime - bTime;
-        });
-    }, [data, sortOrder]);
 
-    if (isPending || !data) {
+    if (isPending) {
         return (
             <SkeletonContainer>
                 {Array.from({ length: 5}).map((_, i) => (
@@ -47,7 +41,7 @@ function RecordListScreen() {
             <SortWrapper>
                 <SortSelector sortOrder={sortOrder} onChangeSort={handleToggleSort} />
             </SortWrapper>
-            <RecordPostList posts={sortedPosts} />
+            <RecordPostList posts={numberedPosts} />
         </Container>
     );
 }

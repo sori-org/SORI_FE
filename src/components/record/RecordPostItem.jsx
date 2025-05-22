@@ -14,7 +14,7 @@ function RecordPostItem({ post }) {
         <PostItem onClick={handleClick}>
             <InfoSection>
                 <PostText>
-                    <DateText>{formatDate(post.created_at)} 게시물</DateText>
+                    <DateText>{post.numberedTitle || `${formatDate(post.created_at)} 게시물`}</DateText>
                     <TitleText>{post.title}</TitleText>
                     <StoreText>{post.store_name}</StoreText>
                 </PostText>

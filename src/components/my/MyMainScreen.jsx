@@ -37,7 +37,6 @@ function MyMainScreen() {
 
 export default MyMainScreen
 
-// 스켈레톤 로딩 애니메이션
 const shimmer = keyframes`
   0% {
     background-position: -200px 0;

@@ -4,7 +4,7 @@ import { useHeaderStore } from "../../store/useHeaderStore.js";
 import RecordPostList from "./RecordPostList.jsx";
 import SortSelector from "./SortSelector.jsx";
 import {useResults} from "../../hooks/query/useResults.js";
-import StoreCardSkeleton from "../common/skeleton/StoreCardSkeleton.jsx";
+import SkeletonStoreCard from "../common/skeleton/SkeletonStoreCard.jsx";
 import { formatAndSortPosts } from "../../utils/formatAndSortPosts";
 
 function RecordListScreen() {
@@ -28,7 +28,7 @@ function RecordListScreen() {
         return (
             <SkeletonContainer>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </SkeletonContainer>
         );

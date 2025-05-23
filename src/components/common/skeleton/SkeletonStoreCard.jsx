@@ -1,7 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 
-function StoreCardSkeleton() {
+function SkeletonStoreCard() {
     return (
         <SkeletonWrapper>
             <Skeleton
@@ -15,7 +15,7 @@ function StoreCardSkeleton() {
     );
 }
 
-export default StoreCardSkeleton;
+export default SkeletonStoreCard;
 
 const SkeletonWrapper = styled.div`
     width: 100%;

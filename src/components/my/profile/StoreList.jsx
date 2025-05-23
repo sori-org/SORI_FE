@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
 import { useStoreList } from "../../../hooks/query/useStoreList.js";
-import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
+import SkeletonStoreCard from "../../common/skeleton/SkeletonStoreCard.jsx";
 
 function StoreList() {
     const nav = useNavigate();
@@ -29,7 +29,7 @@ function StoreList() {
         return (
             <Container>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </Container>
         );
@@ -39,7 +39,7 @@ function StoreList() {
         return (
             <Container>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </Container>
         )

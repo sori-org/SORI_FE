@@ -4,7 +4,7 @@ import { Sparkles, Brain, Zap, MessageSquare, ImageIcon } from "lucide-react"
 import useFormStore from "../../store/useFormStore.js"
 import { useNavigate } from "react-router-dom"
 
-export default function LoadingPage() {
+export default function PostLoadingPage() {
     const [progress, setProgress] = useState(0)
     const [currentTip, setCurrentTip] = useState(0)
     const [showConfetti, setShowConfetti] = useState(false)
@@ -70,7 +70,7 @@ export default function LoadingPage() {
                     clearInterval(interval)
                     return 100
                 }
-                return prev + 0.5
+                return prev + 0.3
             })
         }, 100)
 
@@ -129,7 +129,7 @@ export default function LoadingPage() {
             <Subtitle>{getStage()}</Subtitle>
 
             <ProgressBarContainer>
-                <ProgressBar progress={progress} />
+                <ProgressBar $progress={progress} />
                 <ProgressText>{Math.round(progress)}%</ProgressText>
             </ProgressBarContainer>
 
@@ -141,16 +141,16 @@ export default function LoadingPage() {
             </TipCard>
 
             <FloatingElements>
-                <FloatingElement delay={0} top={20} left={20}>
+                <FloatingElement $delay={0} $top={20} $left={20}>
                     <Sparkles size={16} color="#4CAF50" />
                 </FloatingElement>
-                <FloatingElement delay={1} top={60} left={80}>
+                <FloatingElement $delay={1} $top={60} $left={80}>
                     <MessageSquare size={16} color="#4CAF50" />
                 </FloatingElement>
-                <FloatingElement delay={2} top={80} left={30}>
+                <FloatingElement $delay={2} $top={80} $left={30}>
                     <ImageIcon size={16} color="#4CAF50" />
                 </FloatingElement>
-                <FloatingElement delay={3} top={30} left={70}>
+                <FloatingElement $delay={3} $top={30} $left={70}>
                     <Brain size={16} color="#4CAF50" />
                 </FloatingElement>
             </FloatingElements>
@@ -273,7 +273,7 @@ const ProgressBar = styled.div`
         top: 0;
         left: 0;
         height: 100%;
-        width: ${(props) => props.progress}%;
+        width: ${(props) => props.$progress}%;
         background: linear-gradient(90deg, #4CAF50, #8BC34A);
         border-radius: 10px;
         transition: width 0.3s ease;
@@ -368,10 +368,10 @@ const FloatingElements = styled.div`
 
 const FloatingElement = styled.div`
     position: absolute;
-    top: ${(props) => props.top}%;
-    left: ${(props) => props.left}%;
+    top: ${(props) => props.$top}%;
+    left: ${(props) => props.$left}%;
     animation: ${floatingAnimation} 5s infinite ease-in-out;
-    animation-delay: ${(props) => props.delay}s;
+    animation-delay: ${(props) => props.$delay}s;
     background-color: white;
     border-radius: 50%;
     width: 30px;

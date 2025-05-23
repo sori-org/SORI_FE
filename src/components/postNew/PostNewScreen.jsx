@@ -87,7 +87,7 @@ function PostNewScreen() {
             onError: (error) => {
                 console.error("PostNewScreen: 최종 제출 실패", error);
                 alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
-                navigate('/post-new'); // 실패 시 다시 폼으로 돌아오기
+                navigate('/post-new');
             }
         });
     };

@@ -4,9 +4,11 @@ import ModifyProfile from "./ModifyProfile.jsx";
 import ModifyStore from "./ModifyStore.jsx";
 import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
+import {useNavigate} from "react-router-dom";
 
 function ModifyScreen() {
     const { mutate } = useUpdateNickname();
+    const navigate = useNavigate()
 
     const handleNicknameUpdate = () => {
         const currentUserNickname = useUserStore.getState().user?.display_name;
@@ -32,7 +34,7 @@ function ModifyScreen() {
             <ModifyProfile />
             <ModifyStore />
             <ButtonSection>
-                <CancelButton>취소</CancelButton>
+                <CancelButton onClick={() => navigate(-1)}>취소</CancelButton>
                 <ModifyButton onClick={handleModifyAll}>수정 완료</ModifyButton>
             </ButtonSection>
         </Container>

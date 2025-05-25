@@ -14,8 +14,9 @@ import ErrorState from "../../loading/ErrorState.jsx";
 
 function StoreModifyScreen() {
     const { storeId } = useParams();
+    const numericStoreId = parseInt(storeId, 10);
     const navigate = useNavigate();
-    const {data: storeData, isPending, isError} = useGetMainStore(storeId);
+    const {data: storeData, isPending, isError} = useGetMainStore(numericStoreId);
     const [storeName, setStoreName] = useState('');
     const [storePhone, setStorePhone] = useState('');
     const [storeDescription, setStoreDescription] = useState('');

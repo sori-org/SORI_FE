@@ -1,5 +1,7 @@
-import Tip_1_1 from "../../assets/img_tip_1_1.png"
+import Tip_1_1 from "../../assets/img_tip_1_1_2.png"
 import Tip_2_2 from "../../assets/img_tip_2_2.png"
+import Tip_1_2 from "../../assets/img_tip_1_2.png"
+import Tip_1_3 from "../../assets/img_tip_1_3.png"
 import Tip_5_1 from "../../assets/img_tip_5_1.png"
 import Tip_5_2 from "../../assets/img_tip_5_2.png"
 import Tip_5_3 from "../../assets/img_tip_5_3.png"
@@ -30,14 +32,14 @@ export const tipSlides = {
         {
             title: "네이버 카페",
             icon: MessageCircle,
-            main_image: Tip_1_1,
+            main_image: Tip_1_2,
             description:
                 "🤝 **특정 관심사 타겟과 신뢰도 구축**에 유리해요. 네이버 검색 노출에 강하고, 후기나 사용기 공유를 통해 브랜드를 자연스럽게 홍보할 수 있어요. 긴 글을 작성할 수 있어, 상세한 정보 전달이 가능해요.",
         },
         {
             title: "X (트위터)",
             icon: Hash,
-            main_image: Tip_1_1,
+            main_image: Tip_1_3,
             description:
                 "📢 **실시간 소통과 빠른 확산**에 최적이에요. 젊은 층에게 영향력이 크며, 해시태그와 리트윗으로 정보가 빠르게 퍼져요. 고객과 활발히 소통하고 싶을 때 추천해요.",
         },
@@ -46,7 +48,7 @@ export const tipSlides = {
         {
             title: "이미지 + 텍스트",
             icon: ImageIcon,
-            main_image: Tip_2_2,
+            main_image: Tip_1_3,
             description:
                 "🖼️ **간결하고 핵심적인 정보 전달**에 좋아요. 시선을 끄는 이미지와 함께 짧은 문구로 메시지를 명확하게 전달해보세요. 주로 인스타그램에 잘 어울려요.",
         },
@@ -60,7 +62,7 @@ export const tipSlides = {
         {
             title: "문구 포함 이미지",
             icon: Type,
-            main_image: Tip_2_2,
+            main_image: Tip_1_1,
             description:
                 "✍️ **시각적 요소와 메시지를 한 번에** 전달하는 효과적인 방법이에요. 사진에 직접적인 문구를 넣어 브랜드나 제품을 각인시키기 좋아요. 주로 인스타그램에서 활용도가 높습니다.",
         },

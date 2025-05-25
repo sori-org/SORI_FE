@@ -5,5 +5,6 @@ export const useResultDetail = (id) => {
     return useQuery({
         queryKey: ['record', id],
         queryFn: () => getRecordDetail(id),
+        enabled: typeof id === 'number' && !isNaN(id)
     });
 };

@@ -17,14 +17,14 @@ function RecordDetailScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
     const { data, isPending, isError } = useResultDetail(numericId);
 
-    console.log(data)
-
     useEffect(() => {
         if (data?.created_at) {
             const formattedDate = formatDate(data.created_at);
             setTitle(`${formattedDate} 게시물`);
         }
     }, [data, setTitle]);
+
+    console.log(data)
 
 
     const getImageUrl = (path) => {

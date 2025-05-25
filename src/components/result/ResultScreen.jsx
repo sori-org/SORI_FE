@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useHeaderStore } from "../../store/useHeaderStore.js";
 import { useParams } from "react-router-dom";
 import { useResultDetail } from "../../hooks/query/useResultDetail.js";
-import {formatDate} from "../../utils/formatDate.js";
 import RecordImageSection from "../../components/record/RecordImageSection.jsx"
 import RecordTextSection from "../../components/record/RecordTextSection.jsx"
 import NoneImage from "../common/NoneImage.jsx";
@@ -12,16 +11,16 @@ import ErrorState from "../loading/ErrorState.jsx";
 
 function ResultScreen() {
     const { id } = useParams();
+    console.log(id)
     const numericId = Number(id);
     const setTitle = useHeaderStore((state) => state.setTitle);
     const { data, isPending, isError } = useResultDetail(numericId);
 
-    console.log(data)
+    console.log(numericId)
 
     useEffect(() => {
         if (data?.created_at) {
-            const formattedDate = formatDate(data.created_at);
-            setTitle(`${formattedDate} 게시물`);
+            setTitle("완성된 게시물");
         }
     }, [data, setTitle]);
 
@@ -46,6 +45,7 @@ function ResultScreen() {
             alert("링크 복사에 실패했습니다. 다시 시도해주세요.")
         }
     }
+    console.log(numericId)
 
 
 

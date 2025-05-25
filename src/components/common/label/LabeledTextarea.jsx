@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CloseButton from "../../../assets/img_close.svg";
 
-function LabeledTextarea({label, value, onChange, onClear, maxLength = 300, isHighlighted, onFocus, onBlur}) {
+function LabeledTextarea({label, value, onChange, onClear, maxLength = 500, isHighlighted, onFocus, onBlur}) {
     return (
         <Wrapper $highlight={isHighlighted}>
             <Label>
@@ -58,7 +58,7 @@ const TextareaBox = styled.div`
 
 const Textarea = styled.textarea`
     width: 100%;
-    min-height: 120px;
+    min-height: 300px;
     padding: 1rem;
     font-size: 1rem;
     border: 1px solid ${({$highlight}) => ($highlight ? "#49C48F" : "#ccc")};

@@ -6,6 +6,7 @@ import SortSelector from "./SortSelector.jsx";
 import {useResults} from "../../hooks/query/useResults.js";
 import SkeletonStoreCard from "../common/skeleton/SkeletonStoreCard.jsx";
 import { formatAndSortPosts } from "../../utils/formatAndSortPosts";
+import ErrorState from "../loading/ErrorState.jsx";
 
 function RecordListScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
@@ -34,7 +35,11 @@ function RecordListScreen() {
         );
     }
 
-    if (isError) return <div>에러 발생: {error.message}</div>;
+    if (isError) return (
+        <Container>
+            <ErrorState error={error} />
+        </Container>
+    );
 
     return (
         <Container>

@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         path:"result",
         element: <HeaderLayout />,
         children: [
-            { path: ":contentId", element: <ResultPage /> },
+            { path: ":id", element: <ResultPage /> },
         ]
     },
 

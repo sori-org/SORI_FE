@@ -13,7 +13,7 @@ function RecordImageSection({ imageUrl }) {
         link.click();
 
         setDownloaded(true);
-        setTimeout(() => setDownloaded(false), 5000); // 5초 후 원래 아이콘으로 복구
+        setTimeout(() => setDownloaded(false), 5000);
     };
 
     return (
@@ -57,7 +57,7 @@ const IconButton = styled.button`
 `;
 
 const PreviewImage = styled.img`
-    padding-top: 0.5rem;
     width: 100%;
     border-radius: 16px;
+    object-fit: cover;
 `;

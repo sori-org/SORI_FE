@@ -14,6 +14,7 @@ import ErrorState from "../loading/ErrorState.jsx";
 function RecordDetailScreen() {
     const { id } = useParams();
     const numericId = Number(id);
+    console.log(numericId)
     const setTitle = useHeaderStore((state) => state.setTitle);
     const { data, isPending, isError } = useResultDetail(numericId);
 

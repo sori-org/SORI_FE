@@ -24,7 +24,6 @@ function StoreInfoCard() {
         return (
             <Container>
                 <SkeletonTextarea/>
-                <img src={PencilIcon} alt="수정" onClick={handleEditClick}/>
             </Container>
         );
     }

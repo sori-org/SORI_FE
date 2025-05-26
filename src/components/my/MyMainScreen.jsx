@@ -1,22 +1,32 @@
-import styled, {keyframes} from "styled-components"
+import styled, { keyframes } from "styled-components"
+import { useEffect } from "react"
 import Profile from "../../assets/img_profile.svg"
 import StoreInfoCard from "./profile/StoreInfoCard.jsx"
 import StoreList from "./profile/StoreList.jsx"
-import { useEffect } from "react"
 import { useHeaderStore } from "../../store/useHeaderStore.js"
 import { useGetUser } from "../../hooks/query/useGetUser.js"
 import LogoutButton from "../../components/my/LogoutButton.jsx"
+import { useControlModal } from "../../hooks/useControlModal.js"
+import AboutMainStoreModal from "./storeModify/modal/AboutMainStoreModal.jsx";
 
 function MyMainScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle)
     const { data } = useGetUser()
+    const { modalState, openModal, closeModal } = useControlModal()
+
+    useEffect(() => {
+        const hasSeenStoreInfo = localStorage.getItem("hasSeenStoreInfo")
+        if (!hasSeenStoreInfo) {
+            openModal()
+        }
+    }, [openModal])
 
     useEffect(() => {
         setTitle("My Page")
     }, [setTitle])
 
+
     const handleLogout = () => {
-        // 여기에 로그아웃 API 호출 로직이 들어갈 예정
         console.log("로그아웃 처리")
     }
 
@@ -31,6 +41,10 @@ function MyMainScreen() {
             <FooterSection>
                 <LogoutButton onLogout={handleLogout} />
             </FooterSection>
+
+            {modalState && (
+                <AboutMainStoreModal closeModal={closeModal} />
+            )}
         </Container>
     )
 }
@@ -38,23 +52,22 @@ function MyMainScreen() {
 export default MyMainScreen
 
 const shimmer = keyframes`
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: 200px 0;
-  }
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: 200px 0;
+    }
 `
 
-
 const SkeletonBoldText = styled.div`
-  width: 120px;
-  height: 1.25rem;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: ${shimmer} 1.5s infinite linear;
-  margin-bottom: 4px;
+    width: 120px;
+    height: 1.25rem;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: ${shimmer} 1.5s infinite linear;
+    margin-bottom: 4px;
 `
 
 const Container = styled.div`
@@ -65,6 +78,7 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     position: relative;
+    padding: 0 1rem;
 `
 
 const Title = styled.div`
@@ -86,9 +100,12 @@ const ProfileSection = styled.div`
     padding: 1rem 0;
 `
 
+
+
 const FooterSection = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    //padding: ;
+    margin-top: auto;
+    padding: 1rem 0;
 `

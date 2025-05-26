@@ -2,32 +2,30 @@ import styled from "styled-components";
 import { useState } from "react";
 import DownloadIcon from "../../assets/img_download.svg";
 import DownloadDoneIcon from "../../assets/img_download_done.svg";
+import {downloadImage} from "../../utils/downloadImage.js";
 
 function RecordImageSection({ imageUrl }) {
     const [downloaded, setDownloaded] = useState(false);
 
-    const downloadImage = () => {
-        const link = document.createElement("a");
-        link.href = imageUrl;
-        link.download = "record_image.png";
-        link.click();
-
-        setDownloaded(true);
-        setTimeout(() => setDownloaded(false), 5000);
+    const handleDownloadImage =  () => {
+        downloadImage(imageUrl, setDownloaded);
     };
+
 
     return (
         <ImageContainer>
             <Label>
                 이미지
-                <IconButton onClick={downloadImage}>
+                <IconButton onClick={handleDownloadImage}>
                     <img
                         src={downloaded ? DownloadDoneIcon : DownloadIcon}
                         alt={downloaded ? "다운로드 완료" : "다운로드"}
                     />
                 </IconButton>
             </Label>
-            <PreviewImage src={imageUrl} alt="결과 이미지" />
+            <ImageSection>
+                <PreviewImage src={imageUrl} alt="결과 이미지" />
+            </ImageSection>
         </ImageContainer>
     );
 }
@@ -39,6 +37,7 @@ const ImageContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1rem;
 `;
 
 const Label = styled.div`
@@ -60,4 +59,16 @@ const PreviewImage = styled.img`
     width: 100%;
     border-radius: 16px;
     object-fit: cover;
+`;
+
+const ImageSection = styled.div`
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 480px) {
+        height: auto;
+        max-height: 60vh;
+    }
 `;

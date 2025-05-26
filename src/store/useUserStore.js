@@ -25,6 +25,18 @@ export const useUserStore = create((set,get) => ({
         }
     },
 
+    addStore: (newStore) =>
+        set((state) => {
+            const updatedStores = state.user?.stores ? [...state.user.stores, newStore] : [newStore];
+            return {
+                user: {
+                    ...state.user,
+                    stores: updatedStores,
+                },
+            };
+        }),
+
+
     setMainStoreId: (newMainStoreId) => {
         const currentUser = get().user;
 

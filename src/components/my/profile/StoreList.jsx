@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StepItem from "./StoreItem.jsx";
 import AddImage from "../../../assets/img_add.svg";
 import { useStoreList } from "../../../hooks/query/useStoreList.js";
-import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
+import SkeletonStoreCard from "../../common/skeleton/SkeletonStoreCard.jsx";
 
 function StoreList() {
     const nav = useNavigate();
@@ -14,13 +14,11 @@ function StoreList() {
         nav("/register?source=mypage");
     };
 
-    // 대표 점포가 맨 위로 오도록 정렬
     const sortedStores = useMemo(() => {
         const stores = storeListFromAPI?.stores || [];
         return [...stores].sort((a, b) => {
             if (a.store_id === stores.main_store_id) return -1;
             if (b.store_id === stores.main_store_id) return 1;
-            // store_id를 기준으로 추가 정렬 (일관된 순서 보장)
             if (a.store_id < b.store_id) return -1;
             if (a.store_id > b.store_id) return 1;
             return 0;
@@ -31,7 +29,7 @@ function StoreList() {
         return (
             <Container>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </Container>
         );
@@ -41,7 +39,7 @@ function StoreList() {
         return (
             <Container>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </Container>
         )

@@ -4,31 +4,31 @@ import styled from "styled-components";
 import PostButton from "../PostButton.jsx";
 import Webtoon from "../../../assets/webtoon.png";
 import TextImage from "../../../assets/Chat.png";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "택스트 + 이미지", icon: TextImage },
-    { title: "네 컷 만화", icon: Webtoon },
+    { title: "이미지 + 텍스트", icon: TextImage, value: "image+text" },
+    { title: "네 컷 만화", icon: Webtoon, value: "cut_toon" },
+    { title: "문구 포함 이미지", icon: Webtoon, value: "post_cover+text" },
 ];
 
 function StepThree() {
-    const { formData, updateFormData } = useFormStore();
-
-    const handleSelect = (result) => {
-        updateFormData({ result });
-    };
+    const { formData } = useFormStore();
+    const handleSelect = useSelectHandler("content_format");
+    console.log(formData);
 
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>어떤 결과물을 원하시나요?</Title>
+            <Title>콘텐츠 형식을 선택해주세요!</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.contentFormat === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        isSelected={formData.content_format === option.value}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>

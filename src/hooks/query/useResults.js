@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRecords } from '../../apis/record/getRecords.js';
 
-export const useRecords = () => {
+export const useResults = () => {
     return useQuery({
         queryKey: ['records'],
         queryFn: getRecords,

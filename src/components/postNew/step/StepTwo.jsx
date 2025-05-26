@@ -4,19 +4,19 @@ import PostButton from "../PostButton.jsx";
 import Menu from "../../../assets/menu.png";
 import Store from "../../../assets/store.png";
 import useFormStore from "../../../store/useFormStore.js";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    {title: "가게", icon: Store},
-    {title: "메뉴", icon: Menu},
+    {title: "가게", icon: Store, value: "store"},
+    {title: "메뉴", icon: Menu, value: "menu"},
 ];
 
 
 function StepTwo() {
     const { formData, updateFormData } = useFormStore();
+    const handleSelect = useSelectHandler("promotion_target");
 
-    const handleSelect = (item) => {
-        updateFormData({ item });
-    };
+    console.log(formData);
 
     return (
         <Container>
@@ -28,11 +28,22 @@ function StepTwo() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.promotionTarget=== option.title}
-                        onClick={() => handleSelect(option.title)} // 선택 시 부모 컴포넌트에 값 전달
+                        isSelected={formData.promotion_target=== option.title}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>
+            {formData.promotion_target === "menu" && (
+                <InputContainer>
+                    <Label>🍜 홍보할 메뉴명을 입력해주세요.</Label>
+                    <Input
+                        type="text"
+                        value={formData.promotion_name || ''}
+                        onChange={(e) => updateFormData({promotion_name: e.target.value})}
+                        placeholder="예: 소고기덮밥"
+                    />
+                </InputContainer>
+            )}
         </Container>
     );
 }
@@ -68,4 +79,26 @@ const Title = styled.h1`
     text-align: center;
     width: 100%;
     padding-top: 3rem;
+`;
+
+const InputContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 2rem;
+`;
+
+const Input = styled.input`
+    width: 50%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+`;
+
+const Label = styled.label`
+    font-size: 16px;
+    font-weight: 600;
 `;

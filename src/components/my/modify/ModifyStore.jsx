@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StoreCard from "../../common/label/StoreCard.jsx";
 import { useStoreList } from "../../../hooks/query/useStoreList.js";
 import { useSetMainStore } from "../../../hooks/mutation/useSetMainStore.js";
-import StoreCardSkeleton from "../../common/skeleton/StoreCardSkeleton.jsx";
+import SkeletonStoreCard from "../../common/skeleton/SkeletonStoreCard.jsx";
 import React from "react";
 
 function ModifyStore() {
@@ -14,7 +14,7 @@ function ModifyStore() {
         return (
             <Container>
                 {Array.from({ length: 5 }).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </Container>
         );

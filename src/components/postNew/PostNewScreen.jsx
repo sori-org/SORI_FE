@@ -12,6 +12,9 @@ import TipModal from "./modal/TipModal.jsx";
 import {tipSlides} from "../../constants/postNew/tipSlides.js";
 import StepSix from "./step/StepSix.jsx";
 import StepSeven from "./step/StepSeven.jsx";
+import {useSubmitFormData} from "../../hooks/mutation/useSubmitFormData.js";
+import {useEffect} from "react";
+import {useUserStore} from "../../store/useUserStore.js";
 
 const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
 
@@ -20,21 +23,78 @@ const steps = stepComponents.map((Component, index) => (
 ));
 
 function PostNewScreen() {
-    const nav = useNavigate();
-    const { currentStepIndex, nextStep, formData } = useFormStore();
-    const { modalState, openModal, closeModal } = useControlModal()
+    const currentStepIndex = useFormStore(state => state.currentStepIndex);
+    const nextStep = useFormStore(state => state.nextStep);
+    const formData = useFormStore(state => state.formData);
+    const storeId = useUserStore(state => state.user?.main_store_id);
 
+    const updateFormData = useFormStore(state => state.updateFormData);
+    const { modalState, openModal, closeModal } = useControlModal()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        updateFormData({
+            store_id: storeId,
+        })
+    },[])
+
+    const { mutate: submitForm } = useSubmitFormData({
+        onSuccess: (data) => {
+            console.log("PostNewScreen: 최종 제출 성공, 응답 데이터:", data);
+            const contentId = data.content_id;
+            if (contentId) {
+                navigate(`/result/${contentId}`);
+            } else {
+                console.warn("API 응답에 content_id가 없습니다. 홈 페이지로 이동합니다.");
+                navigate('/home');
+            }
+        },
+        onError: (error) => {
+            console.error("PostNewScreen: 최종 제출 실패", error);
+            alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
+            // 실패 시 로딩 페이지에서 벗어나 다시 폼으로 돌아갈 수 있도록 처리
+            navigate('/post-new'); // 또는 이전 스텝으로 돌아가는 로직
+        }
+    });
 
     const handleSubmit = () => {
-        console.log("최종 제출 데이터:", formData);
-        nav("/loading");
-        setTimeout(() => {
-            nav("/result");
-        }, 5000);
+        console.log("제출 버튼 클릭됨. 최종 formData:", formData);
+
+        const payload = {
+            store_id: formData.store_id,
+            sns_platform: formData.sns_platform,
+            promotion_target: formData.promotion_target,
+            promotion_name: formData.promotion_name === '' ? null : formData.promotion_name,
+            gender_target: formData.gender_target,
+            age_range_target: formData.age_range_target,
+            content_format: formData.content_format,
+            external_sources: formData.external_sources.length === 0 ? null : formData.external_sources,
+            user_prompt: formData.user_prompt === '' ? null : formData.user_prompt,
+            user_image: formData.user_image === '' ? null : formData.user_image,
+        };
+        navigate('/post-loading'); // 일단 로딩 페이지로 이동
+
+        submitForm(payload,{
+            onSuccess: (data) => {
+                const contentId = data.content_id;
+                if (contentId) {
+                    useFormStore.getState().setTempContentId(contentId);
+                } else {
+                    console.warn("API 응답에 content_id가 없습니다. 홈 페이지로 이동합니다.");
+                    navigate('/home');
+                }
+            },
+            onError: (error) => {
+                console.error("PostNewScreen: 최종 제출 실패", error);
+                alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
+                navigate('/post-new');
+            }
+        });
     };
 
     const handleNext = () => {
         nextStep(steps.length);
+        console.log("다음 단계로 이동");
     };
 
     const handleTagClick = () => {

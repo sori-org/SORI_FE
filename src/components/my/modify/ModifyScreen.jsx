@@ -5,25 +5,18 @@ import ModifyStore from "./ModifyStore.jsx";
 import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 
 function ModifyScreen() {
-    const { user, setUser} = useUserStore()
-    const nav = useNavigate();
     const { mutate } = useUpdateNickname();
-    const [ownerName, setOwnerName] = useState(user?.displayName || '');
+    const navigate = useNavigate()
 
     const handleNicknameUpdate = () => {
-        if (!ownerName) return;
+        const currentUserNickname = useUserStore.getState().user?.display_name;
 
-        mutate(ownerName, {
+        mutate(currentUserNickname, {
             onSuccess: () => {
-                setOwnerName(ownerName);
-                setUser((prev) => ({
-                    ...prev,
-                    displayName: ownerName,
-                }));
                 alert("닉네임이 수정되었습니다!");
+                console.log(currentUserNickname)
             },
             onError: () => {
                 alert("닉네임 수정 실패");
@@ -33,17 +26,15 @@ function ModifyScreen() {
 
     const handleModifyAll = () => {
         handleNicknameUpdate();
-        // 가게 관련 수정 로직도 추가 예정
-        // nav(-1);
     };
 
     return (
         <Container>
             <Header title={"프로필 수정"} />
-            <ModifyProfile ownerName={ownerName} setOwnerName={setOwnerName} />
+            <ModifyProfile />
             <ModifyStore />
             <ButtonSection>
-                <CancelButton>취소</CancelButton>
+                <CancelButton onClick={() => navigate(-1)}>취소</CancelButton>
                 <ModifyButton onClick={handleModifyAll}>수정 완료</ModifyButton>
             </ButtonSection>
         </Container>
@@ -54,7 +45,7 @@ export default ModifyScreen;
 
 const Container = styled.div`
     display: flex;
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -76,7 +67,7 @@ const CancelButton = styled.button`
     font-size: 1rem;
     border-radius: 16px;
     background-color: white;
-    color: #767676;
+    color: #767676; 
     border: 1px solid lightgray;
     cursor: pointer;
     @media (max-width: 480px) {

@@ -1,57 +1,101 @@
-import InstagramIcon from "../../assets/instagram_title.svg";
-import NaverCafeIcon from "../../assets/naver_title.svg";
-import XIcon from "../../assets/x_title.svg";
+import Tip_1_1 from "../../assets/img_tip_1_1_2.png"
+import Tip_2_2 from "../../assets/img_tip_2_2.png"
+import Tip_1_2 from "../../assets/img_tip_1_2.png"
+import Tip_1_3 from "../../assets/img_tip_1_3.png"
+import Tip_5_1 from "../../assets/img_tip_5_1.png"
+import Tip_5_2 from "../../assets/img_tip_5_2.png"
+import Tip_5_3 from "../../assets/img_tip_5_3.png"
+import Tip_5_4 from "../../assets/img_tip_5_4.png"
+
+import {
+    Instagram,
+    MessageCircle,
+    Hash,
+    ImageIcon,
+    BookOpen,
+    Type,
+    CloudRain,
+    Star,
+    Calendar,
+    TrendingUp,
+} from "lucide-react"
 
 export const tipSlides = {
     0: [
         {
             title: "인스타그램",
-            title_image: InstagramIcon,
-            main_image: InstagramIcon,
-            description: "♥️ 인스타그램은 감성적, 트렌디한 콘텐츠에 강해요. \n" +
-                "특징으로는 해시태그를 통해 빠른 확산이 가능하며, 스토리를 활용해 빠른 홍보가 가능하다는 장점이 있어요! \n" +
-                "시각적인 요소가 중요할 때 추천드려요. ♥️",
+            icon: Instagram,
+            main_image: Tip_1_1,
+            description:
+                "✨ **시각적인 매력이 있고 트렌디한 확산**에 강해요. 해시태그와 스토리로 빠르게 알리고, 감성적인 콘텐츠로 시선을 사로잡아보세요. 예쁜 이미지와 시선을 사로잡는 것이 중요할 때 추천해요.",
         },
         {
             title: "네이버 카페",
-            title_image: NaverCafeIcon,
-            main_image: InstagramIcon,
-            description: "♥️ 네이버 카페는 특정 관심사를 가진 사람들이 많아요. \n" +
-                "신뢰도가 높은 콘텐츠가 효과적으로 네이버 검색에서 노출 강하다는 장점이 있어요! \n" +
-                "브랜드 후기, 사용기 등을 통해 자연스러운 홍보 가능하고 단발적인 광고보다 지속적인 광고가 중요할 때 추천드려요.♥️",
+            icon: MessageCircle,
+            main_image: Tip_1_2,
+            description:
+                "🤝 **특정 관심사 타겟과 신뢰도 구축**에 유리해요. 네이버 검색 노출에 강하고, 후기나 사용기 공유를 통해 브랜드를 자연스럽게 홍보할 수 있어요. 긴 글을 작성할 수 있어, 상세한 정보 전달이 가능해요.",
         },
         {
             title: "X (트위터)",
-            title_image: XIcon,
-            main_image: XIcon,
-            description: "♥️ 트위터는 실시간 트렌드가 중요해요. 해시태그 & 리트윗을 통해 자연스레 확산되고 젊은 층에 강한 영향력을 보여요. \n" +
-                "특정 이슈나 밈으로 고객에게 다가갈 수 있고 고객과 직접적인 소통 및 피드백 수집에 용이하다는 장점이 있어요! \n" +
-                "주 타겟층이 젊은 층이고 밈을 활용해 빠르게 알려지면 좋겠는 분들을 위해 추천드려요.♥️",
-        },
-    ],
-    1: [
-        {
-            title: "다른정보",
-            title_image: InstagramIcon,
-            main_image: InstagramIcon,
-            description: "Step 1에서는 이렇게 해보세요!",
+            icon: Hash,
+            main_image: Tip_1_3,
+            description:
+                "📢 **실시간 소통과 빠른 확산**에 최적이에요. 젊은 층에게 영향력이 크며, 해시태그와 리트윗으로 정보가 빠르게 퍼져요. 고객과 활발히 소통하고 싶을 때 추천해요.",
         },
     ],
     4: [
         {
-            title: "기상 정보",
-            image: InstagramIcon,
-            description: "🌧️ 오늘 같은 비 오는 날, 따뜻한 커피 한 잔 어떠세요? ☕\n" +
-                "하늘이 흐려도, 마음만은 포근해지는 공간.  카페에서는 오늘처럼 비 오는 날엔  은은한 재즈 음악과 함께  따뜻한 라떼 한 잔으로 하루의 여유를 선물해 드립니다.\n" +
-                "오늘의 추천 메뉴는  ✔️ 진한 풍미의 바닐라 라떼  ✔️ 직접 구운 크랜베리 스콘  ✔️ 계피향 가득한 시나몬 롤\n" +
-                "또한, 비 오는 날 방문해 주시는 고객님께는 아메리카노 1+1 이벤트도 진행 중이에요!  (테이크아웃 포함 / 오늘 하루만!)\n" +
-                "창가에 앉아 빗소리를 들으며  책 한 권, 대화 한 모금, 커피 한 모금.  당신만의 여유를 즐겨보세요..",
+            title: "이미지 + 텍스트",
+            icon: ImageIcon,
+            main_image: Tip_1_3,
+            description:
+                "🖼️ **간결하고 핵심적인 정보 전달**에 좋아요. 시선을 끄는 이미지와 함께 짧은 문구로 메시지를 명확하게 전달해보세요. 주로 인스타그램에 잘 어울려요.",
         },
         {
-            title: "리뷰 정보",
-            image: InstagramIcon,
-            description: "🍝 “이 가격에 이 퀄리티 실화예요?”  고객님들이 극찬한 바로 그 맛, 지금 [가게 이름]에서 만나보세요! 실제 리뷰 ⭐“토마토 파스타 소스가 진짜 깊고 맛있어요. 면도 직접 삶아내는 느낌! 9,000원에 이 정도 퀄리티면 말 다 했죠.”“직원분들 너무 친절하고, 양도 넉넉해서 배부르게 잘 먹었어요. 분위기도 조용해서 데이트 장소로 딱!”“계란이 통째로 들어간 까르보나라 꼭 드셔보세요. 고소하고 꾸덕한 맛에 감동함... 진짜 재방문각입니다!”이제는 맛도, 가격도, 서비스도 포기하지 마세요.  직접 오셔서 왜 “여긴 꼭 다시 오고 싶은 맛집”인지 느껴보세요 :)",
+            title: "컷 만화",
+            icon: BookOpen,
+            main_image: Tip_2_2,
+            description:
+                "✏️ **복잡한 내용도 쉽고 재미있게** 풀어낼 수 있어요. 스토리를 활용해 공감대를 형성하고 관심을 유도하기 좋아요. 특히 인스타그램에서 활용하기 좋습니다. (네이버 카페에는 어울리지 않을 수 있어요.)",
+        },
+        {
+            title: "문구 포함 이미지",
+            icon: Type,
+            main_image: Tip_1_1,
+            description:
+                "✍️ **시각적 요소와 메시지를 한 번에** 전달하는 효과적인 방법이에요. 사진에 직접적인 문구를 넣어 브랜드나 제품을 각인시키기 좋아요. 주로 인스타그램에서 활용도가 높습니다.",
         },
     ],
-    // ...
-};
+
+    5: [
+        {
+            title: "기상 정보 활용",
+            icon: CloudRain,
+            main_image: Tip_5_3,
+            description:
+                "🌧️ **비 오는 날 감성 마케팅** 어떠세요? '오늘 같은 날, 막걸리에 파전 어떠세요?'와 같이 날씨에 맞는 메뉴 추천이나 이벤트로 고객에게 따뜻하게 다가가 보세요. 빠른 방문 유도에 효과적입니다.",
+        },
+        {
+            title: "리뷰 정보 활용",
+            icon: Star,
+            main_image: Tip_5_2,
+            description:
+                "✨ **실제 고객 후기로 신뢰도 UP!** '이 가격에 이 퀄리티 실화예요?'와 같이 인상 깊은 리뷰를 직접 인용하여 솔직함과 신뢰를 전달해보세요. 잠재 고객의 방문 결정에 큰 영향을 줍니다.",
+        },
+        {
+            title: "행사 정보 활용",
+            icon: Calendar,
+            main_image: Tip_5_1,
+            description:
+                "🌸 **주변의 이벤트나 행사 활용**으로 특별한 제안을! 벚꽃 축제, 지역 행사 등 시의성 있는 이벤트에 맞춰 특별 메뉴나 할인을 기획해보세요. 고객 방문을 유도하는 좋은 기회예요.",
+        },
+        {
+            title: "최신 유행 정보 활용",
+            icon: TrendingUp,
+            main_image: Tip_5_4,
+            description:
+                "🔥 **최신 트렌드**를 놓치지 마세요! 유행하는 밈, 챌린지, 인기 해시태그를 활용해 재미있고 바이럴 되는 콘텐츠를 만들어 보세요. 젊은 고객에게 특히 효과적이에요.",
+        },
+    ],
+}

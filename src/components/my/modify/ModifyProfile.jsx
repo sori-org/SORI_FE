@@ -1,22 +1,26 @@
 import styled from "styled-components";
 import Profile from "../../../assets/img_profile.svg"
 import LabeledInput from "../../common/label/LabeledInput.jsx";
-import {useState} from "react";
+import React, {useState} from "react";
+import {useUserStore} from "../../../store/useUserStore.js";
 
-function ModifyProfile({ ownerName, setOwnerName }) {
+function ModifyProfile() {
     const [isOwnerFocused, setIsOwnerFocused] = useState(false);
+    const displayName = useUserStore(state => (state.user?.display_name));
+    const setNickname = useUserStore(state => (state.setNickname));
 
     return (
         <Container>
             <img src={Profile} alt="프로필 사진" />
             <LabeledInput
                 label="닉네임"
-                value={ownerName}
-                onChange={(e) => setOwnerName(e.target.value)}
+                value={displayName}
+                onChange={(e) => setNickname(e.target.value)}
                 onFocus={() => setIsOwnerFocused(true)}
                 onBlur={() => setIsOwnerFocused(false)}
-                onClear={() => setOwnerName("")}
+                onClear={() => setNickname("")}
                 isHighlighted={isOwnerFocused}
+                placeholder={displayName}
             />
             <BottomLine />
         </Container>
@@ -25,7 +29,7 @@ function ModifyProfile({ ownerName, setOwnerName }) {
 
 
 
-export default ModifyProfile;
+export default React.memo(ModifyProfile);
 
 const Container = styled.div`
     display: flex;

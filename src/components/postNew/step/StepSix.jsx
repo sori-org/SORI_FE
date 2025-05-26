@@ -4,19 +4,18 @@ import styled from "styled-components";
 import PostButton from "../PostButton.jsx";
 import Man from "../../../assets/man.svg";
 import Woman from "../../../assets/woman.svg";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    {title: "여성", icon: Woman},
-    {title: "남성", icon: Man},
+    {title: "여성", icon: Woman, value:"female"},
+    {title: "남성", icon: Man, value: "male"},
 ];
 
 function StepSix() {
-    const {formData, updateFormData} = useFormStore();
+    const {formData} = useFormStore();
+    const handleSelect = useSelectHandler("gender_target");
 
-    const handleSelect = (whichApi) => {
-        updateFormData({whichApi});
-    };
-
+    console.log(formData);
     return (
         <Container>
             <Image src={Sori}/>
@@ -27,8 +26,8 @@ function StepSix() {
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.genderTarget === option.title}
-                        onClick={() => handleSelect(option.title)}
+                        isSelected={formData.gender_target === option.value}
+                        onClick={() => handleSelect(option.value)}
                     />
                 ))}
             </ButtonSection>

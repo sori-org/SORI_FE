@@ -3,14 +3,17 @@ import {useEffect, useMemo, useState} from "react";
 import { useHeaderStore } from "../../store/useHeaderStore.js";
 import RecordPostList from "./RecordPostList.jsx";
 import SortSelector from "./SortSelector.jsx";
-import {useRecords} from "../../hooks/query/useRecords.js";
-import StoreCardSkeleton from "../common/skeleton/StoreCardSkeleton.jsx";
+import {useResults} from "../../hooks/query/useResults.js";
+import SkeletonStoreCard from "../common/skeleton/SkeletonStoreCard.jsx";
+import { formatAndSortPosts } from "../../utils/formatAndSortPosts";
+import ErrorState from "../loading/ErrorState.jsx";
 
 function RecordListScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle);
     const [sortOrder, setSortOrder] = useState("desc");
 
-    const { data, isPending, isError, error } = useRecords();
+    const { data, isPending, isError, error } = useResults();
+    const numberedPosts = useMemo(() => formatAndSortPosts(data, sortOrder), [data, sortOrder]);
 
     console.log(data)
     useEffect(() => {
@@ -21,33 +24,29 @@ function RecordListScreen() {
         setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
     };
 
-    const sortedPosts = useMemo(() => {
-        if (!data) return [];
-        return [...data].sort((a, b) => {
-            const aTime = new Date(a.created_at).getTime();
-            const bTime = new Date(b.created_at).getTime();
-            return sortOrder === "desc" ? bTime - aTime : aTime - bTime;
-        });
-    }, [data, sortOrder]);
 
-    if (isPending || !data) {
+    if (isPending) {
         return (
             <SkeletonContainer>
                 {Array.from({ length: 5}).map((_, i) => (
-                    <StoreCardSkeleton key={i} />
+                    <SkeletonStoreCard key={i} />
                 ))}
             </SkeletonContainer>
         );
     }
 
-    if (isError) return <div>에러 발생: {error.message}</div>;
+    if (isError) return (
+        <Container>
+            <ErrorState error={error} />
+        </Container>
+    );
 
     return (
         <Container>
             <SortWrapper>
                 <SortSelector sortOrder={sortOrder} onChangeSort={handleToggleSort} />
             </SortWrapper>
-            <RecordPostList posts={sortedPosts} />
+            <RecordPostList posts={numberedPosts} />
         </Container>
     );
 }

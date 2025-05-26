@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../../../assets/img_back.svg';
 import useFormStore from "../../../store/useFormStore.js";
+import HomeButton from "../../../assets/img_home_button.svg";
 
 const PostHeader = () => {
     const navigate = useNavigate();
@@ -21,7 +22,9 @@ const PostHeader = () => {
                 <img src={BackButton} alt="뒤로가기" />
             </LeftSection>
             <CenterSection>{currentStepIndex + 1}/7</CenterSection>
-            <RightSection />
+            <RightSection onClick={() => navigate("/home")}>
+                <img src={HomeButton} alt={"홈"}></img>
+            </RightSection>
         </HeaderContainer>
     );
 };

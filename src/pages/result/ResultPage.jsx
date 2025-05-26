@@ -14,8 +14,8 @@ export default ResultPage;
 const Container = styled.div`
     width: 100%;
     max-width: 480px;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;
+    overflow: auto;
 `;

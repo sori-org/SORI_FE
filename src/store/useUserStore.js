@@ -8,6 +8,35 @@ export const useUserStore = create((set,get) => ({
         set({ user: userData });
     },
 
+    setNickname: (newNickname) => {
+        const currentUser = get().user;
+
+        if (currentUser) {
+            const updatedUser = {
+                ...currentUser,
+                display_name: newNickname,
+            };
+
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            set({ user: updatedUser });
+        } else {
+            console.warn("닉네임 업데이트 실패: 현재 사용자 정보가 없습니다.");
+        }
+    },
+
+    addStore: (newStore) =>
+        set((state) => {
+            const updatedStores = state.user?.stores ? [...state.user.stores, newStore] : [newStore];
+            return {
+                user: {
+                    ...state.user,
+                    stores: updatedStores,
+                },
+            };
+        }),
+
+
     setMainStoreId: (newMainStoreId) => {
         const currentUser = get().user;
 
@@ -25,7 +54,7 @@ export const useUserStore = create((set,get) => ({
         }
     },
 
-    logout: () => {
+    setLogout: () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
         set({ user: null });

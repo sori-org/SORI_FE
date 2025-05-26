@@ -1,53 +1,67 @@
 import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
 import PencilIcon from "../../../assets/img_pencil.svg";
-import {useNavigate} from "react-router-dom";
-import {useUserStore} from "../../../store/useUserStore.js";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../../store/useUserStore.js";
+import { useGetMainStore } from "../../../hooks/query/useGetMainStore.js";
+import SkeletonTextarea from "../../common/skeleton/SkeletonTextarea.jsx";
+import ErrorState from "../../loading/ErrorState.jsx";
+
 function StoreInfoCard() {
     const navigate = useNavigate();
     const { user } = useUserStore();
-
-    // 대표 가게 찾기
+    console.log(user)
     const mainStore = user?.stores?.find(store => store.store_id === user.main_store_id);
+    console.log(mainStore)
+    const { data: storeData, isPending, isError } = useGetMainStore(mainStore?.store_id);
+    console.log(storeData)
 
     const handleEditClick = () => {
         navigate("/mypage/modify");
     };
+
+    if (isPending) {
+        return (
+            <Container>
+                <SkeletonTextarea/>
+            </Container>
+        );
+    }
+
+    if (isError || !storeData) {
+        return <Container><ErrorState /></Container>;
+    }
+
+    const storeFields = [
+        { label: "가게 전화번호", value: storeData.store_phone },
+        { label: "가게 주소", value: storeData.store_address },
+        { label: "카테고리", value: storeData.store_category },
+        { label: "가게 설명", value: storeData.store_description },
+    ];
 
     return (
         <Container>
             <InfoSection>
                 <Title>
                     <TitleLeft>
-                        {mainStore?.store_name || "대표 가게 없음"}
+                        {storeData.store_name || "대표 가게 없음"}
                         <img src={CrownIcon} alt="대표 가게" />
                     </TitleLeft>
                     <img src={PencilIcon} alt="수정" onClick={handleEditClick} />
                 </Title>
-                <Field>
-                    <Label>가게 전화번호:</Label>
-                    <Value>{mainStore?.store_phone || "정보 없음"}</Value>
-                </Field>
-                <Field>
-                    <Label>가게 주소:</Label>
-                    <Value>{mainStore?.store_address || "정보 없음"}</Value>
-                </Field>
-                <Field>
-                    <Label>카테고리:</Label>
-                    <Value>{mainStore?.store_category || "정보 없음"}</Value>
-                </Field>
-                <Field>
-                    <Label>가게 설명:</Label>
-                    <Value>{mainStore?.store_description || "정보 없음"}</Value>
-                </Field>
+                {storeFields.map(({ label, value }) => (
+                    <Field key={label}>
+                        <Label>{label}:</Label>
+                        <Value>{value || "정보 없음"}</Value>
+                    </Field>
+                ))}
             </InfoSection>
         </Container>
     );
 }
 
-
-
 export default StoreInfoCard;
+
 
 const Container = styled.div`
     display: flex;

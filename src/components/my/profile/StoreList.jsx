@@ -77,7 +77,7 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     flex-grow: 1;
-    overflow: hidden;
+    overflow: auto;
     padding: 2rem 2rem;
     gap: 2rem;
 `;

@@ -7,7 +7,7 @@ import { useHeaderStore } from "../../store/useHeaderStore.js"
 import { useGetUser } from "../../hooks/query/useGetUser.js"
 import LogoutButton from "../../components/my/LogoutButton.jsx"
 import { useControlModal } from "../../hooks/useControlModal.js"
-import AboutMainStoreModal from "./storeModify/modal/AboutMainStoreModal.jsx";
+import AboutMainStoreModal from "./storeModify/modal/AboutMainStoreModal.jsx"
 
 function MyMainScreen() {
     const setTitle = useHeaderStore((state) => state.setTitle)
@@ -25,10 +25,10 @@ function MyMainScreen() {
         setTitle("My Page")
     }, [setTitle])
 
-
     const handleLogout = () => {
         console.log("로그아웃 처리")
     }
+
 
     return (
         <Container>
@@ -36,15 +36,18 @@ function MyMainScreen() {
                 <img src={Profile || "/placeholder.svg"} alt={"프로필 사진"} />
                 <Title>{data?.display_name ? data.display_name : <SkeletonBoldText />}</Title>
             </ProfileSection>
+
             <StoreInfoCard />
-            <StoreList />
+
+            <StoreListWrapper>
+                <StoreList/>
+            </StoreListWrapper>
+
             <FooterSection>
                 <LogoutButton onLogout={handleLogout} />
             </FooterSection>
 
-            {modalState && (
-                <AboutMainStoreModal closeModal={closeModal} />
-            )}
+            {modalState && <AboutMainStoreModal closeModal={closeModal} />}
         </Container>
     )
 }
@@ -78,7 +81,8 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    padding: 0 1rem;
+    padding: 0 0.7rem;
+
 `
 
 const Title = styled.div`
@@ -98,14 +102,23 @@ const ProfileSection = styled.div`
     width: 100%;
     gap: 1rem;
     padding: 1rem 0;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+    }
 `
 
-
+const StoreListWrapper = styled.div`
+    width: 100%;
+    
+`
 
 const FooterSection = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: auto;
-    padding: 1rem 0;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  min-height: 5vh;
+  flex-shrink: 0;
 `

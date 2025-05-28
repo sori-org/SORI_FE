@@ -48,8 +48,6 @@ const LogoutButtonContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1rem;
   border: none;
   border-radius: 20px;
   color: #767676;

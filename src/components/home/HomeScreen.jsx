@@ -14,7 +14,6 @@ const HomeScreen = () => {
         nav("/post-new")
     }
 
-    console.log(data)
     return (
         <Container>
             <TitleSection>
@@ -22,7 +21,9 @@ const HomeScreen = () => {
                 <CreateContentButton onClick={handlePostButtonClick} />
             </TitleSection>
 
-            <SoriCharacter />
+            <CharacterSection>
+                <SoriCharacter />
+            </CharacterSection>
 
             <BottomSection>
                 <HomeBottom />
@@ -34,27 +35,53 @@ const HomeScreen = () => {
 export default HomeScreen
 
 const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 2.5rem 2.5rem;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    #e6f7f1 30%,
-    #b2e7d4 50%,
-    #49c48f 100%
-  );
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    background: linear-gradient(
+            to bottom,
+            #ffffff 0%,
+            #e6f7f1 30%,
+            #b2e7d4 50%,
+            #49c48f 100%
+    );
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem;
+
+    @media (max-width: 768px) {
+        min-height: 100dvh;
+        padding: 2rem;
+    }
 `
 
+
 const TitleSection = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    flex-shrink: 0;
+`
+
+const CharacterSection = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  flex: 1;
   width: 100%;
+  min-height: 200px;
+
+  @media (max-width: 768px) {
+    min-height: 150px;
+    flex: 0.8;
+  }
+
+  @media (max-width: 480px) {
+    min-height: 120px;
+    flex: 0.6;
+  }
 `
 
 const BottomSection = styled.div`
@@ -63,4 +90,5 @@ const BottomSection = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  flex-shrink: 0;
 `

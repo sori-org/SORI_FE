@@ -26,6 +26,7 @@ const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    height: 10vh;
     position: fixed;
     left: 50%;
     top: 0;

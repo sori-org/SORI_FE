@@ -105,8 +105,8 @@ const ProfileSection = styled.div`
     flex-shrink: 0;
 
     @media (max-width: 768px) {
-        padding: 0.5rem 0;
-        gap: 0.5rem;
+        padding: 1rem 0;
+        gap: 1rem;
     }
 `
 

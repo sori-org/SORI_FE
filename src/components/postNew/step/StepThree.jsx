@@ -2,32 +2,30 @@ import useFormStore from "../../../store/useFormStore.js";
 import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
 import PostButton from "../PostButton.jsx";
-import Webtoon from "../../../assets/webtoon.png";
-import TextImage from "../../../assets/Chat.png";
+import Man from "../../../assets/man.svg";
+import Woman from "../../../assets/woman.svg";
 import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
 const options = [
-    { title: "이미지 + 텍스트", icon: TextImage, value: "image+text" },
-    { title: "네 컷 만화", icon: Webtoon, value: "cut_toon" },
-    { title: "문구 포함 이미지", icon: Webtoon, value: "post_cover+text" },
+    {title: "여성", icon: Woman, value:"female"},
+    {title: "남성", icon: Man, value: "male"},
 ];
 
 function StepThree() {
-    const { formData } = useFormStore();
-    const handleSelect = useSelectHandler("content_format");
-    console.log(formData);
+    const {formData} = useFormStore();
+    const handleSelect = useSelectHandler("gender_target");
 
     return (
         <Container>
             <Image src={Sori}/>
-            <Title>콘텐츠 형식을 선택해주세요!</Title>
+            <Title>타겟층을 선택해주세요!</Title>
             <ButtonSection>
                 {options.map((option) => (
                     <PostButton
                         key={option.title}
                         title={option.title}
                         icon={option.icon}
-                        isSelected={formData.content_format === option.value}
+                        isSelected={formData.gender_target === option.value}
                         onClick={() => handleSelect(option.value)}
                     />
                 ))}
@@ -51,10 +49,10 @@ const ButtonSection = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-items: center;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding-top: 2rem;
+    padding: 2rem;
+    gap: 2rem;
 `;
 
 const Image = styled.img`

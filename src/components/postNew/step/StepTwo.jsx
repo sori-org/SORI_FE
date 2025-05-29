@@ -16,8 +16,6 @@ function StepTwo() {
     const { formData, updateFormData } = useFormStore();
     const handleSelect = useSelectHandler("promotion_target");
 
-    console.log(formData);
-
     return (
         <Container>
             <Image src={Sori}/>

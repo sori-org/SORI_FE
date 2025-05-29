@@ -15,8 +15,8 @@ function ModifyScreen() {
 
         mutate(currentUserNickname, {
             onSuccess: () => {
-                alert("닉네임이 수정되었습니다!");
-                console.log(currentUserNickname)
+                alert("프로필이 수정되었습니다!");
+                navigate("/mypage");
             },
             onError: () => {
                 alert("닉네임 수정 실패");

@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation } from "react-router-dom"; // ✅ useLocation 추가
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import SoriImg from "../../assets/img_register.svg";
 import SearchSection from "./SearchSection";
 import StoreInfoPreview from "./StoreInfoPreview";
+import {commonButtonStyles} from "../../style/ButtonStyles.js";
 
 function StoreRegisterScreen() {
     const { register, handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const source = params.get("source") ?? "register"; // 기본은 회원가입
+    const source = params.get("source") ?? "register";
 
     const [results, setResults] = useState([]);
 
@@ -80,6 +81,7 @@ const Title = styled.div`
 `;
 
 const SubmitButton = styled.button`
+    ${commonButtonStyles}
     width: 100%;
     padding: 1rem;
     font-size: 1rem;
@@ -104,6 +106,7 @@ const ButtonGroup = styled.div`
 `;
 
 const SecondaryButton = styled.button`
+    ${commonButtonStyles}
     width: 100%;
     padding: 1rem;
     font-size: 1rem;

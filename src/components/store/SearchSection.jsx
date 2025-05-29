@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {useState} from "react";
 import {searchPlaceByKeyword} from "../../apis/store/serachPlaceByKeyword";
+import {commonButtonStyles} from "../../style/ButtonStyles.js";
 
 function SearchSection({setValue, setResults, results}) {
     const [keyword, setKeyword] = useState("");
@@ -77,6 +78,7 @@ const SearchBox = styled.div`
 `;
 
 const SearchButton = styled.button`
+    ${commonButtonStyles}
     background-color: #49c48f;
     color: white;
     padding: 0.8rem 1.2rem;

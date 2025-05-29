@@ -5,10 +5,11 @@ import ModifyStore from "./ModifyStore.jsx";
 import {useUpdateNickname} from "../../../hooks/mutation/useUpdateNickname.js";
 import {useUserStore} from "../../../store/useUserStore.js";
 import {useNavigate} from "react-router-dom";
+import { commonButtonStyles } from "../../../style/ButtonStyles";
 
 function ModifyScreen() {
-    const { mutate } = useUpdateNickname();
-    const navigate = useNavigate()
+    const { mutate, isLoading } = useUpdateNickname();
+    const navigate = useNavigate();
 
     const handleNicknameUpdate = () => {
         const currentUserNickname = useUserStore.getState().user?.display_name;
@@ -25,6 +26,7 @@ function ModifyScreen() {
     };
 
     const handleModifyAll = () => {
+        if (isLoading) return;
         handleNicknameUpdate();
     };
 
@@ -34,8 +36,18 @@ function ModifyScreen() {
             <ModifyProfile />
             <ModifyStore />
             <ButtonSection>
-                <CancelButton onClick={() => navigate(-1)}>취소</CancelButton>
-                <ModifyButton onClick={handleModifyAll}>수정 완료</ModifyButton>
+                <CancelButton
+                    onClick={() => navigate(-1)}
+                    disabled={isLoading}
+                >
+                    취소
+                </CancelButton>
+                <ModifyButton
+                    onClick={handleModifyAll}
+                    disabled={isLoading}
+                >
+                    {isLoading ? '수정 중...' : '수정 완료'}
+                </ModifyButton>
             </ButtonSection>
         </Container>
     );
@@ -59,34 +71,41 @@ const ButtonSection = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    position: sticky; 
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0)); 
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05); 
 `;
 
 const CancelButton = styled.button`
+    ${commonButtonStyles};
     width: 45%;
     padding: 1rem;
     font-size: 1rem;
     border-radius: 16px;
     background-color: white;
-    color: #767676; 
+    color: #767676;
     border: 1px solid lightgray;
-    cursor: pointer;
+    &:active {
+        background-color: #f0f0f0;
+    }
     @media (max-width: 480px) {
         width: 45%;
     }
-
 `;
 
 const ModifyButton = styled.button`
+    ${commonButtonStyles};
     width: 45%;
     padding: 1rem;
     font-size: 1rem;
     border-radius: 16px;
     background-color: #49c48f;
     color: white;
-    border: none;
-    cursor: pointer;
+    &:active {
+        background-color: #3aa07b;
+    }
     @media (max-width: 480px) {
         width: 45%;
     }
-
 `;

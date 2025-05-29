@@ -6,6 +6,7 @@ import TipIcon from "../../assets/img_tip.svg";
 import SoriImg from "../../assets/img_register.svg";
 import { useRegisterStore } from "../../hooks/mutation/useRegisterStore.js";
 import {useUserStore} from "../../store/useUserStore.js";
+import {commonButtonStyles} from "../../style/ButtonStyles.js";
 
 function StoreDescriptionScreen() {
     const { register, handleSubmit } = useForm();
@@ -93,9 +94,14 @@ const Container = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 2rem;
-    gap: 1.5rem;
+    gap: 1.2rem;
+    overflow: auto;
+    
+    @media (max-width: 768px) {
+        min-height: 100dvh;
+    }
 `;
 
 const Title = styled.div`
@@ -113,12 +119,24 @@ const Highlight = styled.span`
 const Input = styled.textarea`
     padding: 1rem;
     font-size: 0.9rem;
-    border: none;
-    resize: none;
-    height: 10vh;
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    resize: vertical; 
+    min-height: 150px; 
+    line-height: 1.5; 
+    box-sizing: border-box; 
+    width: 100%; 
+
+    @media (max-width: 768px) {
+        min-height: 120px; 
+    }
 
     ::placeholder {
         color: #bbb;
+    }
+    &:focus {
+        border-color: #49c48f; 
+        outline: none; 
     }
 `;
 
@@ -155,6 +173,7 @@ const TipContent = styled.div`
 `;
 
 const SubmitButton = styled.button`
+    ${commonButtonStyles}
     padding: 1rem;
     font-size: 1rem;
     font-weight: bold;

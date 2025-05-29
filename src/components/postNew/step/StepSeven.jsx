@@ -1,65 +1,67 @@
-import useFormStore from "../../../store/useFormStore.js"
-import Sori from "../../../assets/sori1.svg"
-import styled from "styled-components"
-import useSelectHandler from "../../../hooks/useSelectHandler.js"
-import PostButton from "../PostButton.jsx"
-import { Baby, GraduationCap, Users, Award } from 'lucide-react'
+import {useState} from "react";
+import useFormStore from "../../../store/useFormStore.js";
+import styled from "styled-components";
+import UploadIcon from "../../../assets/upload.png";
 
-const AgeIcons = {
-    "10-20": Baby,
-    "20-30": GraduationCap,
-    "30-40": Users,
-    "40+": Award
-}
-
-const options = [
-    {
-        title: "10~20세",
-        value: "10-20",
-        IconComponent: AgeIcons["10-20"]
-    },
-    {
-        title: "20~30세",
-        value: "20-30",
-        IconComponent: AgeIcons["20-30"]
-    },
-    {
-        title: "30~40세",
-        value: "30-40",
-        IconComponent: AgeIcons["30-40"]
-    },
-    {
-        title: "40세 이상",
-        value: "40+",
-        IconComponent: AgeIcons["40+"]
-    },
-]
 
 function StepSeven() {
-    const { formData } = useFormStore()
-    const handleSelect = useSelectHandler("age_range_target")
+    const {formData,updateFormData} = useFormStore();
+    const [previewImage, setPreviewImage] = useState(null);
+    const [text, setText] = useState("");
+
+    const handleTextChange = (e) => {
+        setText(e.target.value);
+        updateFormData({user_prompt: e.target.value});
+    }
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+            updateFormData({user_image: file});
+        }
+    };
+
+    console.log(formData)
 
     return (
         <Container>
-            <Image src={Sori || "/placeholder.svg"} alt="소리 캐릭터" />
-            <Title>타겟 연령대를 선택해주세요</Title>
-            <ButtonSection>
-                {options.map((option) => (
-                    <PostButton
-                        key={option.title}
-                        title={option.title}
-                        icon={<option.IconComponent size={24} color="#FFFFFF" />}
-                        isSelected={formData.age_range_target === option.value}
-                        onClick={() => handleSelect(option.value)}
-                        size="small"
-                    />
-                ))}
-            </ButtonSection>
+            <ImageSection>
+                <Title>어떤 이미지를 사용할까요?</Title>
+                <UploadButton htmlFor="image-upload">
+                    {!previewImage && (
+                        <>
+                            <UploadIconImage src={UploadIcon} alt="업로드 아이콘" />
+                            업로드하기
+                        </>
+                    )}
+                    {previewImage && <PreviewImage src={previewImage} alt="미리보기 이미지" />}
+                </UploadButton>
+                <FileInput
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                />
+            </ImageSection>
+            <TextSection>
+                <Title>추가 요청사항을 적어주세요!</Title>
+                <TextForm
+                    placeholder={"ex)고급스러운 느낌으로 만들어주세요"}
+                    onChange={handleTextChange}
+                    value={text}
+                />
+            </TextSection>
         </Container>
-    )
+    );
 }
 
-export default StepSeven
+
+export default StepSeven;
 
 const Container = styled.div`
     display: flex;
@@ -67,26 +69,78 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-`
+    padding: 0 3rem;
+`;
 
-const ButtonSection = styled.div`
-    width: 85%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 20px;
-    column-gap: 15px;
-    padding-top: 3rem;
-    justify-items: center;
-`
+const ImageSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+`;
 
-const Image = styled.img`
+const UploadButton = styled.label`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30vh;
+    padding: 1rem 2rem;
+    background-color: #f0faf4;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #074747;
+    cursor: pointer;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const UploadIconImage = styled.img`
+    width: 17px;
+    height: 17px;
     object-fit: contain;
-`
+`;
+
+const FileInput = styled.input`
+    display: none;
+`;
+
+const PreviewImage = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+`;
 
 const Title = styled.h1`
     font-size: 23px;
     font-weight: 600;
     text-align: center;
     width: 100%;
-    padding-top: 3rem;
-`
+    margin-top: 3rem;
+`;
+
+const TextSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+`;
+
+const TextForm = styled.textarea`
+    width: 100%;
+    height: 20vh;
+    background-color: #f0faf4;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+    padding: 1.5rem;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+`;

@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import StepOne from "./step/StepOne.jsx";
 import StepTwo from "./step/StepTwo.jsx";
-import StepThree from "./step/StepThree.jsx";
-import useFormStore from "../../store/useFormStore.js";
-import StepFour from "./step/StepFour.jsx";
 import StepFive from "./step/StepFive.jsx";
+import useFormStore from "../../store/useFormStore.js";
+import StepSix from "./step/StepSix.jsx";
+import StepSeven from "./step/StepSeven.jsx";
 import {useNavigate} from "react-router-dom";
 import MultiStepFormHeader from "./MultiStepFormHeader.jsx";
 import {useControlModal} from "../../hooks/useControlModal.js";
 import TipModal from "./modal/TipModal.jsx";
 import {tipSlides} from "../../constants/postNew/tipSlides.js";
-import StepSix from "./step/StepSix.jsx";
-import StepSeven from "./step/StepSeven.jsx";
+import StepThree from "./step/StepThree.jsx";
+import StepFour from "./step/StepFour.jsx";
 import {useSubmitFormData} from "../../hooks/mutation/useSubmitFormData.js";
 import {useEffect} from "react";
 import {useUserStore} from "../../store/useUserStore.js";
 
-const stepComponents = [StepOne, StepTwo, StepSix, StepSeven, StepThree, StepFour, StepFive];
+const stepComponents = [StepOne, StepTwo, StepThree, StepFour, StepFive, StepSix, StepSeven];
 
 const steps = stepComponents.map((Component, index) => (
     <Component key={index} />
@@ -28,15 +28,17 @@ function PostNewScreen() {
     const formData = useFormStore(state => state.formData);
     const storeId = useUserStore(state => state.user?.main_store_id);
 
+    const resetFormData = useFormStore(state => state.resetFormData);
     const updateFormData = useFormStore(state => state.updateFormData);
     const { modalState, openModal, closeModal } = useControlModal()
     const navigate = useNavigate();
 
     useEffect(() => {
+        resetFormData();
         updateFormData({
             store_id: storeId,
         })
-    },[])
+    },[storeId, resetFormData, updateFormData])
 
     const { mutate: submitForm } = useSubmitFormData({
         onSuccess: (data) => {
@@ -52,8 +54,8 @@ function PostNewScreen() {
         onError: (error) => {
             console.error("PostNewScreen: 최종 제출 실패", error);
             alert("게시물 생성에 실패했습니다. 다시 시도해주세요.");
-            // 실패 시 로딩 페이지에서 벗어나 다시 폼으로 돌아갈 수 있도록 처리
-            navigate('/post-new'); // 또는 이전 스텝으로 돌아가는 로직
+            resetFormData();
+            navigate('/post-new');
         }
     });
 
@@ -94,7 +96,6 @@ function PostNewScreen() {
 
     const handleNext = () => {
         nextStep(steps.length);
-        console.log("다음 단계로 이동");
     };
 
     const handleTagClick = () => {

@@ -1,67 +1,42 @@
-import {useState} from "react";
 import useFormStore from "../../../store/useFormStore.js";
+import Sori from "../../../assets/sori1.svg";
 import styled from "styled-components";
-import UploadIcon from "../../../assets/upload.png";
+import PostButton from "../PostButton.jsx";
+import Webtoon from "../../../assets/webtoon.png";
+import TextImage from "../../../assets/Chat.png";
+import useSelectHandler from "../../../hooks/useSelectHandler.js";
 
+const options = [
+    { title: "이미지 + 텍스트", icon: TextImage, value: "image+text" },
+    { title: "네 컷 만화", icon: Webtoon, value: "cut_toon" },
+    { title: "문구 포함 이미지", icon: Webtoon, value: "post_cover+text" },
+];
 
 function StepFive() {
-    const {formData,updateFormData} = useFormStore();
-    const [previewImage, setPreviewImage] = useState(null);
-    const [text, setText] = useState("");
-
-    const handleTextChange = (e) => {
-        setText(e.target.value);
-        updateFormData({user_prompt: e.target.value});
-    }
-
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-            updateFormData({user_image: file});
-        }
-    };
-
-    console.log(formData)
+    const { formData } = useFormStore();
+    const handleSelect = useSelectHandler("content_format");
 
     return (
         <Container>
-            <ImageSection>
-                <Title>어떤 이미지를 사용할까요?</Title>
-                <UploadButton htmlFor="image-upload">
-                    {!previewImage && (
-                        <>
-                            <UploadIconImage src={UploadIcon} alt="업로드 아이콘" />
-                            업로드하기
-                        </>
-                    )}
-                    {previewImage && <PreviewImage src={previewImage} alt="미리보기 이미지" />}
-                </UploadButton>
-                <FileInput
-                    id="image-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                />
-            </ImageSection>
-            <TextSection>
-                <Title>추가 요청사항을 적어주세요!</Title>
-                <TextForm
-                    placeholder={"ex)고급스러운 느낌으로 만들어주세요"}
-                    onChange={handleTextChange}
-                    value={text}
-                />
-            </TextSection>
+            <Image src={Sori}/>
+            <Title>콘텐츠 형식을 선택해주세요!</Title>
+            <ButtonSection>
+                {options.map((option) => (
+                    <PostButton
+                        key={option.title}
+                        title={option.title}
+                        icon={option.icon}
+                        isSelected={formData.content_format === option.value}
+                        onClick={() => handleSelect(option.value)}
+                    />
+                ))}
+            </ButtonSection>
         </Container>
     );
 }
 
-
 export default StepFive;
+
 
 const Container = styled.div`
     display: flex;
@@ -69,48 +44,19 @@ const Container = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100%;
-    padding: 0 3rem;
 `;
 
-const ImageSection = styled.div`
+const ButtonSection = styled.div`
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    width: 100%;
-    gap: 1.5rem;
-`;
-
-const UploadButton = styled.label`
-    display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 30vh;
-    padding: 1rem 2rem;
-    background-color: #f0faf4;
-    border: none;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #074747;
-    cursor: pointer;
-    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+    gap: 20px;
+    padding-top: 2rem;
 `;
 
-const UploadIconImage = styled.img`
-    width: 17px;
-    height: 17px;
-    object-fit: contain;
-`;
-
-const FileInput = styled.input`
-    display: none;
-`;
-
-const PreviewImage = styled.img`
-    width: 100%;
-    height: 100%;
+const Image = styled.img`
     object-fit: contain;
 `;
 
@@ -119,28 +65,5 @@ const Title = styled.h1`
     font-weight: 600;
     text-align: center;
     width: 100%;
-    margin-top: 3rem;
-`;
-
-const TextSection = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    gap: 1.5rem;
-`;
-
-const TextForm = styled.textarea`
-    width: 100%;
-    height: 20vh;
-    background-color: #f0faf4;
-    border: none;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #000000;
-    cursor: pointer;
-    padding: 1.5rem;
-    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+    padding-top: 3rem;
 `;

@@ -10,11 +10,8 @@ import ErrorState from "../../loading/ErrorState.jsx";
 function StoreInfoCard() {
     const navigate = useNavigate();
     const { user } = useUserStore();
-    console.log(user)
     const mainStore = user?.stores?.find(store => store.store_id === user.main_store_id);
-    console.log(mainStore)
     const { data: storeData, isPending, isError } = useGetMainStore(mainStore?.store_id);
-    console.log(storeData)
 
     const handleEditClick = () => {
         navigate("/mypage/modify");
@@ -70,12 +67,14 @@ const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 0 2rem;
+    gap: 1rem;
 `;
 const InfoSection = styled.div`
   display: flex;
     width: 100%;
   flex-direction: column;
   gap: 1rem;
+    padding-top: 1rem;
 `;
 
 const Field = styled.div`

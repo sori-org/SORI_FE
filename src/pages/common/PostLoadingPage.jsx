@@ -8,10 +8,9 @@ export default function PostLoadingPage() {
     const [progress, setProgress] = useState(0)
     const [currentTip, setCurrentTip] = useState(0)
     const [showConfetti, setShowConfetti] = useState(false)
-    const { tempContentId } = useFormStore()
+    const { tempContentId, clearTempContentId } = useFormStore()
     const navigate = useNavigate()
 
-    const hasNavigated = useRef(false)
     const isMounted = useRef(true)
 
     const tips = [
@@ -35,7 +34,6 @@ export default function PostLoadingPage() {
 
     const [confetti, setConfetti] = useState(generateConfetti())
 
-    // 진행 단계 계산 함수
     const getStage = () => {
         if (progress < 25) return "아이디어 분석 중"
         if (progress < 50) return "콘텐츠 생성 중"
@@ -45,61 +43,62 @@ export default function PostLoadingPage() {
     }
 
     useEffect(() => {
-        if (progress >= 100 && !hasNavigated.current) {
-            hasNavigated.current = true
-
-            const timer = setTimeout(() => {
-                if (isMounted.current) {
-                    if (tempContentId) {
-                        navigate(`/result/${tempContentId}`)
-                    } else {
-                        console.warn("LoadingPage: tempContentId가 없어 홈으로 이동합니다.")
-                        navigate("/home")
-                    }
+        const progressInterval = setInterval(() => {
+            setProgress((prev) => {
+                if (tempContentId) {
+                    clearInterval(progressInterval);
+                    return 100;
                 }
-            }, 100)
+                if (prev >= 99) {
+                    return 99;
+                }
+                return prev + 0.3;
+            });
+        }, 130);
 
-            return () => clearTimeout(timer)
-        }
-    }, [progress, tempContentId, navigate])
+        return () => clearInterval(progressInterval);
+    }, [tempContentId]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval)
-                    return 100
+        if (tempContentId && isMounted.current) {
+            navigate(`/result/${tempContentId}`);
+            clearTempContentId();
+        } else if (progress >= 99 && !tempContentId && isMounted.current) {
+            const fallbackTimer = setTimeout(() => {
+                if (isMounted.current) {
+                    console.warn("LoadingPage: API 응답이 너무 지연되거나 실패했습니다. 홈으로 이동합니다.");
+                    navigate("/home");
                 }
-                return prev + 0.3
-            })
-        }, 100)
+            }, 50000); // 예를 들어 30초로 늘려보세요.
 
-        // 팁 변경
+            return () => clearTimeout(fallbackTimer);
+        }
+    }, [tempContentId, navigate, progress, clearTempContentId]);
+
+
+    useEffect(() => {
         const tipInterval = setInterval(() => {
-            setCurrentTip((prev) => (prev + 1) % tips.length)
-            setShowConfetti(true)
+            setCurrentTip((prev) => (prev + 1) % tips.length);
+            setShowConfetti(true);
 
             const confettiTimer = setTimeout(() => {
                 if (isMounted.current) {
-                    setShowConfetti(false)
+                    setShowConfetti(false);
                 }
-            }, 2000)
+            }, 2000);
 
             if (isMounted.current) {
-                setConfetti(generateConfetti())
+                setConfetti(generateConfetti());
             }
 
-            return () => clearTimeout(confettiTimer)
-        }, 5000)
+            return () => clearTimeout(confettiTimer);
+        }, 5000);
 
-        // 클린업 함수
         return () => {
-            isMounted.current = false
-            clearInterval(interval)
-            clearInterval(tipInterval)
-        }
-    }, [tips.length])
-
+            isMounted.current = false;
+            clearInterval(tipInterval);
+        };
+    }, [tips.length]);
     return (
         <LoadingContainer>
             {showConfetti && (
@@ -158,7 +157,6 @@ export default function PostLoadingPage() {
     )
 }
 
-// 애니메이션 정의
 const pulse = keyframes`
     0% { transform: scale(0.95); opacity: 0.7; }
     50% { transform: scale(1.05); opacity: 1; }

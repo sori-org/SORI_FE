@@ -32,6 +32,7 @@ const useFormStore = create((set) => ({
 
     tempContentId: null,
     setTempContentId: (id) => set({ tempContentId: id }),
+    clearTempContentId: () => set({ tempContentId: null }),
 
 
     nextStep: (totalSteps) => set((state) => ({

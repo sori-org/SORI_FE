@@ -1,17 +1,23 @@
 import { useState } from "react"
 import styled from "styled-components"
 import { LogOut } from "lucide-react"
+import {useUserStore} from "../../store/useUserStore.js";
+import {useNavigate} from "react-router-dom";
 
 function LogoutButton({ onLogout }) {
     const [showConfirm, setShowConfirm] = useState(false)
-
+    const setLogout = useUserStore((state => state.setLogout))
+    const navigate = useNavigate()
     const handleLogoutClick = () => {
         setShowConfirm(true)
     }
 
     const handleConfirm = () => {
-        // 여기에 로그아웃 API 호출 로직이 들어갈 예정
-        if (onLogout) onLogout()
+        setLogout()
+        if (onLogout) {
+            onLogout()
+            navigate('/');
+        }
         setShowConfirm(false)
     }
 

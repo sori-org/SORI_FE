@@ -14,6 +14,8 @@ function MyMainScreen() {
     const { data } = useGetUser()
     const { modalState, openModal, closeModal } = useControlModal()
 
+    console.log(data)
+
     useEffect(() => {
         const hasSeenStoreInfo = localStorage.getItem("hasSeenStoreInfo")
         if (!hasSeenStoreInfo) {

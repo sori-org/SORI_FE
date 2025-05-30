@@ -2,16 +2,16 @@ import styled from "styled-components";
 import CrownIcon from "../../../assets/img_crown.svg";
 import PencilIcon from "../../../assets/img_pencil.svg";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../../store/useUserStore.js";
 import { useGetMainStore } from "../../../hooks/query/useGetMainStore.js";
 import SkeletonTextarea from "../../common/skeleton/SkeletonTextarea.jsx";
 import ErrorState from "../../loading/ErrorState.jsx";
+import {useGetUser} from "../../../hooks/query/useGetUser.js";
 
 function StoreInfoCard() {
     const navigate = useNavigate();
-    const { user } = useUserStore();
-    const mainStore = user?.stores?.find(store => store.store_id === user.main_store_id);
-    const { data: storeData, isPending, isError } = useGetMainStore(mainStore?.store_id);
+    const { data } = useGetUser()
+    const mainStore = data?.main_store_id;
+    const { data: storeData, isPending, isError } = useGetMainStore(mainStore);
 
     const handleEditClick = () => {
         navigate("/mypage/modify");

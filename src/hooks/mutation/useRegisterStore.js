@@ -14,7 +14,7 @@ export const useRegisterStore = () => {
                 addStore(data);
             }
 
-            queryClient.invalidateQueries({ queryKey: ['user'] });
+            queryClient.invalidateQueries({ queryKey: ['user', 'getMainStore'] });
             console.log("Store registered successfully:", data);
         },
         onError: (error) => {

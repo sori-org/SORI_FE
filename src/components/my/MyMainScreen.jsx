@@ -41,9 +41,7 @@ function MyMainScreen() {
 
             <StoreInfoCard />
 
-            <StoreListWrapper>
-                <StoreList/>
-            </StoreListWrapper>
+            <StoreList/>
 
             <FooterSection>
                 <LogoutButton onLogout={handleLogout} />
@@ -80,7 +78,7 @@ const Container = styled.div`
     width: 100%;
     height: 90vh;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     padding: 0 0.7rem;
@@ -110,11 +108,6 @@ const ProfileSection = styled.div`
         padding: 1rem 0;
         gap: 1rem;
     }
-`
-
-const StoreListWrapper = styled.div`
-    width: 100%;
-    
 `
 
 const FooterSection = styled.div`

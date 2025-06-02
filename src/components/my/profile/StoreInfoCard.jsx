@@ -63,10 +63,11 @@ export default StoreInfoCard;
 const Container = styled.div`
     display: flex;
     width: 100%;
+    height: 50%;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    padding: 0 2rem;
+    align-items: flex-start;
+    padding: 1rem 2rem;
     gap: 1rem;
 `;
 const InfoSection = styled.div`
@@ -74,7 +75,6 @@ const InfoSection = styled.div`
     width: 100%;
   flex-direction: column;
   gap: 1rem;
-    padding-top: 1rem;
 `;
 
 const Field = styled.div`

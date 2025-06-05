@@ -37,8 +37,7 @@ function StoreCard({ label, value, isMain, onClickSetMain, storeId }) {
                 <Label>{label}</Label>
                 <Actions>
                     <ActionText onClick={handleEdit}>수정</ActionText>
-                    <ActionText onClick={openModal}>삭제</ActionText>
-                    {isPending && <span> 삭제 중...</span>}
+                    {isPending ? <ActionText>삭제 중...</ActionText> :  <ActionText onClick={openModal}>삭제</ActionText>}
                 </Actions>
             </TopSection>
             <CardBox>

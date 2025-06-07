@@ -5,6 +5,6 @@ export const useSearchPlaces = (keyword) => {
     return useQuery({
         queryKey: ["search", keyword],
         queryFn: searchPlaceByKeyword,
-        enabled: !!keyword, // keyword가 존재할 때만 요청
+        enabled: !!keyword,
     });
 };

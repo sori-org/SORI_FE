@@ -15,7 +15,6 @@ function RecordListScreen() {
     const { data, isPending, isError, error } = useResults();
     const numberedPosts = useMemo(() => formatAndSortPosts(data, sortOrder), [data, sortOrder]);
 
-    console.log(data)
     useEffect(() => {
         setTitle("생성 기록 보기");
     }, []);
@@ -23,6 +22,14 @@ function RecordListScreen() {
     const handleToggleSort = () => {
         setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
     };
+
+    if(data === undefined || data.length === 0) {
+        return (
+            <Container>
+                <ErrorState message="생성 기록이 없습니다." />
+            </Container>
+        );
+    }
 
 
     if (isPending) {

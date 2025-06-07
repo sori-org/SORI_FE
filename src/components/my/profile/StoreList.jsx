@@ -48,9 +48,8 @@ function StoreList() {
     return (
         <Container>
             <Title>
-                <Spacer />
                 <TitleText>소유 점포 목록</TitleText>
-                <img src={AddImage} alt="점포 추가" onClick={handleAddClick}/>
+                <StyledAddImage src={AddImage} alt="점포 추가" onClick={handleAddClick}/>
             </Title>
             <ListContainer>
                 {sortedStores.length > 0 ? (
@@ -75,25 +74,24 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     width: 100%;
+    height: 100%;
     flex-grow: 1;
     overflow: auto;
-    padding: 2rem 2rem;
-    gap: 2rem;
+    padding: 0 2rem;
 `;
 
 const Title = styled.div`
     font-size: 1.1rem;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     font-weight: 600;
     position: relative;
-    width: 100%;
     border-bottom: 1px solid lightgray;
-    padding: 0.5rem 0;
-`;
-
+    padding: 1rem 0;
+`
 const TitleText = styled.div`
     position: absolute;
     left: 50%;
@@ -101,6 +99,13 @@ const TitleText = styled.div`
     font-size: 1.1rem;
     font-weight: 600;
 `;
+
+const StyledAddImage = styled.img`
+    margin-left: auto;
+    cursor: pointer;
+`;
+
+
 
 const ListContainer = styled.div`
     flex-grow: 1;
@@ -110,10 +115,4 @@ const ListContainer = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-`;
-
-const Spacer = styled.div`
-    width: 24px; 
-    height: 24px; 
-    background-color: transparent;
 `;

@@ -60,7 +60,7 @@ const Container = styled.div`
     height: 90vh;
     width: 100%;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     overflow: auto;
 `;
@@ -74,7 +74,6 @@ const ButtonSection = styled.div`
     position: sticky; 
     bottom: 0;
     background: linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0)); 
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.05); 
 `;
 
 const CancelButton = styled.button`
